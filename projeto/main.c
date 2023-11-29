@@ -6,7 +6,11 @@
 
 /* 
  * File:   main.c
+<<<<<<< HEAD
  * Author: sou lindo
+=======
+ * Author: Tania, Gonçalo, Tomas
+>>>>>>> origin/main
  *
  * Created on 28 de novembro de 2023, 17:47
  */
@@ -17,8 +21,6 @@
 
 int main(int argc, char** argv) {
 
-    
-    
     
     return (EXIT_SUCCESS);
 }
