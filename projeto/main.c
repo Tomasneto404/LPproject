@@ -13,11 +13,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "general.h"
 
 
 int main() {
-    printf("Po caralho meu macaco");
     
+    main_menu();
     
     return (EXIT_SUCCESS);
 }
