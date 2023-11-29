@@ -20,11 +20,7 @@
  */
 int authenticate_admin();
 
-/**
- * @brief This function shows the admin's menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal the admin's menu, asks the user for an option and executes a function associated with the chosen option.
- */
-void admin_menu();
+
 
 #endif /* ADMIN_H */
 
