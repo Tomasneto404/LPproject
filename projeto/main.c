@@ -15,7 +15,7 @@
 #include <stdlib.h>
 
 
-int main(int argc, char** argv) {
+int main() {
     printf("Po caralho meu macaco");
     
     
