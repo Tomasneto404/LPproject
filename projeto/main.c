@@ -6,7 +6,7 @@
 
 /* 
  * File:   main.c
- * Author: tomas
+ * Author: Tania, Gonçalo, Tomas
  *
  * Created on 28 de novembro de 2023, 17:47
  */
@@ -17,8 +17,6 @@
 
 int main(int argc, char** argv) {
 
-    
-    
     
     return (EXIT_SUCCESS);
 }
