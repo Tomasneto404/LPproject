@@ -16,7 +16,8 @@
 
 
 int main(int argc, char** argv) {
-
+    printf("Po caralho meu macaco");
+    
     
     return (EXIT_SUCCESS);
 }
