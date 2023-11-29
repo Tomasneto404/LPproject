@@ -61,6 +61,11 @@ char getChar(char *msg);
  */
 void readString(char *string, unsigned int tamanho, char *msg);
 
+/**
+ * @brief This function cleans the terminal.
+ * @return This function does not return a value. It types "clear" in the terminal to clean it.
+ */
+void cleanScreen();
 #endif /* INPUT_H */
 
 

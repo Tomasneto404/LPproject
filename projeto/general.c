@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "input.h"
+#include "admin.h"
 
 #define MIN_VALUE_OPTION 0
 #define MAX_VALUE_OPTION 5
@@ -31,6 +32,7 @@ void main_menu(){
             
             case 1:
                 //Admin Menu
+                admin_menu();
                 break;
             
             case 2:

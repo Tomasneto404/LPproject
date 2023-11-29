@@ -10,6 +10,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /**
@@ -80,4 +81,8 @@ void readString(char *string, unsigned int tamanho, char *msg) {
             cleanInputBuffer();
         }
     }
+}
+
+void cleanScreen(){
+    system("clear");
 }
