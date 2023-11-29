@@ -6,7 +6,7 @@
 
 /* 
  * File:   main.c
- * Author: tomas
+ * Author: sou lindo
  *
  * Created on 28 de novembro de 2023, 17:47
  */
