@@ -13,7 +13,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "menus.h"
+#include "general.h"
 
 
 int main() {

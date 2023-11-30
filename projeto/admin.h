@@ -15,11 +15,10 @@
 #define ADMIN_H
 
 /**
- * @brief This function prompts the user to input the admin credentials and verifys if they match with the database.
- * @return It returns 1 if the admin credentials are correct and 0 if not.
+ * @brief This function shows the admin's menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
+ * @return This functions does not return a value. Prints in the terminal the admin's menu, asks the user for an option and executes a function associated with the chosen option.
  */
-int authenticate_admin();
-
+void admin_menu();
 
 
 #endif /* ADMIN_H */
