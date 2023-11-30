@@ -17,8 +17,6 @@ void admin_menu() {
 
     int flag = 0, option = 0;
 
-    cleanScreen();
-
     do {
 
         printf("1 - Manage Companys\n"
@@ -46,8 +44,6 @@ void admin_menu() {
 
             default:
                 flag = 1;
-                //Clean Screen function
-                cleanScreen();
                 break;
 
         }

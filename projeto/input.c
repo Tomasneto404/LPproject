@@ -82,7 +82,3 @@ void readString(char *string, unsigned int tamanho, char *msg) {
         }
     }
 }
-
-void cleanScreen(){
-    system("clear");
-}
