@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>activityBranch.h</itemPath>
       <itemPath>admin.h</itemPath>
       <itemPath>general.h</itemPath>
       <itemPath>input.h</itemPath>
@@ -15,6 +16,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>activityBranch.c</itemPath>
       <itemPath>admin.c</itemPath>
       <itemPath>general.c</itemPath>
       <itemPath>input.c</itemPath>
@@ -42,6 +44,10 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="activityBranch.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="activityBranch.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="admin.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="admin.h" ex="false" tool="3" flavor2="0">
@@ -77,6 +83,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="activityBranch.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="activityBranch.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="admin.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="admin.h" ex="false" tool="3" flavor2="0">

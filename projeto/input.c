@@ -20,7 +20,7 @@
  * It can be used throughout the program to provide consistent error messages to the user
  * when they enter an invalid value.
  */
-#define VALOR_INVALIDO "O valor inserido é inválido."
+#define VALOR_INVALIDO "ERROR: Invalid value."
 
 void cleanInputBuffer() {
     char ch;

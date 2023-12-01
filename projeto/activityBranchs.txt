@@ -1,0 +1,4 @@
+1, Agricultura, 0;
+1, Eletronica, 1;
+1, Texteis e vestuario, 1;
+1, Bancos, 1;

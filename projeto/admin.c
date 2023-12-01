@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "input.h"
+#include "activityBranch.h"
 
 #define OPTION_MESSAGE "Option > "
 
@@ -30,6 +31,7 @@ void company_manage_menu() {
 
             case 1:
                 //Create Company  function
+                
                 break;
 
             case 2:
@@ -75,6 +77,7 @@ void manage_activity_branch_menu() {
 
             case 1:
                 //Create Activity Branch  function
+                createActivityBranch();
                 break;
 
             case 2:

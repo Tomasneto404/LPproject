@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/activityBranch.o \
 	${OBJECTDIR}/admin.o \
 	${OBJECTDIR}/general.o \
 	${OBJECTDIR}/input.o \
@@ -64,6 +65,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projeto.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projeto ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/activityBranch.o: activityBranch.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/activityBranch.o activityBranch.c
 
 ${OBJECTDIR}/admin.o: admin.c
 	${MKDIR} -p ${OBJECTDIR}
