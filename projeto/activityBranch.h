@@ -14,26 +14,26 @@
 #ifndef ACTIVITYBRANCH_H
 #define ACTIVITYBRANCH_H
 
-struct ActivityBranch {
+typedef struct ActivityBranch {
     int code, state;
     char name[50];
-};
+} ActivityBranch;
 
 int autoIncrementCode();
 
 /**
- * @brief This function writes in a file the data provided in the arguments
- * @param file The file where data will be writed.
- * @param branch The data that will be writed in the file.
- * @return This functions does not return a value. Writes the data in a file.
- */
-void registerActivityBranch(FILE *file, struct ActivityBranch *branch);
-
-/**
- * @brief This function allows the user to enter data associated with an Activity Branch and then calls another function that will register tha data provided y the usere in a file.
- * @return This functions does not return a value. Prompts the user  to introduce data associated with an Activity Branch.
+ * @brief This function allows the user to enter data associated with an Activity Branch and then writes the data in a file.
+ * @return This functions does not return a value. Prompts the user  to introduce data associated with an Activity Branch and writes the data in a file.
  */
 void createActivityBranch();
+
+/**
+ * @brief This function allows the user to see what´s inside the file that stores Activity Branchs in the terminal.
+ * @return This functions does not return a value. Shows the data inside of a specified file.
+ */
+void listActivityBranch();
+
+void updateActivityBranch();
 
 #endif /* ACTIVITYBRANCH_H */
 

@@ -82,10 +82,12 @@ void manage_activity_branch_menu() {
 
             case 2:
                 //List Activity Branchs function
+                listActivityBranch();
                 break;
 
             case 3:
                 //Update Activity Branch function
+                updateActivityBranch();
                 break;
 
             case 4:
