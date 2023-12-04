@@ -9,8 +9,27 @@
 #include "input.h"
 #include "activityBranch.h"
 
+#define FILENAME company.txt
 #define OPTION_MESSAGE "Option > "
 
+
+int verifyNif(int *nif, char *filename){
+    int readNif;
+    
+    FILE* fp=fopen(filename, "r");
+    if(fp==NULL){
+        exit (EXIT_FAILURE);
+    }
+    while (fscanf(fp,"%d",&readNif)==1){
+        if (nif==readNif){
+            printf("This NIF already exist!\n");
+            fclose(fp);
+            return 1;
+        }
+    }
+    fclose(fp);
+    return 0;
+}
 void company_manage_menu() {
 
     int flag = 0, option = 0;

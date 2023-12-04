@@ -15,6 +15,14 @@
 #define ADMIN_H
 
 /**
+ * @brief This function is used to analyze whether there is already a company with the same NIF
+ * @param receives an integer pointer called nif
+ * @param receives a pointer to a file
+ * @return 1 if it already exists and 0 if it does not exist 
+ */
+int verifyNif(int *nif, char *filename);
+
+/**
  * @brief This function shows the menu that will allow to execute manage functions related with the Companys. It asks the user for an option and then executes the function associated with the chosen option.
  * @return This functions does not return a value. Prints in the terminal the company manage menu, asks the user for an option and executes a function associated with the chosen option.
  */
