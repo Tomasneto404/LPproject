@@ -14,10 +14,17 @@
 #ifndef ACTIVITYBRANCH_H
 #define ACTIVITYBRANCH_H
 
+#define MAX_ACTIVITY_BRANCHS 30
+
 typedef struct ActivityBranch {
     int code, state;
     char name[50];
 } ActivityBranch;
+
+typedef struct ActivityBranchs {
+    int contador;
+    ActivityBranch branchs[MAX_ACTIVITY_BRANCHS];
+}Activitybranchs;
 
 int autoIncrementCode();
 

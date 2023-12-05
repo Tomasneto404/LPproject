@@ -79,6 +79,8 @@ void company_manage_menu() {
 void manage_activity_branch_menu() {
     
     int flag = 0, option = 0;
+    
+    ActivityBranchs branchs = {.contador = 0};
 
     do {
 
