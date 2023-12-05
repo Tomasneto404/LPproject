@@ -9,19 +9,18 @@
 #include "input.h"
 #include "activityBranch.h"
 
-#define FILENAME company.txt
+#define FILENAME "company.txt"
 #define OPTION_MESSAGE "Option > "
 
-
-int verifyNif(int *nif, char *filename){
+int verifyNif(int *nif, char *filename) {
     int readNif;
-    
-    FILE* fp=fopen(filename, "r");
-    if(fp==NULL){
-        exit (EXIT_FAILURE);
+
+    FILE* fp = fopen(filename, "r");
+    if (fp == NULL) {
+        exit(EXIT_FAILURE);
     }
-    while (fscanf(fp,"%d",&readNif)==1){
-        if (nif==readNif){
+    while (fscanf(fp, "%d", &readNif) == 1) {
+        if (nif == &readNif) {
             printf("This NIF already exist!\n");
             fclose(fp);
             return 1;
@@ -30,6 +29,32 @@ int verifyNif(int *nif, char *filename){
     fclose(fp);
     return 0;
 }
+
+int verify_PostalCode(int *postalCode) {
+   int i;
+    FILE* fp = fopen(FILENAME, "w");
+    
+    if (fp == NULL) {
+        exit(EXIT_FAILURE);
+        return 0;
+    }
+    
+    for (i = 0; i < 8; i++) {
+        if (i == 4) {
+            if (postalCode[i] != '-') {
+                for (i = 7; i >=4; i--) {
+                    postalCode[i] = postalCode[i - 1];
+                }
+                postalCode[i] = '-';
+            }
+        }
+        fprintf(fp, "%d", postalCode[i]);
+    }
+    
+    fclose(fp);
+    return 1;
+}
+
 void company_manage_menu() {
 
     int flag = 0, option = 0;
@@ -50,7 +75,7 @@ void company_manage_menu() {
 
             case 1:
                 //Create Company  function
-                
+
                 break;
 
             case 2:
@@ -77,7 +102,7 @@ void company_manage_menu() {
 }
 
 void manage_activity_branch_menu() {
-    
+
     int flag = 0, option = 0;
 
     do {
@@ -121,8 +146,8 @@ void manage_activity_branch_menu() {
 
 
     } while (flag != 1);
-    
-    
+
+
 }
 
 void admin_menu() {
