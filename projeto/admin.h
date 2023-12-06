@@ -27,7 +27,7 @@ typedef struct{
     int nif;
     char name[50];
     Category category;
-    ActivityBranch branch;
+    int branch;
     char street[50];
     char locality[50];
     int postalCode;
@@ -52,6 +52,8 @@ int verifyNif(int *nif, char *filename);
  * @return 
  */
 int verify_PostalCode(int *PostalCode);
+
+
 
 /**
  * @brief This function shows the menu that will allow to execute manage functions related with the Companys. It asks the user for an option and then executes the function associated with the chosen option.

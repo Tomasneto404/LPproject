@@ -9,7 +9,8 @@
  * Author: Tania, Gonçalo, Tomas
  *
  * Created on 28 de novembro de 2023, 17:47
- */
+1
+ *  */
 
 #include <stdio.h>
 #include <stdlib.h>
