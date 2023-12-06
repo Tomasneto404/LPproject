@@ -29,6 +29,7 @@ typedef struct{
     char street[50];
     char locality[50];
     int postalCode;
+    int views;
 }Company;
 
 typedef struct {
