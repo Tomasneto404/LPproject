@@ -25,7 +25,7 @@ typedef struct{
     int nif;
     char name[50];
     Category category;
-    char branch;
+    int branch;
     char street[50];
     char locality[50];
     int postalCode;

@@ -16,8 +16,7 @@ int autoIncrementCode() {
 
 }
 
-void createActivityBranch() {
-    ActivityBranch branch;
+void createActivityBranch(ActivityBranch *branch) {
 
     FILE *file = fopen(ACTIVITY_BRANCH_FILE, "ab");
 
@@ -27,9 +26,9 @@ void createActivityBranch() {
         
     } else {
 
-        readString(branch.name, 50, "Name: ");
-        branch.state = getInt(0, 1, "State (0 - Inactive | 1 - Active): ");
-        branch.code = 1; //autoIncrementCode();
+        readString(branch->name, 50, "Name: ");
+        branch->state = getInt(0, 1, "State (0 - Inactive | 1 - Active): ");
+        branch->code = 1; //autoIncrementCode();
 
         fwrite(&branch, sizeof (ActivityBranch), 1, file);
 

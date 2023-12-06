@@ -106,6 +106,7 @@ void manage_activity_branch_menu() {
     int flag = 0, option = 0;
     
     //ActivityBranchs branchs = {.contador = 0};
+    ActivityBranch branch;
 
     do {
 
@@ -123,7 +124,7 @@ void manage_activity_branch_menu() {
 
             case 1:
                 //Create Activity Branch  function
-                createActivityBranch();
+                createActivityBranch(&branch);
                 break;
 
             case 2:
