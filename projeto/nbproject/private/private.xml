@@ -7,9 +7,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/tomas/Documents/GitHub/ProjetoLP/projeto/main.c</file>
             <file>file:/C:/Users/tomas/Documents/GitHub/ProjetoLP/projeto/activityBranch.h</file>
             <file>file:/C:/Users/tomas/Documents/GitHub/ProjetoLP/projeto/admin.c</file>
+=======
+            <file>file:/C:/Users/Asus/Desktop/Universidade/LP/LpProjeto/projeto/activityBranch.h</file>
+            <file>file:/C:/Users/Asus/Desktop/Universidade/LP/LpProjeto/projeto/input.c</file>
+            <file>file:/C:/Users/Asus/Desktop/Universidade/LP/LpProjeto/projeto/activityBranch.c</file>
+            <file>file:/C:/Users/Asus/Desktop/Universidade/LP/LpProjeto/projeto/main.c</file>
+            <file>file:/C:/Users/Asus/Desktop/Universidade/LP/LpProjeto/projeto/admin.h</file>
+            <file>file:/C:/Users/Asus/Desktop/Universidade/LP/LpProjeto/projeto/admin.c</file>
+            <file>file:/C:/Users/Asus/Desktop/Universidade/LP/LpProjeto/projeto/input.h</file>
+>>>>>>> origin/taninha
         </group>
     </open-files>
 </project-private>

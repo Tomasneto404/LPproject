@@ -7,7 +7,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "input.h"
+#include "admin.h"
 #include "activityBranch.h"
+
+#define MSG_NIF "Please, insert your nif!\n"
+#define MSG_NAME "Please, insert company's name\n"
+#define MSG_CATEGORY "Choose the category:\n0.MICRO\n1.SME\n2.BIG_COMPANY\n"
+#define MSG_BRANCH "Choose\n"
+#define MSG_STREET "Put the name's street\n"
+#define MSG_LOCALITY "Put the locality's name\n"
+#define MSG_POSTALCODE "Insert postal code\n"
 
 #define FILENAME "company.txt"
 #define OPTION_MESSAGE "Option > "
@@ -31,18 +40,18 @@ int verifyNif(int *nif, char *filename) {
 }
 
 int verify_PostalCode(int *postalCode) {
-   int i;
+    int i;
     FILE* fp = fopen(FILENAME, "w");
-    
+
     if (fp == NULL) {
         exit(EXIT_FAILURE);
         return 0;
     }
-    
+
     for (i = 0; i < 8; i++) {
         if (i == 4) {
             if (postalCode[i] != '-') {
-                for (i = 7; i >=4; i--) {
+                for (i = 7; i >= 4; i--) {
                     postalCode[i] = postalCode[i - 1];
                 }
                 postalCode[i] = '-';
@@ -50,13 +59,50 @@ int verify_PostalCode(int *postalCode) {
         }
         fprintf(fp, "%d", postalCode[i]);
     }
-    
+
     fclose(fp);
     return 1;
 }
 
+int createCompany(Companies *companies) {
+    int nif;
+
+    FILE* fp = fopen(FILENAME, "ab");
+
+    if (fp == NULL) {
+        exit(EXIT_FAILURE);
+        return 0;
+    }
+
+    nif = getInt(100000000, 999999999, MSG_NIF);
+
+    if (verifyNif(&nif, FILENAME) == 0) {
+        companies->companies[companies->counter].nif = nif;
+
+        readString(companies->companies[companies->counter].name, 50, MSG_NAME);
+
+        companies->companies[companies->counter].category = getInt(0, 3, MSG_CATEGORY);
+
+        listActivityBranch();
+        companies->companies[companies->counter].branch = getInt(0, 3, MSG_BRANCH); //adicionar o contador e trocar o 3
+
+        readString(companies->companies[companies->counter].street, 50, MSG_STREET);
+        readString(companies->companies[companies->counter].locality, 50, MSG_LOCALITY);
+
+        companies->companies[companies->counter].postalCode = getInt(4000000, 4999999, MSG_POSTALCODE);
+        verify_PostalCode(&(companies->companies[companies->counter].postalCode));
+
+
+        fwrite(&companies->companies[companies->counter], sizeof (Company), 1, fp);
+        return companies->counter++;
+    }
+    fclose(fp);
+    return -1;
+}
+
 void company_manage_menu() {
 
+    Companies companies;
     int flag = 0, option = 0;
 
     do {
@@ -74,7 +120,7 @@ void company_manage_menu() {
         switch (option) {
 
             case 1:
-                //Create Company  function
+                createCompany(&companies);
 
                 break;
 

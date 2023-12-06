@@ -14,6 +14,8 @@
 #ifndef ADMIN_H
 #define ADMIN_H
 
+#include "activityBranch.h"
+
 #define MAX_COMPANIES 300
 
 
@@ -51,6 +53,8 @@ int verifyNif(int *nif, char *filename);
  * @return 
  */
 int verify_PostalCode(int *PostalCode);
+
+
 
 /**
  * @brief This function shows the menu that will allow to execute manage functions related with the Companys. It asks the user for an option and then executes the function associated with the chosen option.
