@@ -14,6 +14,8 @@
 #ifndef ADMIN_H
 #define ADMIN_H
 
+#include "activityBranch.h"
+
 #define MAX_COMPANIES 300
 
 
@@ -25,7 +27,7 @@ typedef struct{
     int nif;
     char name[50];
     Category category;
-    char branch;
+    ActivityBranch branch;
     char street[50];
     char locality[50];
     int postalCode;
