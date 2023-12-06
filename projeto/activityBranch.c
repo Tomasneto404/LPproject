@@ -16,7 +16,7 @@ int autoIncrementCode() {
 
 }
 
-void createActivityBranch(ActivityBranch *branch) {
+int createActivityBranch(ActivityBranchs *branchs) {
 
     FILE *file = fopen(ACTIVITY_BRANCH_FILE, "ab");
 
@@ -26,15 +26,18 @@ void createActivityBranch(ActivityBranch *branch) {
         
     } else {
 
-        readString(branch->name, 50, "Name: ");
-        branch->state = getInt(0, 1, "State (0 - Inactive | 1 - Active): ");
-        branch->code = 1; //autoIncrementCode();
+        readString(branchs->branchs[branchs->contador].name, 50, "Name: ");
+        branchs->branchs[branchs->contador].state = getInt(0, 1, "State (0 - Inactive | 1 - Active): ");
+        branchs->branchs[branchs->contador].code = 1; //autoIncrementCode();
 
-        fwrite(&branch, sizeof (ActivityBranch), 1, file);
+        fwrite(&branchs->branchs[branchs->contador], sizeof (ActivityBranch), 1, file);
 
         fclose(file);
-
+        return branchs->contador++;
+        
     }
+    fclose(file);
+    return -1;
 
 }
 

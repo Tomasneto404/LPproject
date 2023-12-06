@@ -24,7 +24,7 @@ typedef struct ActivityBranch {
 typedef struct ActivityBranchs {
     int contador;
     ActivityBranch branchs[MAX_ACTIVITY_BRANCHS];
-}Activitybranchs;
+}ActivityBranchs;
 
 int autoIncrementCode();
 
@@ -33,7 +33,7 @@ int autoIncrementCode();
  * @param
  * @return This functions does not return a value. Prompts the user  to introduce data associated with an Activity Branch and writes the data in a file.
  */
-void createActivityBranch(ActivityBranch *branch);
+int createActivityBranch(ActivityBranchs *branchs);
 
 /**
  * @brief This function allows the user to see what´s inside the file that stores Activity Branchs in the terminal.

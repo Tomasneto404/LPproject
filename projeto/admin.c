@@ -100,6 +100,8 @@ int createCompany(Companies *companies) {
     return -1;
 }
 
+
+
 void company_manage_menu() {
 
     Companies companies;
@@ -152,7 +154,7 @@ void manage_activity_branch_menu() {
     int flag = 0, option = 0;
     
     //ActivityBranchs branchs = {.contador = 0};
-    ActivityBranch branch;
+    ActivityBranchs branchs;
 
     do {
 
@@ -170,7 +172,7 @@ void manage_activity_branch_menu() {
 
             case 1:
                 //Create Activity Branch  function
-                createActivityBranch(&branch);
+                createActivityBranch(&branchs);
                 break;
 
             case 2:
