@@ -6,7 +6,7 @@
 
 /* 
  * File:   admin.h
- * Author: tomas
+ * Author: Tania, Gonçalo, Tomas
  *
  * Created on 29 de novembro de 2023, 18:13
  */
@@ -14,16 +14,15 @@
 #ifndef ADMIN_H
 #define ADMIN_H
 
-#include "activityBranch.h"
-
 #define MAX_COMPANIES 300
+#define MAX_ACTIVITY_BRANCHS 30
 
+/**********************************COMPANY********************************************/
+typedef enum {
+    MICRO, SME, BIG_COMPANY
+} Category;
 
-typedef enum{
-    MICRO,SME,BIG_COMPANY
-}Category;
-
-typedef struct{
+typedef struct {
     int nif;
     char name[50];
     Category category;
@@ -32,7 +31,7 @@ typedef struct{
     char locality[50];
     int postalCode;
     int views;
-}Company;
+} Company;
 
 typedef struct {
     int counter;
@@ -54,25 +53,51 @@ int verifyNif(int *nif, char *filename);
  */
 int verify_PostalCode(int *PostalCode);
 
+/**
+ * Falta documentar
+ */
+int createCompany(Companies *companies);
 
+/**********************************ACTIVITY BRANCH**************************************/
+
+typedef struct ActivityBranch {
+    int code, state;
+    char name[50];
+} ActivityBranch;
+
+typedef struct ActivityBranchs {
+    int contador;
+    ActivityBranch branchs[MAX_ACTIVITY_BRANCHS];
+} ActivityBranchs;
 
 /**
- * @brief This function shows the menu that will allow to execute manage functions related with the Companys. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal the company manage menu, asks the user for an option and executes a function associated with the chosen option.
+ * Falta Documentar
  */
-void company_manage_menu();
+int autoIncrementCode();
 
 /**
- * @brief This function shows the menu that will allow to execute manage functions related with the Activity Branchs. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal the activity branch manage menu, asks the user for an option and executes a function associated with the chosen option.
+ * @brief This function allows the user to enter data associated with an Activity Branch and then writes the data in a file.
+ * @param
+ * @return This functions does not return a value. Prompts the user  to introduce data associated with an Activity Branch and writes the data in a file.
  */
-void manage_activity_branch_menu();
+int createActivityBranch(ActivityBranchs *branchs);
 
 /**
- * @brief This function shows the admin's menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal the admin's menu, asks the user for an option and executes a function associated with the chosen option.
+ * @brief This function allows the user to see what´s inside the file that stores Activity Branchs in the terminal.
+ * @return This functions does not return a value. Shows the data inside of a specified file.
  */
-void admin_menu();
+void listActivityBranch();
+
+/**
+ * Falta Documentar
+ */
+void updateActivityBranch();
+
+/**
+ * Falta Documentar
+ */
+void deleteActivityBranch();
+
 
 
 #endif /* ADMIN_H */
