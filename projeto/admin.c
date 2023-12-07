@@ -9,16 +9,7 @@
 #include "input.h"
 #include "admin.h"
 
-#define MSG_NIF "Please, insert your nif!\n"
-#define MSG_NAME "Please, insert company's name\n"
-#define MSG_CATEGORY "Choose the category:\n0.MICRO\n1.SME\n2.BIG_COMPANY\n"
-#define MSG_BRANCH "Choose\n"
-#define MSG_STREET "Put the name's street\n"
-#define MSG_LOCALITY "Put the locality's name\n"
-#define MSG_POSTALCODE "Insert postal code\n"
 
-#define COMPANY_FILE "company.txt"
-#define ACTIVITY_BRANCH_FILE  "activityBranchs.txt"
 
 /**********************************COMPANY********************************************/
 int verifyNif(int *nif, char *filename) {
@@ -74,7 +65,7 @@ int createCompany(Companies *companies) {
         return 0;
     }
 
-    nif = getInt(100000000, 999999999, MSG_NIF);
+    nif = getInt(MIN_NIF, MAX_NIF, MSG_NIF);
 
     if (verifyNif(&nif, COMPANY_FILE) == 0) {
         companies->companies[companies->counter].nif = nif;
@@ -89,7 +80,7 @@ int createCompany(Companies *companies) {
         readString(companies->companies[companies->counter].street, 50, MSG_STREET);
         readString(companies->companies[companies->counter].locality, 50, MSG_LOCALITY);
 
-        companies->companies[companies->counter].postalCode = getInt(4000000, 4999999, MSG_POSTALCODE);
+        companies->companies[companies->counter].postalCode = getInt(MIN_POSTALCODE, MAX_POSTALCODE, MSG_POSTALCODE);
         verify_PostalCode(&(companies->companies[companies->counter].postalCode));
 
 

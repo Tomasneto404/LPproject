@@ -14,6 +14,21 @@
 #ifndef ADMIN_H
 #define ADMIN_H
 
+#define MSG_NIF "Please, insert your nif!\n"
+#define MSG_NAME "Please, insert company's name\n"
+#define MSG_CATEGORY "Choose the category:\n0.MICRO\n1.SME\n2.BIG_COMPANY\n"
+#define MSG_BRANCH "Choose\n"
+#define MSG_STREET "Put the name's street\n"
+#define MSG_LOCALITY "Put the locality's name\n"
+#define MSG_POSTALCODE "Insert postal code\n"
+
+#define COMPANY_FILE "company.txt"
+#define ACTIVITY_BRANCH_FILE  "activityBranchs.txt"
+
+#define MIN_NIF 100000000
+#define MAX_NIF 999999999
+#define MIN_POSTALCODE 4000000
+#define MAX_POSTALCODE 9999999
 #define MAX_COMPANIES 300
 #define MAX_ACTIVITY_BRANCHS 30
 
@@ -54,7 +69,9 @@ int verifyNif(int *nif, char *filename);
 int verify_PostalCode(int *PostalCode);
 
 /**
- * Falta documentar
+ * @brief serves to obtain the necessary data for the creation of a company
+ * @param receives as a parameter a pointer of type Companies
+ * @return counter if successful, returns -1 if not
  */
 int createCompany(Companies *companies);
 
