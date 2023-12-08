@@ -24,6 +24,7 @@
 
 #define ACTIVITY_BRANCH_FILE "ActivityBranchs.txt"
 
+
 #define MIN_NIF 100000000
 #define MAX_NIF 999999999
 #define MIN_POSTALCODE 4000000
@@ -74,6 +75,50 @@ int verify_PostalCode(int *PostalCode);
  */
 int createCompany(Companies *companies);
 
+/**
+ * @brief This function is used to create several companies and check if the list
+ *  is full or if the company exists
+ * @param receives as a parameter a pointer of type Companies
+ */
+void createCompanies(Companies *companies);
+
+/**
+ * @brief The function aims to print all company data
+ * @param receives as parameter a variable calls company of type company
+ */
+void printCompany(Company company);
+
+/**
+ * @brief aims to print all companies, if they exist, if it does not display an error message
+ * @param receives as parameter a variable calls company of type company
+ */
+void listCompanies(Companies companies);
+
+/**
+ * @brief aims to update all of a company's data, except the NIF
+ * @param receives as a parameter a pointer of type Companies
+ */
+void updateCompany(Company *company);
+
+/**
+ * @brief aims to update the NIF, if it is correctly inserted it allows you to 
+ * update the remaining information
+ * @param receives as a parameter a pointer of type Companies
+ */
+void updateCompanies(Companies *companies);
+
+/**
+ * @brief delete all data relating to a company, if it does not have comments,
+ * if it does, make it inactive
+ * @param receives as a parameter a pointer of type Companies
+ */
+void deleteCompanyData(Company *company);
+
+/**
+ * @brief deletes data from a specific company
+ * @param receives as a parameter a pointer of type Companies
+ */
+void deleteCompanies(Companies *companies);
 /**********************************ACTIVITY BRANCH**************************************/
 
 typedef struct ActivityBranch {

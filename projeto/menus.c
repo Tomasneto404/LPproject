@@ -16,6 +16,7 @@
 void company_manage_menu() {
 
     Companies companies;
+    Company company;
     int flag = 0, option = 0;
 
     do {
@@ -34,16 +35,15 @@ void company_manage_menu() {
         switch (option) {
 
             case 1:
-                createCompany(&companies);
-
+                createCompanies(&companies);
                 break;
 
             case 2:
-                //List Companys function
+                listCompanies(companies);
                 break;
 
             case 3:
-                //Update Company function
+                updateCompanies(&companies);
                 break;
 
             case 4:

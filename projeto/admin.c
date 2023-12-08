@@ -10,6 +10,7 @@
 #include "admin.h"
 
 /**********************************COMPANY********************************************/
+
 int verifyNif(Companies companies, int nif) {
     int i;
     for (i = 0; i < companies.counter; i++) {
@@ -65,6 +66,87 @@ int createCompany(Companies *companies) {
     return -1;
 }
 
+void createCompanies(Companies *companies) {
+    if (companies->counter < MAX_COMPANIES) {
+        if (createCompany(companies) == -1) {
+            puts("COMPANIE DOESN'T EXIST\n");
+        }
+    } else {
+        puts("FULL LIST\n");
+    }
+}
+
+void printCompany(Company company) {
+    printf("\n%3d %-30s %-20s %3d %-30s %-30s %3d", company.nif, company.name, company.category, company.branch, company.street, company.locality, company.postalCode);
+}
+
+void listCompanies(Companies companies) {
+    int i;
+
+    if (companies.counter > 0) {
+        for (i = 0; i < companies.counter; i++) {
+            printCompany(companies.companies[i]);
+        }
+    } else {
+        puts("EMPTY LIST");
+    }
+}
+
+void updateCompany(Company *company) {
+
+    readString(company->name, 50, MSG_NAME);
+    company->category = getInt(0, 3, MSG_CATEGORY);
+    company->branch = getInt(0, 50, MSG_BRANCH); //alterar
+    readString(company->street, 50, MSG_STREET);
+    readString(company->locality, 50, MSG_LOCALITY);
+    company->postalCode = getInt(MAX_POSTALCODE, MIN_POSTALCODE, MSG_POSTALCODE);
+    verify_PostalCode(&company.postalCode);
+}
+
+void updateCompanies(Companies *companies) {
+
+    int i, nif = verifyNif(*nif, getInt(MIN_NIF, MAX_NIF, MSG_NIF));
+
+    if (nif != -1) {
+        updateCompany(&companies->companies[nif]);
+    } else {
+
+        puts("ERROR");
+    }
+}
+
+//alterar função quando houver comentarios de utilizadores
+
+void deleteCompanyData(Company *company) {
+
+    company->nif = 0;
+    strcpy(company->name, "");
+    company->category = 0;
+    company ->branch = 0;
+    strcpy(company->street, "");
+    strcpy(company->locality, "");
+    company->postalCode = 0;
+}
+
+//alterar função quando criarmos função para os comenatarios
+
+void deleteCompanies(Companies *companies) {
+
+    int i, nif = verifyNif(*nif, getInt(MIN_NIF, MAX_NIF, MSG_NIF));
+
+    if (nif != -1) {
+        for(i=nif;i<companies->counter-1;i++){
+            companies->companies[i]=companies->companies[i+1];
+        }
+        
+        deleteCompanyData(&companies->companies[i]);
+        
+        companies->counter--;
+    }else{
+        puts("ERROR");
+    }
+}
+
 /**********************************ACTIVITY BRANCH************************************/
 
 
@@ -81,6 +163,7 @@ char convertLowercase(ActivityBranchs *name) {
 
     for (i = 0; i < counter; i++) {
         if (name->branchs[name->contador].name[i] >= 65 && name->branchs[name->contador].name[i] <= 90) {
+
             name->branchs[name->contador].name[i] += 32;
         }
     }
@@ -112,6 +195,7 @@ int createActivityBranch(ActivityBranchs *branchs) {
 
     }
     fclose(file);
+
     return -1;
 
 }
@@ -130,6 +214,7 @@ void listActivityBranch() {
         if (branch.state) {
             puts("Active");
         } else {
+
             puts("Inactive");
         }
     }
