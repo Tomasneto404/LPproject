@@ -9,16 +9,10 @@
 #include "input.h"
 #include "admin.h"
 
-
-
 /**********************************COMPANY********************************************/
-int verifyNif(int *nif, char *filename) {
+int verifyNif(int *nif) {
     int readNif;
 
-    FILE* fp = fopen(filename, "r");
-    if (fp == NULL) {
-        exit(EXIT_FAILURE);
-    }
     while (fscanf(fp, "%d", &readNif) == 1) {
         if (nif == &readNif) {
             printf("This NIF already exist!\n");
@@ -26,18 +20,11 @@ int verifyNif(int *nif, char *filename) {
             return 1;
         }
     }
-    fclose(fp);
     return 0;
 }
 
 int verify_PostalCode(int *postalCode) {
     int i;
-    FILE* fp = fopen(COMPANY_FILE, "w");
-
-    if (fp == NULL) {
-        exit(EXIT_FAILURE);
-        return 0;
-    }
 
     for (i = 0; i < 8; i++) {
         if (i == 4) {
@@ -58,13 +45,6 @@ int verify_PostalCode(int *postalCode) {
 int createCompany(Companies *companies) {
     int nif;
 
-    FILE* fp = fopen(COMPANY_FILE, "ab");
-
-    if (fp == NULL) {
-        exit(EXIT_FAILURE);
-        return 0;
-    }
-
     nif = getInt(MIN_NIF, MAX_NIF, MSG_NIF);
 
     if (verifyNif(&nif, COMPANY_FILE) == 0) {
@@ -84,45 +64,61 @@ int createCompany(Companies *companies) {
         verify_PostalCode(&(companies->companies[companies->counter].postalCode));
 
 
-        fwrite(&companies->companies[companies->counter], sizeof (Company), 1, fp);
         return companies->counter++;
     }
-    fclose(fp);
     return -1;
 }
 
 /**********************************ACTIVITY BRANCH************************************/
 
-int autoIncrementCode() {
-    //Para a Tania
 
+char convertLowercase(ActivityBranchs *name){
+    int counter,i;
+    
+    while((name->branchs[name->contador].name)[counter]!='\0'){
+        counter++;
+    }
+    
+    if((name->branchs[name->contador].name)[counter-1]=='\n'){
+        (name->branchs[name->contador].name)[--counter]='\0';
+    }
+    
+    for(i=0;i<counter;i++){
+        if(name->branchs[name->contador].name[i]>=65&& name->branchs[name->contador].name[i]<=90){
+            name->branchs[name->contador].name[i] += 32;
+        }
+    }
+    
+    return 0;
 }
 
 int createActivityBranch(ActivityBranchs *branchs) {
 
+    ActivityBranchs name;
+    
     FILE *file = fopen(ACTIVITY_BRANCH_FILE, "ab");
 
     if (file == NULL) {
-        
+
         printf("ERROR: Unable to open file.\n");
-        
+
     } else {
 
         readString(branchs->branchs[branchs->contador].name, 50, "Name: ");
+        
         branchs->branchs[branchs->contador].state = getInt(0, 1, "State (0 - Inactive | 1 - Active): ");
-        branchs->branchs[branchs->contador].code = 1; //autoIncrementCode();
+        branchs->branchs[branchs->contador].code = //autoIncrementID();
 
         fwrite(&branchs->branchs[branchs->contador], sizeof (ActivityBranch), 1, file);
 
         fclose(file);
         return branchs->contador++;
-        
+
     }
     fclose(file);
     return -1;
 
 }
-
 
 void listActivityBranch() {
     ActivityBranch branch;
@@ -147,11 +143,11 @@ void listActivityBranch() {
 }
 
 void updateActivityBranch() {
-//Teste
+    //Teste
 
 }
 
 void deleteActivityBranch() {
-    
+
 }
 

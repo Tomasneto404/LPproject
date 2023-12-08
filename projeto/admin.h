@@ -22,8 +22,7 @@
 #define MSG_LOCALITY "Put the locality's name\n"
 #define MSG_POSTALCODE "Insert postal code\n"
 
-#define COMPANY_FILE "company.txt"
-#define ACTIVITY_BRANCH_FILE  "activityBranchs.txt"
+
 
 #define MIN_NIF 100000000
 #define MAX_NIF 999999999
@@ -88,10 +87,11 @@ typedef struct ActivityBranchs {
 } ActivityBranchs;
 
 /**
- * Falta Documentar
+ * @brief This function is used to convert the entire string to lowercase
+ * @param receives a pointer of type ActivityBranchs called name
+ * @return zero in the end of function
  */
-int autoIncrementCode();
-
+char convertLowercase(ActivityBranchs *name);
 /**
  * @brief This function allows the user to enter data associated with an Activity Branch and then writes the data in a file.
  * @param
