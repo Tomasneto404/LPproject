@@ -10,17 +10,14 @@
 #include "admin.h"
 
 /**********************************COMPANY********************************************/
-int verifyNif(int *nif) {
-    int readNif;
-
-    while (fscanf(fp, "%d", &readNif) == 1) {
-        if (nif == &readNif) {
-            printf("This NIF already exist!\n");
-            fclose(fp);
-            return 1;
+int verifyNif(Companies companies, int nif) {
+    int i;
+    for (i = 0; i < companies.counter; i++) {
+        if (companies.companies[i].nif == nif) {
+            return i;
         }
     }
-    return 0;
+    return -1;
 }
 
 int verify_PostalCode(int *postalCode) {
@@ -35,10 +32,9 @@ int verify_PostalCode(int *postalCode) {
                 postalCode[i] = '-';
             }
         }
-        fprintf(fp, "%d", postalCode[i]);
+
     }
 
-    fclose(fp);
     return 1;
 }
 
@@ -47,7 +43,7 @@ int createCompany(Companies *companies) {
 
     nif = getInt(MIN_NIF, MAX_NIF, MSG_NIF);
 
-    if (verifyNif(&nif, COMPANY_FILE) == 0) {
+    if (verifyNif(*companies, nif) == -1) {
         companies->companies[companies->counter].nif = nif;
 
         readString(companies->companies[companies->counter].name, 50, MSG_NAME);
@@ -72,30 +68,30 @@ int createCompany(Companies *companies) {
 /**********************************ACTIVITY BRANCH************************************/
 
 
-char convertLowercase(ActivityBranchs *name){
-    int counter,i;
-    
-    while((name->branchs[name->contador].name)[counter]!='\0'){
+char convertLowercase(ActivityBranchs *name) {
+    int counter, i;
+
+    while ((name->branchs[name->contador].name)[counter] != '\0') {
         counter++;
     }
-    
-    if((name->branchs[name->contador].name)[counter-1]=='\n'){
-        (name->branchs[name->contador].name)[--counter]='\0';
+
+    if ((name->branchs[name->contador].name)[counter - 1] == '\n') {
+        (name->branchs[name->contador].name)[--counter] = '\0';
     }
-    
-    for(i=0;i<counter;i++){
-        if(name->branchs[name->contador].name[i]>=65&& name->branchs[name->contador].name[i]<=90){
+
+    for (i = 0; i < counter; i++) {
+        if (name->branchs[name->contador].name[i] >= 65 && name->branchs[name->contador].name[i] <= 90) {
             name->branchs[name->contador].name[i] += 32;
         }
     }
-    
+
     return 0;
 }
 
 int createActivityBranch(ActivityBranchs *branchs) {
 
     ActivityBranchs name;
-    
+
     FILE *file = fopen(ACTIVITY_BRANCH_FILE, "ab");
 
     if (file == NULL) {
@@ -105,11 +101,11 @@ int createActivityBranch(ActivityBranchs *branchs) {
     } else {
 
         readString(branchs->branchs[branchs->contador].name, 50, "Name: ");
-        
+
         branchs->branchs[branchs->contador].state = getInt(0, 1, "State (0 - Inactive | 1 - Active): ");
         branchs->branchs[branchs->contador].code = //autoIncrementID();
 
-        fwrite(&branchs->branchs[branchs->contador], sizeof (ActivityBranch), 1, file);
+                fwrite(&branchs->branchs[branchs->contador], sizeof (ActivityBranch), 1, file);
 
         fclose(file);
         return branchs->contador++;

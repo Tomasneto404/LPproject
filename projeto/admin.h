@@ -22,7 +22,7 @@
 #define MSG_LOCALITY "Put the locality's name\n"
 #define MSG_POSTALCODE "Insert postal code\n"
 
-
+#define ACTIVITY_BRANCH_FILE "ActivityBranchs.txt"
 
 #define MIN_NIF 100000000
 #define MAX_NIF 999999999
@@ -54,16 +54,16 @@ typedef struct {
 
 /**
  * @brief This function is used to analyze whether there is already a company with the same NIF
- * @param receives an integer pointer called nif
- * @param receives a pointer to a file
- * @return 1 if it already exists and 0 if it does not exist 
+ * @param receives an Companies's type called companies
+ * @param receives an integer called nif
+ * @return i if it already exists and -1 if it does not exist 
  */
-int verifyNif(int *nif, char *filename);
+int verifyNif(Companies companies, int nif);
 
 /**
  * @brief checks if there is a '-' character between the code and the postal code, if not, add it
  * @param receives a pointer to characters called postal code that is found inside the struct
- * @return 
+ * @return 1 if was very successfuly
  */
 int verify_PostalCode(int *PostalCode);
 
