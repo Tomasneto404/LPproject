@@ -28,7 +28,26 @@
 #define MIN_POSTALCODE 4000000
 #define MAX_POSTALCODE 9999999
 #define MAX_COMPANIES 300
+
+
+
 #define MAX_ACTIVITY_BRANCHS 30
+#define MAX_AB_NAME_SIZE 100
+#define NAME_MSG "Name > "
+
+#define STATE_MSG "State [1 - Active | 0 - Inactive] > "
+#define MIN_STATE_VALUE 0
+#define MAX_STATE_VALUE 1
+
+#define CODE_MSG "Code > "
+#define MIN_AB_CODE_VALUE 0
+#define MAX_AB_CODE_VALUE 1000
+
+#define AB_DOES_NOT_EXIST "ERROR: This Activity Branch does not exist."
+#define AB_ALREADY_EXISTS "ERROR: This activity branch already exists."
+
+#define EMPTY_LIST "ERROR: List is empty."
+#define FULL_LIST "ERROR: List is full."
 
 /**********************************COMPANY********************************************/
 typedef enum {

@@ -73,7 +73,7 @@ void createCompanies(Companies *companies) {
             puts("COMPANIE DOESN'T EXIST\n");
         }
     } else {
-        puts("FULL LIST\n");
+        puts(FULL_LIST);
     }
 }
 
@@ -103,7 +103,7 @@ void listCompanies(Companies companies) {
             printCompany(companies.companies[i]);
         }
     } else {
-        puts("EMPTY LIST");
+        puts(EMPTY_LIST);
     }
 }
 
@@ -191,25 +191,25 @@ void createActivityBranchs(ActivityBranchs *branchs){
     if (branchs->counter < MAX_ACTIVITY_BRANCHS) {
         
         if (createActivityBranch(branchs) == -1) {
-            puts("ERROR: This activity branch already exists.");
+            puts(AB_ALREADY_EXISTS);
         } 
         
     } else {
-        puts("ERROR: List full.");
+        puts(FULL_LIST);
     }
     
 }
 
 int createActivityBranch(ActivityBranchs *branchs){
     
-    int code = getInt(0, 100, "Code [1-1000] > ");
+    int code = getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG);
     
     if (searchActivityBranch(*branchs, code) == -1) {
         branchs->branchs[branchs->counter].code = code;
         
-        readString(branchs->branchs[branchs->counter].name, 100, "Name > ");
+        readString(branchs->branchs[branchs->counter].name, MAX_AB_NAME_SIZE, NAME_MSG);
         
-        branchs->branchs[branchs->counter].state = getInt(0, 1, "State [1 - Active | 0 - Inactive] > ");
+        branchs->branchs[branchs->counter].state = getInt(MIN_STATE_VALUE, MAX_STATE_VALUE, STATE_MSG);
         
         return branchs->counter++;
     }
@@ -229,12 +229,12 @@ int searchActivityBranch(ActivityBranchs branchs, int code) {
 void listActivityBranchs(ActivityBranchs branchs){
     if (branchs.counter > 0) {
         int i;
-        printf("%-5s %-15s %-10s\n", "CODE", "NAME", "STATE");
+        printf("\n%-5s %-15s %-10s\n", "CODE", "NAME", "STATE");
         for (i = 0; i < branchs.counter; i++) {
             printActivityBranch(branchs.branchs[i]);
         }
     } else {
-        puts("ERROR: List empty.");
+        puts(EMPTY_LIST);
     }
 }
 
@@ -251,24 +251,24 @@ void printActivityBranch(ActivityBranch branch){
 
 void updateActivityBranchs(ActivityBranchs *branchs){
     
-    int code = searchActivityBranch(*branchs, getInt(0, 100, "Code [1-1000] > "));
+    int code = searchActivityBranch(*branchs, getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG));
     
     if (code != -1) {
         updateActivityBranch(&branchs->branchs[code]);
     } else {
-        puts("ERROR: This Activity Branch does not exist.");
+        puts(AB_DOES_NOT_EXIST);
     }
     
 }
 
 void updateActivityBranch(ActivityBranch *branch){
     
-    branch->state = getInt(0, 1, "State [1 - Active | 0 - Inactive] > ");
+    branch->state = getInt(MIN_STATE_VALUE, MAX_STATE_VALUE, STATE_MSG);
     
 }
 
 void deleteActivityBranchs(ActivityBranchs *branchs){
-    int i, code = searchActivityBranch(*branchs, getInt(0, 100, "Code [1-1000] > "));
+    int i, code = searchActivityBranch(*branchs, getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG));
     
     if (code != -1) {
         
@@ -281,7 +281,7 @@ void deleteActivityBranchs(ActivityBranchs *branchs){
         branchs->counter--;
         
     } else {
-        puts("ERROR: This Activity Branch does not exist.");
+        puts(AB_DOES_NOT_EXIST);
     }
     
 }
