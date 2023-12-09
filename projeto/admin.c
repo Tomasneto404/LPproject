@@ -52,7 +52,7 @@ int createCompany(Companies *companies) {
 
         companies->companies[companies->counter].category = getInt(0, 3, MSG_CATEGORY);
 
-        listActivityBranch();
+        //listActivityBranch();
         companies->companies[companies->counter].branch = getInt(0, 3, MSG_BRANCH); //adicionar o contador e trocar o 3
 
         readString(companies->companies[companies->counter].street, 50, MSG_STREET);
@@ -168,82 +168,126 @@ void deleteCompanies(Companies *companies) {
 char convertLowercase(ActivityBranchs *name) {
     int counter, i;
 
-    while ((name->branchs[name->contador].name)[counter] != '\0') {
+    while ((name->branchs[name->counter].name)[counter] != '\0') {
         counter++;
     }
 
-    if ((name->branchs[name->contador].name)[counter - 1] == '\n') {
-        (name->branchs[name->contador].name)[--counter] = '\0';
+    if ((name->branchs[name->counter].name)[counter - 1] == '\n') {
+        (name->branchs[name->counter].name)[--counter] = '\0';
     }
 
     for (i = 0; i < counter; i++) {
-        if (name->branchs[name->contador].name[i] >= 65 && name->branchs[name->contador].name[i] <= 90) {
+        if (name->branchs[name->counter].name[i] >= 65 && name->branchs[name->counter].name[i] <= 90) {
 
-            name->branchs[name->contador].name[i] += 32;
+            name->branchs[name->counter].name[i] += 32;
         }
     }
 
     return 0;
 }
 
-int createActivityBranch(ActivityBranchs *branchs) {
-
-    ActivityBranchs name;
-
-    FILE *file = fopen(ACTIVITY_BRANCH_FILE, "ab");
-
-    if (file == NULL) {
-
-        printf("ERROR: Unable to open file.\n");
-
+void createActivityBranchs(ActivityBranchs *branchs){
+    
+    if (branchs->counter < MAX_ACTIVITY_BRANCHS) {
+        
+        if (createActivityBranch(branchs) == -1) {
+            puts("ERROR: This activity branch already exists.");
+        } 
+        
     } else {
-
-        readString(branchs->branchs[branchs->contador].name, 50, "Name: ");
-
-        branchs->branchs[branchs->contador].state = getInt(0, 1, "State (0 - Inactive | 1 - Active): ");
-        branchs->branchs[branchs->contador].code = //autoIncrementID();
-
-                fwrite(&branchs->branchs[branchs->contador], sizeof (ActivityBranch), 1, file);
-
-        fclose(file);
-        return branchs->contador++;
-
+        puts("ERROR: List full.");
     }
-    fclose(file);
-
-    return -1;
-
+    
 }
 
-void listActivityBranch() {
-    ActivityBranch branch;
+int createActivityBranch(ActivityBranchs *branchs){
+    
+    int code = getInt(0, 100, "Code [1-1000] > ");
+    
+    if (searchActivityBranch(*branchs, code) == -1) {
+        branchs->branchs[branchs->counter].code = code;
+        
+        readString(branchs->branchs[branchs->counter].name, 100, "Name > ");
+        
+        branchs->branchs[branchs->counter].state = getInt(0, 1, "State [1 - Active | 0 - Inactive] > ");
+        
+        return branchs->counter++;
+    }
+    return -1;
+}
 
-    FILE *file;
-    file = fopen(ACTIVITY_BRANCH_FILE, "r");
-
-    puts("\n------- Activity Branchs -------");
-    while (fread(&branch, sizeof (ActivityBranch), 1, file)) {
-
-        printf("%-5d %-15s", branch.code, branch.name);
-
-        if (branch.state) {
-            puts("Active");
-        } else {
-
-            puts("Inactive");
+int searchActivityBranch(ActivityBranchs branchs, int code) {
+    int i;
+    for (i = 0; i < branchs.counter; i++) {
+        if (branchs.branchs[i].code == code) {
+            return i;
         }
     }
-    puts("--------------------------------");
-
-    fclose(file);
+    return -1;
 }
 
-void updateActivityBranch() {
-    //Teste
-
+void listActivityBranchs(ActivityBranchs branchs){
+    if (branchs.counter > 0) {
+        int i;
+        printf("%-5s %-15s %-10s\n", "CODE", "NAME", "STATE");
+        for (i = 0; i < branchs.counter; i++) {
+            printActivityBranch(branchs.branchs[i]);
+        }
+    } else {
+        puts("ERROR: List empty.");
+    }
 }
 
-void deleteActivityBranch() {
-
+void printActivityBranch(ActivityBranch branch){
+    
+    printf("%-5d %-15s", branch.code, branch.name);
+    
+    if (branch.state == 1) {
+        printf("%-10s\n", "Active");
+    } else {
+        printf("%-10s\n", "Inactive");
+    }
 }
 
+void updateActivityBranchs(ActivityBranchs *branchs){
+    
+    int code = searchActivityBranch(*branchs, getInt(0, 100, "Code [1-1000] > "));
+    
+    if (code != -1) {
+        updateActivityBranch(&branchs->branchs[code]);
+    } else {
+        puts("ERROR: This Activity Branch does not exist.");
+    }
+    
+}
+
+void updateActivityBranch(ActivityBranch *branch){
+    
+    branch->state = getInt(0, 1, "State [1 - Active | 0 - Inactive] > ");
+    
+}
+
+void deleteActivityBranchs(ActivityBranchs *branchs){
+    int i, code = searchActivityBranch(*branchs, getInt(0, 100, "Code [1-1000] > "));
+    
+    if (code != -1) {
+        
+        for (i = code; i < branchs->counter - 1; i++) {
+            branchs->branchs[i] = branchs->branchs[i + 1];
+        }
+        
+        deleteActivityBranch(&branchs->branchs[i]);
+        
+        branchs->counter--;
+        
+    } else {
+        puts("ERROR: This Activity Branch does not exist.");
+    }
+    
+}
+
+void deleteActivityBranch(ActivityBranch *branch){
+    branch->code = 0;
+    strcpy(branch->name, "");
+    branch->state = 0;
+}

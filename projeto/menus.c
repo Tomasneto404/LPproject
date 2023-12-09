@@ -15,8 +15,7 @@
 
 void company_manage_menu() {
 
-    Companies companies;
-    Company company;
+    Companies companies = {.counter = 0};
     int flag = 0, option = 0;
 
     do {
@@ -65,7 +64,7 @@ void manage_activity_branch_menu() {
 
     int flag = 0, option = 0;
 
-    ActivityBranchs branchs;
+    ActivityBranchs branchs = {.counter = 0};
 
     do {
 
@@ -84,21 +83,22 @@ void manage_activity_branch_menu() {
 
             case 1:
                 //Create Activity Branch  function
-                createActivityBranch(&branchs);
+                createActivityBranchs(&branchs);
                 break;
 
             case 2:
                 //List Activity Branchs function
-                listActivityBranch();
+                listActivityBranchs(branchs);
                 break;
 
             case 3:
                 //Update Activity Branch function
-                updateActivityBranch();
+                updateActivityBranchs(&branchs);
                 break;
 
             case 4:
                 //Delete Activity Branch function
+                deleteActivityBranchs(&branchs);
                 break;
 
             default:

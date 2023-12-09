@@ -17,12 +17,10 @@
 #define MSG_NIF "Please, insert your nif!\n"
 #define MSG_NAME "Please, insert company's name\n"
 #define MSG_CATEGORY "Choose the category:\n0.MICRO\n1.SME\n2.BIG_COMPANY\n"
-#define MSG_BRANCH "Choose\n"
+#define MSG_BRANCH "Choose Activity Branch\n"
 #define MSG_STREET "Put the name's street\n"
 #define MSG_LOCALITY "Put the locality's name\n"
 #define MSG_POSTALCODE "Insert postal code\n"
-
-#define ACTIVITY_BRANCH_FILE "ActivityBranchs.txt"
 
 
 #define MIN_NIF 100000000
@@ -127,7 +125,7 @@ typedef struct ActivityBranch {
 } ActivityBranch;
 
 typedef struct ActivityBranchs {
-    int contador;
+    int counter;
     ActivityBranch branchs[MAX_ACTIVITY_BRANCHS];
 } ActivityBranchs;
 
@@ -137,30 +135,62 @@ typedef struct ActivityBranchs {
  * @return zero in the end of function
  */
 char convertLowercase(ActivityBranchs *name);
+
 /**
- * @brief This function allows the user to enter data associated with an Activity Branch and then writes the data in a file.
- * @param
- * @return This functions does not return a value. Prompts the user  to introduce data associated with an Activity Branch and writes the data in a file.
+ * @brief Creates a new activity branch and adds it to the collection of activity branches.
+ * @param branchs A pointer to the structure containing the array of activity branches.
+ */
+void createActivityBranchs(ActivityBranchs *branchs);
+
+/**
+ * @brief Creates a new activity branch and adds it to the collection if the code is unique.
+ * @param branchs A pointer to the structure containing the array of activity branches.
+ * @return The index of the newly created activity branch if successful, or -1 if the code already exists.
  */
 int createActivityBranch(ActivityBranchs *branchs);
 
 /**
- * @brief This function allows the user to see what´s inside the file that stores Activity Branchs in the terminal.
- * @return This functions does not return a value. Shows the data inside of a specified file.
+ * @brief Searches for an activity branch with a specific code within an array of activity branches.
+ * @param branchs The structure containing the array of activity branches.
+ * @param code The code to search for within the activity branches.
+ * @return The index of the activity branch if found, or -1 if not found.
  */
-void listActivityBranch();
+int searchActivityBranch(ActivityBranchs branchs, int code);
 
 /**
- * Falta Documentar
+ * @brief Lists the details of all activity branches in the provided array.
+ * @param branchs The structure containing the array of activity branches to be listed.
  */
-void updateActivityBranch();
+void listActivityBranchs(ActivityBranchs branchs);
 
 /**
- * Falta Documentar
+ * @brief Prints the details of an individual activity branch.
+ * @param branch The activity branch to be printed.
  */
-void deleteActivityBranch();
+void printActivityBranch(ActivityBranch branch);
 
+/**
+ * @brief Updates the details of an activity branch within an array of activity branches.
+ * @param branchs A pointer to the structure containing the array of activity branches.
+ */
+void updateActivityBranchs(ActivityBranchs *branchs);
 
+/**
+ * @brief Updates the state of an individual activity branch.
+ * @param branch A pointer to the specific activity branch to be updated.
+ */
+void updateActivityBranch(ActivityBranch *branch);
 
+/**
+ * @brief Deletes an activity branch from the array of activity branches.
+ * @param branchs A pointer to the structure containing the array of activity branches.
+ */
+void deleteActivityBranchs(ActivityBranchs *branchs);
+
+/**
+ * @brief Deletes an individual activity branch by resetting its attributes.
+ * @param branch A pointer to the specific activity branch to be deleted.
+ */
+void deleteActivityBranch(ActivityBranch *branch);
 #endif /* ADMIN_H */
 
