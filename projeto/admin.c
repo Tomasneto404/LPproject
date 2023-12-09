@@ -78,7 +78,21 @@ void createCompanies(Companies *companies) {
 }
 
 void printCompany(Company company) {
-    printf("\n%3d %-30s %-20s %3d %-30s %-30s %3d", company.nif, company.name, company.category, company.branch, company.street, company.locality, company.postalCode);
+    printf("\n%5d %10s ", company.nif, company.name);
+
+    switch (company.category) {
+        case MICRO:
+            printf("MICRO");
+            break;
+        case SME:
+            printf("SME");
+            break;
+        case BIG_COMPANY:
+            printf("BIG COMPANY");
+            break;
+    }
+    printf("%5d %10s %10s %5d", company.branch, company.street, company.locality, company.postalCode);
+
 }
 
 void listCompanies(Companies companies) {
@@ -136,14 +150,14 @@ void deleteCompanies(Companies *companies) {
     int i, nif = verifyNif(*companies, getInt(MIN_NIF, MAX_NIF, MSG_NIF));
 
     if (nif != -1) {
-        for(i=nif;i<companies->counter-1;i++){
-            companies->companies[i]=companies->companies[i+1];
+        for (i = nif; i < companies->counter - 1; i++) {
+            companies->companies[i] = companies->companies[i + 1];
         }
-        
+
         deleteCompanyData(&companies->companies[i]);
-        
+
         companies->counter--;
-    }else{
+    } else {
         puts("ERROR");
     }
 }
