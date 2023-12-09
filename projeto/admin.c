@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "input.h"
 #include "admin.h"
 
@@ -100,12 +101,12 @@ void updateCompany(Company *company) {
     readString(company->street, 50, MSG_STREET);
     readString(company->locality, 50, MSG_LOCALITY);
     company->postalCode = getInt(MAX_POSTALCODE, MIN_POSTALCODE, MSG_POSTALCODE);
-    verify_PostalCode(&company.postalCode);
+    verify_PostalCode(&company->postalCode);
 }
 
 void updateCompanies(Companies *companies) {
 
-    int i, nif = verifyNif(*nif, getInt(MIN_NIF, MAX_NIF, MSG_NIF));
+    int i, nif = verifyNif(*companies, getInt(MIN_NIF, MAX_NIF, MSG_NIF));
 
     if (nif != -1) {
         updateCompany(&companies->companies[nif]);
@@ -132,7 +133,7 @@ void deleteCompanyData(Company *company) {
 
 void deleteCompanies(Companies *companies) {
 
-    int i, nif = verifyNif(*nif, getInt(MIN_NIF, MAX_NIF, MSG_NIF));
+    int i, nif = verifyNif(*companies, getInt(MIN_NIF, MAX_NIF, MSG_NIF));
 
     if (nif != -1) {
         for(i=nif;i<companies->counter-1;i++){
