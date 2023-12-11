@@ -38,7 +38,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/admin.o \
 	${OBJECTDIR}/input.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/menus.o
+	${OBJECTDIR}/menus.o \
+	${OBJECTDIR}/user.o
 
 
 # C Compiler Flags
@@ -84,6 +85,11 @@ ${OBJECTDIR}/menus.o: menus.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/menus.o menus.c
+
+${OBJECTDIR}/user.o: user.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/user.o user.c
 
 # Subprojects
 .build-subprojects:
