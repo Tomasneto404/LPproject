@@ -214,11 +214,18 @@ char convertLowercase(ActivityBranchs *name) {
     for (i = 0; i < counter; i++) {
         if (name->branchs[name->counter].name[i] >= 65 && name->branchs[name->counter].name[i] <= 90) {
 
-            name->branchs[name->counter].name[i] += 32;
+           return name->branchs[name->counter].name[i] += 32;
         }
     }
 
     return 0;
+}
+
+char compareString(ActivityBranchs *name, char readName) {
+    if (strcmp(&name, readName) == 0) {
+        return 1;  
+    }
+    return 0;  
 }
 
 void createActivityBranchs(ActivityBranchs *branchs){
