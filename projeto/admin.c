@@ -162,6 +162,41 @@ void deleteCompanies(Companies *companies) {
     }
 }
 
+/**
+ * @brief Comparison function for sorting companies by number of views.
+ *
+ * This function is used as a comparison function for sorting an array of 'Company' structures
+ * in descending order based on the number of views. It is intended to be used with the
+ * qsort function or similar sorting algorithms.
+ *
+ * @param a Pointer to the first company structure to compare.
+ * @param b Pointer to the second company structure to compare.
+ * @return An integer value representing the comparison result:
+ *         - Negative value if 'b' has more views than 'a'.
+ *         - Zero if 'a' and 'b' have the same number of views.
+ *         - Positive value if 'a' has more views than 'b'.
+ */
+int compare_company(const void *a, const void *b) {
+    Company *companyA = (Company *)a;
+    Company *companyB = (Company *)b;
+    return companyB->views - companyA->views;
+}
+
+void top5lookedCompanys(Companies *companies){
+    int i;
+    
+    if (companies->counter > 0) {
+        //esta a ordenar a lista de empresas decrescente com base nas visualizações usando o quick sort
+        qsort(companies->companies, companies->counter, sizeof(Company), compare_company);
+        
+        for (i = 0; i < companies->counter && i <= TOP_5; i++) {
+            printf("%s\n", companies->companies[i].name);
+        }
+    } else {
+        puts(ERROR_EMPTY_LIST);
+    }
+}
+
 /**********************************ACTIVITY BRANCH************************************/
 
 

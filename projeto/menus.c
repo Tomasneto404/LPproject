@@ -47,6 +47,7 @@ void company_manage_menu() {
 
             case 4:
                 //Delete Company function
+                deleteCompanies(&companies);
                 break;
 
             default:

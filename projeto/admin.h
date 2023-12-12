@@ -22,6 +22,8 @@
 #define MSG_LOCALITY "Put the locality's name\n"
 #define MSG_POSTALCODE "Insert postal code\n"
 
+#define ERROR_EMPTY_LIST "The Company list is empty."
+#define TOP_5 5
 
 #define MIN_NIF 100000000
 #define MAX_NIF 999999999
