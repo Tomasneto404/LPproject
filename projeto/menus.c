@@ -8,8 +8,92 @@
 #include <stdlib.h>
 #include "input.h"
 #include "admin.h"
+#include "menus.h"
+#include "user.h"
 
-#define OPTION_MESSAGE "Option > "
+//USER MENUS
+
+void search_company_menu() {
+
+    int flag = 0, option = 0;
+
+    do {
+
+        printf("\n----SEARCH COMPANY MENU----\n"
+                "1 - Search By Name\n"
+                "2 - Search By Category\n"
+                "3 - Search By Location\n\n"
+
+                "0 - Back\n"
+                "\n");
+
+        option = getInt(0, 3, OPTION_MESSAGE);
+
+        switch (option) {
+
+            case 1:
+                //Search Company By Name function
+                break;
+
+            case 2:
+                //Search Company By Category function
+                break;
+
+            case 3:
+                //Search Company By Location function
+                break;
+
+            default:
+                flag = 1;
+                break;
+
+        }
+
+    } while (flag != 1);
+
+}
+
+void user_menu() {
+
+    int flag = 0, option = 0;
+
+    do {
+
+        printf("\n----USER MENU----\n"
+                "1 - Search Company\n"
+                "2 - Classify Company\n"
+                "3 - Comment Company\n\n"
+
+                "0 - Back\n"
+                "\n");
+
+        option = getInt(0, 3, OPTION_MESSAGE);
+
+        switch (option) {
+
+            case 1:
+                //Search Companys menu
+                search_company_menu();
+                break;
+
+            case 2:
+                //Classify Company Menu
+                break;
+
+            case 3:
+                //Comment Company Menu
+                break;
+
+            default:
+                flag = 1;
+                break;
+
+        }
+
+    } while (flag != 1);
+
+}
+
 
 //ADMIN MENUS
 
@@ -200,6 +284,10 @@ void admin_menu() {
 
 //MAIN MENU
 void main_menu() {
+    
+    //Companies companies = {.counter = 0};
+    //ActivityBranchs branchs = {.counter = 0};
+    
     int flag = 0, option = 0;
 
     do {
@@ -224,6 +312,7 @@ void main_menu() {
 
             case 2:
                 //User Menu
+                user_menu();
                 break;
 
             case 3:

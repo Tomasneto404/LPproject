@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "input.h"
 #include "admin.h"
 #include "user.h"
@@ -25,4 +24,8 @@ int rating(Companies *companies) {
 //    
 //    fclose(fp);
 //    return -1;
+}
+
+void searchCompanyByName(Companies *companies) {
+    
 }

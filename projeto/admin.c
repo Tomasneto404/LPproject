@@ -79,7 +79,7 @@ void createCompanies(Companies *companies) {
 }
 
 void printCompany(Company company) {
-    printf("\n%5d %10s ", company.nif, company.name);
+    printf("%-10d %-10s ", company.nif, company.name);
 
     switch (company.category) {
         case MICRO:
@@ -92,13 +92,14 @@ void printCompany(Company company) {
             printf("BIG COMPANY");
             break;
     }
-    printf("%5d %10s %10s %5d", company.branch, company.street, company.locality, company.postalCode);
+    printf("%-10d %-10s %-10s %-10d\n", company.branch, company.street, company.locality, company.postalCode);
 
 }
 
 void listCompanies(Companies companies) {
     int i;
 
+    printf("\n%-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE");
     if (companies.counter > 0) {
         for (i = 0; i < companies.counter; i++) {
             printCompany(companies.companies[i]);
@@ -220,13 +221,6 @@ char convertLowercase(ActivityBranchs *branchs) {
     }
 
     return 0;
-}
-
-char compareString(ActivityBranch *branch, char readName) {
-//    if (strcmp(branch->name, readName) == 0) {
-//        return 1;  
-//    }
-//    return 0;  
 }
 
 void createActivityBranchs(ActivityBranchs *branchs){

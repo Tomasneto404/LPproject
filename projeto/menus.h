@@ -14,6 +14,19 @@
 #ifndef MENUS_H
 #define MENUS_H
 
+#define OPTION_MESSAGE "Option > "
+
+/**
+ * @brief This function shows the search company menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
+ * @return This functions does not return a value. Prints in the terminal the search company menu, asks the user for an option and executes a function associated with the chosen option.
+ */
+void search_company_menu();
+
+/**
+ * @brief This function shows the users's menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
+ * @return This functions does not return a value. Prints in the terminal the users's menu, asks the user for an option and executes a function associated with the chosen option.
+ */
+void user_menu();
 
 /**
  * @brief This function shows the menu that will allow to execute manage functions related with the Companys. It asks the user for an option and then executes the function associated with the chosen option.
