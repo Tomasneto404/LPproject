@@ -142,7 +142,7 @@ void deleteCompanies(Companies *companies);
 
 typedef struct ActivityBranch {
     int code, state;
-    char name[50];
+    char name[MAX_AB_NAME_SIZE];
 } ActivityBranch;
 
 typedef struct ActivityBranchs {
@@ -213,5 +213,10 @@ void deleteActivityBranchs(ActivityBranchs *branchs);
  * @param branch A pointer to the specific activity branch to be deleted.
  */
 void deleteActivityBranch(ActivityBranch *branch);
+
+/*
+ Falta documentar
+ */
+int verifyAbName(ActivityBranchs branchs, char *name);
 #endif /* ADMIN_H */
 
