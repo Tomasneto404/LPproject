@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+#include <string.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "input.h"
@@ -16,6 +18,27 @@
 void search_company_menu() {
 
     int flag = 0, option = 0;
+    
+    /*APENAS PARA TESTE*/
+    Companies companies = {.counter = 2}; //só para teste
+    companies.companies[0].nif = 123456789;
+    companies.companies[0].branch = 1;
+    companies.companies[0].category = 1;
+    strcpy(companies.companies[0].name, "worten");
+    companies.companies[0].postalCode = 1234123;
+    strcpy(companies.companies[0].street, "worten");
+    companies.companies[0].views = 10;
+    strcpy(companies.companies[0].locality, "Pacos de Ferreira");
+    
+    companies.companies[1].nif = 123456789;
+    companies.companies[1].branch = 2;
+    companies.companies[1].category = 0;
+    strcpy(companies.companies[1].name, "Fnac");
+    companies.companies[1].postalCode = 1234123;
+    strcpy(companies.companies[1].street, "worten");
+    companies.companies[1].views = 10;
+    strcpy(companies.companies[1].locality, "Pacos de Ferreira");
+    /*APENAS PARA TESTE*/
 
     do {
 
@@ -32,15 +55,15 @@ void search_company_menu() {
         switch (option) {
 
             case 1:
-                //Search Company By Name function
+                listCompaniesByName(companies);
                 break;
 
             case 2:
-                //Search Company By Category function
+                listCompaniesByCategory(companies);
                 break;
 
             case 3:
-                //Search Company By Location function
+                listCompaniesByLocality(companies);
                 break;
 
             default:
@@ -279,14 +302,13 @@ void admin_menu() {
 
     } while (flag != 1);
 
-
 }
 
 //MAIN MENU
 void main_menu() {
     
-    //Companies companies = {.counter = 0};
-    //ActivityBranchs branchs = {.counter = 0};
+    Companies companies = {.counter = 0};
+    ActivityBranchs branchs = {.counter = 0};
     
     int flag = 0, option = 0;
 

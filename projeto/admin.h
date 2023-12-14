@@ -14,13 +14,13 @@
 #ifndef ADMIN_H
 #define ADMIN_H
 
-#define MSG_NIF "Please, insert your nif!\n"
-#define MSG_NAME "Please, insert company's name\n"
-#define MSG_CATEGORY "Choose the category:\n0.MICRO\n1.SME\n2.BIG_COMPANY\n"
-#define MSG_BRANCH "Choose Activity Branch\n"
-#define MSG_STREET "Put the name's street\n"
-#define MSG_LOCALITY "Put the locality's name\n"
-#define MSG_POSTALCODE "Insert postal code\n"
+#define MSG_NIF "Please, insert your nif!\n> "
+#define MSG_NAME "Please, insert company's name\n> "
+#define MSG_CATEGORY "Choose the category:\n0.MICRO\n1.SME\n2.BIG_COMPANY\n> "
+#define MSG_BRANCH "Choose Activity Branch\n> "
+#define MSG_STREET "Put the name's street\n> "
+#define MSG_LOCALITY "Put the company's locality\n> "
+#define MSG_POSTALCODE "Insert postal code\n> "
 
 #define ERROR_EMPTY_LIST "The Company list is empty."
 #define TOP_5 5
@@ -30,6 +30,8 @@
 #define MIN_POSTALCODE 4000000
 #define MAX_POSTALCODE 9999999
 #define MAX_COMPANIES 300
+#define MAX_COMPANY_NAME_SIZE 100
+#define MAX_COMPANY_LOCALITY_SIZE 100
 
 
 
@@ -58,7 +60,7 @@ typedef enum {
 
 typedef struct {
     int nif;
-    char name[50];
+    char name[MAX_COMPANY_NAME_SIZE];
     Category category;
     int branch;
     char street[50];

@@ -49,7 +49,7 @@ int createCompany(Companies *companies) {
     if (verifyNif(*companies, nif) == -1) {
         companies->companies[companies->counter].nif = nif;
 
-        readString(companies->companies[companies->counter].name, 50, MSG_NAME);
+        readString(companies->companies[companies->counter].name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
 
         companies->companies[companies->counter].category = getInt(0, 3, MSG_CATEGORY);
 
@@ -92,14 +92,14 @@ void printCompany(Company company) {
             printf("BIG COMPANY");
             break;
     }
-    printf("%-10d %-10s %-10s %-10d\n", company.branch, company.street, company.locality, company.postalCode);
+    printf(" %-5d %-15s %-15s %-15d\n", company.branch, company.street, company.locality, company.postalCode);
 
 }
 
 void listCompanies(Companies companies) {
     int i;
 
-    printf("\n%-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE");
+    printf("\n%-10s %-10s %-15s %-5s %-15s %-15s %-15s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE");
     if (companies.counter > 0) {
         for (i = 0; i < companies.counter; i++) {
             printCompany(companies.companies[i]);
@@ -111,7 +111,7 @@ void listCompanies(Companies companies) {
 
 void updateCompany(Company *company) {
 
-    readString(company->name, 50, MSG_NAME);
+    readString(company->name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
     company->category = getInt(0, 3, MSG_CATEGORY);
     company->branch = getInt(0, 50, MSG_BRANCH); //alterar
     readString(company->street, 50, MSG_STREET);
