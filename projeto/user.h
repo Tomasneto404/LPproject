@@ -18,6 +18,30 @@
 #define MAX_RATING 5
 #define MSG_RATING "Please, rate the Company!\n"
 
+#define MSG_SEARCH_COMPANY "\n Please put the company name\n"
+
+#define MAX_COMMENTS_SIZE 100
+
+#define MAX_NAME 256
+#define MSG_NAME_USER "Please, insert your name!\n"
+
+#define MAX_EMAIL 256
+#define MSG_EMAIL "Please, insert your email\n"
+
+#define MAX_CARACTER 300
+#define MSG_COMMENT "Comment:\n\n"
+
+
+typedef struct{
+    char name[MAX_NAME];
+    char email[MAX_EMAIL];
+    char comment[MAX_CARACTER];
+}Comment;
+
+typedef struct{
+    int counter,size;
+    Comment *comments;
+}Comments;
 /**
  * @brief This fuction searchs the position of the provided data array that matches the provided name
  * @param companies The array to be searched
@@ -43,6 +67,12 @@ void listCompaniesByCategory(Companies companies);
  * @param companies The variable containing the details to be listed
  */
 void listCompaniesByLocality(Companies companies);
+
+
+//documentar
+int addComment(Comments *comments);
+void expandCommentsCapacity(Comments *comments);
+void addComments (Comments *comments);
 
 #endif /* USER_H */
 

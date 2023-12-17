@@ -106,3 +106,45 @@ void listCompaniesByLocality(Companies companies){
     }
     
 }
+
+
+int addComment(Comments *comments){
+    Companies companies;
+    char companyName[MAX_COMPANY_NAME_SIZE];
+   
+    readString(companyName,MAX_COMPANY_NAME_SIZE, MSG_SEARCH_COMPANY);
+    
+    if(searchCompanyByName(companies, companyName)){
+        
+       readString(comments->comments[comments->counter].name,MAX_NAME,MSG_NAME_USER);
+       readString(comments->comments[comments->counter].email,MAX_EMAIL,MSG_EMAIL);
+       readString(comments->comments[comments->counter].comment,MAX_CARACTER,MSG_COMMENT);
+       
+       return comments->counter++;
+    }
+    return -1;
+}
+
+void expandCommentsCapacity(Comments *comments) {
+    int tam = (comments->size) == 0 ? MAX_COMMENTS_SIZE: comments->size * 2;
+    Comment *temp = (Comment*) realloc(comments->comments, sizeof (Comment) * (tam));
+    if (temp != NULL) {
+        comments->size = tam;
+        comments->comments = temp;
+    }
+}
+
+void addComments (Comments *comments){
+    
+    if(comments->counter==comments->size){
+       expandCommentsCapacity(comments);
+    }
+    
+    if(comments->counter < comments->size){
+        if(addComment(comments)==-1){
+            puts("The company doesn't exist\n");
+        }
+    }else{
+        puts("Ins't possible to insert the new comment");
+    }
+}
