@@ -16,6 +16,8 @@
 //COMPANY MENU
 void company_menu() {
 
+    //É preciso autenticar a empresa
+    
     int flag = 0, option = 0;
 
     do {
@@ -33,15 +35,15 @@ void company_menu() {
         switch (option) {
 
             case 1:
-                //Manage Company menu
+                //Manage Company function
                 break;
 
             case 2:
-                //View comments menu
+                //View comments e info function
                 break;
 
             case 3:
-                //View Reports menu
+                //View Reports function
                 break;
 
             default:
