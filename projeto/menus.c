@@ -13,6 +13,49 @@
 #include "menus.h"
 #include "user.h"
 
+//COMPANY MENU
+void company_menu() {
+
+    int flag = 0, option = 0;
+
+    do {
+
+        printf("\n----COMPANY MENU----\n"
+                "1 - Manage Company\n"
+                "2 - View Comments \n" //Adicionar o ocultar comments neste
+                "3 - See Reports\n\n"
+
+                "0 - Back\n"
+                "\n");
+
+        option = getInt(0, 3, OPTION_MESSAGE);
+
+        switch (option) {
+
+            case 1:
+                //Manage Company menu
+                break;
+
+            case 2:
+                //View comments menu
+                break;
+
+            case 3:
+                //View Reports menu
+                break;
+
+            default:
+                flag = 1;
+                break;
+
+        }
+
+
+    } while (flag != 1);
+
+}
+
+
 //USER MENUS
 
 void search_company_menu() {
@@ -29,6 +72,7 @@ void search_company_menu() {
     strcpy(companies.companies[0].street, "worten");
     companies.companies[0].views = 10;
     strcpy(companies.companies[0].locality, "Pacos de Ferreira");
+    companies.companies[0].state = 1;
     
     companies.companies[1].nif = 123456789;
     companies.companies[1].branch = 2;
@@ -38,6 +82,7 @@ void search_company_menu() {
     strcpy(companies.companies[1].street, "worten");
     companies.companies[1].views = 10;
     strcpy(companies.companies[1].locality, "Pacos de Ferreira");
+    companies.companies[1].state = 1;
     /*APENAS PARA TESTE*/
 
     do {
@@ -79,6 +124,19 @@ void search_company_menu() {
 void user_menu() {
 
     int flag = 0, option = 0;
+    
+    /*APENAS PARA TESTE*/
+    Companies companies = {.counter = 1}; //só para teste
+    companies.companies[0].nif = 123456789;
+    companies.companies[0].branch = 1;
+    companies.companies[0].category = 1;
+    strcpy(companies.companies[0].name, "worten");
+    companies.companies[0].postalCode = 1234123;
+    strcpy(companies.companies[0].street, "worten");
+    companies.companies[0].views = 10;
+    strcpy(companies.companies[0].locality, "Pacos de Ferreira");
+    companies.companies[0].state = 1;     
+    /*APENAS PARA TESTE*/
 
     do {
 
@@ -105,6 +163,7 @@ void user_menu() {
 
             case 3:
                 //Comment Company Menu
+                //addComments(&companies);
                 break;
 
             default:
@@ -120,9 +179,8 @@ void user_menu() {
 
 //ADMIN MENUS
 
-void company_manage_menu() {
+void company_manage_menu(Companies companies) {
 
-    Companies companies = {.counter = 0};
     int flag = 0, option = 0;
 
     do {
@@ -168,11 +226,9 @@ void company_manage_menu() {
 
 }
 
-void manage_activity_branch_menu() {
+void manage_activity_branch_menu(ActivityBranchs branchs) {
 
     int flag = 0, option = 0;
-
-    ActivityBranchs branchs = {.counter = 0};
 
     do {
 
@@ -260,7 +316,7 @@ void reports_menu() {
 
 }
 
-void admin_menu() {
+void admin_menu(Companies *companies, ActivityBranchs *branchs) {
 
     int flag = 0, option = 0;
 
@@ -280,12 +336,12 @@ void admin_menu() {
 
             case 1:
                 //Manage Companys menu
-                company_manage_menu();
+                company_manage_menu(*companies);
                 break;
 
             case 2:
                 //Manage Activity Branchs menu
-                manage_activity_branch_menu();
+                manage_activity_branch_menu(*branchs);
                 break;
 
             case 3:
@@ -329,7 +385,7 @@ void main_menu() {
 
             case 1:
                 //Admin Menu
-                admin_menu();
+                admin_menu(&companies, &branchs);
                 break;
 
             case 2:
@@ -339,6 +395,7 @@ void main_menu() {
 
             case 3:
                 //Company Menu
+                company_menu();
                 break;
 
             case 4:

@@ -61,6 +61,8 @@ int createCompany(Companies *companies) {
 
         companies->companies[companies->counter].postalCode = getInt(MIN_POSTALCODE, MAX_POSTALCODE, MSG_POSTALCODE);
         verify_PostalCode(&(companies->companies[companies->counter].postalCode));
+        
+        companies->companies[companies->counter].state = getInt(0, 1, MSG_STATE);
 
 
         return companies->counter++;
@@ -92,14 +94,20 @@ void printCompany(Company company) {
             printf("BIG COMPANY");
             break;
     }
-    printf(" %-5d %-15s %-15s %-15d\n", company.branch, company.street, company.locality, company.postalCode);
+    printf(" %-5d %-15s %-15s %-15d ", company.branch, company.street, company.locality, company.postalCode);
+    
+    if (company.state == 0) {
+        printf("%-10s", "Inactive");
+    } else {
+        printf("%-10s", "Active");
+    }
 
 }
 
 void listCompanies(Companies companies) {
     int i;
 
-    printf("\n%-10s %-10s %-15s %-5s %-15s %-15s %-15s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE");
+    printf("\n%-10s %-10s %-15s %-5s %-15s %-15s %-15s %-15s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "STATE");
     if (companies.counter > 0) {
         for (i = 0; i < companies.counter; i++) {
             printCompany(companies.companies[i]);
@@ -118,11 +126,12 @@ void updateCompany(Company *company) {
     readString(company->locality, 50, MSG_LOCALITY);
     company->postalCode = getInt(MAX_POSTALCODE, MIN_POSTALCODE, MSG_POSTALCODE);
     verify_PostalCode(&company->postalCode);
+    company->state = getInt(0, 1, MSG_STATE);
 }
 
 void updateCompanies(Companies *companies) {
 
-    int i, nif = verifyNif(*companies, getInt(MIN_NIF, MAX_NIF, MSG_NIF));
+    int nif = verifyNif(*companies, getInt(MIN_NIF, MAX_NIF, MSG_NIF));
 
     if (nif != -1) {
         updateCompany(&companies->companies[nif]);

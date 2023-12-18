@@ -134,17 +134,15 @@ void expandCommentsCapacity(Comments *comments) {
     }
 }
 
-void addComments (Comments *comments){
+void addComments (Companies *companies){
     
-    if(comments->counter==comments->size){
-       expandCommentsCapacity(comments);
-    }
+    int companyCode = 0;
+    char name[MAX_COMPANY_NAME_SIZE];
+    readString(name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
     
-    if(comments->counter < comments->size){
-        if(addComment(comments)==-1){
-            puts("The company doesn't exist\n");
-        }
-    }else{
-        puts("Ins't possible to insert the new comment");
+    companyCode = searchCompanyByName(*companies, name);
+    
+    if (companyCode != -1) {
+        
     }
 }

@@ -21,6 +21,7 @@
 #define MSG_STREET "Put the name's street\n> "
 #define MSG_LOCALITY "Put the company's locality\n> "
 #define MSG_POSTALCODE "Insert postal code\n> "
+#define MSG_STATE "State [1 - Active | 0 - Inactive] > "
 
 #define ERROR_EMPTY_LIST "The Company list is empty."
 #define TOP_5 5
@@ -54,6 +55,19 @@
 #define FULL_LIST "ERROR: List is full."
 
 /**********************************COMPANY********************************************/
+
+typedef struct{
+    char name[256];
+    char email[256];
+    char comment[256];
+    int state;
+}Comment;
+
+typedef struct{
+    int counter,size;
+    Comment *comments;
+}Comments;
+
 typedef enum {
     MICRO, SME, BIG_COMPANY
 } Category;
@@ -67,6 +81,8 @@ typedef struct {
     char locality[50];
     int postalCode;
     int views;
+    int state;
+    //Comment comments[30];
 } Company;
 
 typedef struct {

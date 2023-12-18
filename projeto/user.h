@@ -32,16 +32,9 @@
 #define MSG_COMMENT "Comment:\n\n"
 
 
-typedef struct{
-    char name[MAX_NAME];
-    char email[MAX_EMAIL];
-    char comment[MAX_CARACTER];
-}Comment;
 
-typedef struct{
-    int counter,size;
-    Comment *comments;
-}Comments;
+
+
 /**
  * @brief This fuction searchs the position of the provided data array that matches the provided name
  * @param companies The array to be searched
@@ -72,7 +65,7 @@ void listCompaniesByLocality(Companies companies);
 //documentar
 int addComment(Comments *comments);
 void expandCommentsCapacity(Comments *comments);
-void addComments (Comments *comments);
+void addComments (Companies *companies);
 
 #endif /* USER_H */
 

@@ -17,6 +17,12 @@
 #define OPTION_MESSAGE "Option > "
 
 /**
+ * @brief This function shows the company's profile menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
+ * @return This functions does not return a value. Prints in the terminal company's profile menu, asks the user for an option and executes a function associated with the chosen option.
+ */
+void company_menu();
+
+/**
  * @brief This function shows the search company menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
  * @return This functions does not return a value. Prints in the terminal the search company menu, asks the user for an option and executes a function associated with the chosen option.
  */
