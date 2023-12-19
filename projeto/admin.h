@@ -81,6 +81,7 @@ typedef struct {
     char locality[50];
     int postalCode;
     int views;
+    int rate;
     int state;
     //Comment comments[30];
 } Company;
@@ -156,6 +157,24 @@ void deleteCompanyData(Company *company);
  * @param receives as a parameter a pointer of type Companies
  */
 void deleteCompanies(Companies *companies);
+
+/**
+ * @brief This function displays the names of the top 5 most viewed companies 
+ * based on the number of views stored in the 'Companies' structure.
+ *
+ * @param companies A pointer to the 'Companies' structure containing the company data.
+ */
+void top5lookedCompanies(Companies *companies);
+
+/**
+ * @brief This function sorts the list of companies based on their ratings and displays
+ * the names of the top 5 best-rated companies.
+ * 
+ * @param companies A pointer to the 'Companies' structure containing company data.
+ *                  The function uses the 'counter' field to determine the number of companies.
+ *                  The 'companies' array is sorted based on the ratings of each company.
+ */
+void top5bestCompanies(Companies *companies);
 /**********************************ACTIVITY BRANCH**************************************/
 
 typedef struct ActivityBranch {

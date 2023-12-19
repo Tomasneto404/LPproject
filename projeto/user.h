@@ -14,6 +14,9 @@
 #ifndef USER_H
 #define USER_H
 
+
+#define MSG_NAME_COMP "Company name.\n"
+
 #define MIN_RATING 0
 #define MAX_RATING 5
 #define MSG_RATING "Please, rate the Company!\n"
@@ -42,6 +45,18 @@
  * @return i if it encounters a position that has an equal name, -1 if not
  */
 int searchCompanyByName(Companies companies, char *name);
+
+/**
+ * @brief This function allows the user to rate a company and computes the average rating
+ * for the company. If the company does not exist, it adds it to the list of companies.
+ *
+ * @param companies A pointer to the 'Companies' structure containing company data.
+ *                  The function uses this to search for and update the rating of a company.
+ * @return An integer value:
+ *         - The index of the rated company in the 'companies' array if successful.
+ *         - '-1' if the company name already exists in the list or if there's an error.
+ */
+float rate_company(Companies *companies);
 
 /**
  * @brief This function lists the details of the provided data structer

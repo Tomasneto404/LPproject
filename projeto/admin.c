@@ -208,6 +208,30 @@ void top5lookedCompanys(Companies *companies){
     }
 }
 
+int compare_rate(const void *a, const void *b) {
+    Company *companyA = (Company *)a;
+    Company *companyB = (Company *)b;
+    
+    return companyB->rate - companyA->rate;
+}
+
+void top5rateCompanies(Companies *companies) {
+    int i;
+    
+    if (companies->counter > 0) {
+        //esta a ordenar a lista de empresas decrescente com base no rate usando o quick sort
+        qsort(companies->companies, companies->counter, sizeof(Company), *compare_rate);
+        
+        printf("Top 5 best companies are:\n");
+        
+        for (i = 0; i < companies->counter && i <= TOP_5; i++) {
+            printf("%s\n", companies->companies[i].name);
+        }
+    } else {
+        puts(ERROR_EMPTY_LIST);
+    }
+}
+
 /**********************************ACTIVITY BRANCH************************************/
 
 

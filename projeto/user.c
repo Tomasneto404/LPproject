@@ -5,28 +5,6 @@
 #include "admin.h"
 #include "user.h"
 
-int rating(Companies *companies) {
-    int rate;
-    
-//    //FILE* fp = fopen(COMPANY_FILE, "ab");
-//
-//    if (fp == NULL) {
-//        exit(EXIT_FAILURE);
-//        return 0;
-//    }
-//    
-//    rate = getInt(MIN_RATING, MAX_RATING, MSG_RATING);
-//    
-//    
-//    
-//    //if (companies->companies[companies->counter].rate >= MIN_RATING && companies->companies[companies->counter].rate <= MAX_RATING) {
-//        
-//    //}
-//    
-//    fclose(fp);
-//    return -1;
-}
-
 int searchCompanyByName(Companies companies, char *name) {
     int i;
     for (i = 0; i < companies.counter; i++) {
@@ -34,6 +12,36 @@ int searchCompanyByName(Companies companies, char *name) {
             return i;
         }
     }
+    return -1;
+}
+
+float company_average(Companies *companies, float *rate) {
+    float media;
+    
+    media = (companies->companies[companies->counter].rate + *rate)/2;
+    
+    return media;
+}
+
+float rate_company(Companies *companies) {
+    char name[MAX_NAME];
+    float rate;
+    
+    readString(name, MAX_NAME, MSG_NAME_COMP);
+    
+    if (searchCompanyByName(*companies, name) == -1) {
+        strcpy(companies->companies[companies->counter].name, name);
+        
+        rate = getFloat(MIN_RATING, MAX_RATING, MSG_RATING);
+        if (companies->companies[companies->counter].rate == 0) {
+            companies->companies[companies->counter].rate = rate;
+        } else {
+            companies->companies[companies->counter].rate = company_average(companies, &rate);
+        }
+        
+        return companies->counter++;
+    }
+    
     return -1;
 }
 
