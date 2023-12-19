@@ -14,11 +14,46 @@
 #include "user.h"
 
 //COMPANY MENU
-void company_menu() {
+void company_menu(Companies companiess) {
 
-    //É preciso autenticar a empresa
+    /*APENAS PARA TESTE*/
+    Companies companies = {.counter = 2}; //só para teste
+    companies.companies[0].nif = 123456789;
+    companies.companies[0].branch = 1;
+    companies.companies[0].category = 1;
+    strcpy(companies.companies[0].name, "worten");
+    companies.companies[0].postalCode = 1234123;
+    strcpy(companies.companies[0].street, "worten");
+    companies.companies[0].views = 10;
+    strcpy(companies.companies[0].locality, "Pacos de Ferreira");
+    companies.companies[0].state = 1;
     
-    int flag = 0, option = 0;
+    companies.companies[1].nif = 123456789;
+    companies.companies[1].branch = 2;
+    companies.companies[1].category = 0;
+    strcpy(companies.companies[1].name, "Fnac");
+    companies.companies[1].postalCode = 1234123;
+    strcpy(companies.companies[1].street, "worten");
+    companies.companies[1].views = 10;
+    strcpy(companies.companies[1].locality, "Pacos de Ferreira");
+    companies.companies[1].state = 1;
+    /*APENAS PARA TESTE*/
+    
+    int flag = 0, option = 0, companyPosition = -1;
+    Company company;
+    
+    companyPosition = selectCompany(companies);
+    
+    if (companyPosition != -1) {
+        
+        company = companies.companies[companyPosition];
+        
+    } else {
+        
+        return;
+        
+    }
+    
 
     do {
 
@@ -397,7 +432,7 @@ void main_menu() {
 
             case 3:
                 //Company Menu
-                company_menu();
+                company_menu(companies);
                 break;
 
             case 4:

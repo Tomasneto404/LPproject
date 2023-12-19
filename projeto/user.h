@@ -47,11 +47,8 @@
 int searchCompanyByName(Companies companies, char *name);
 
 /**
- * @brief This function allows the user to rate a company and computes the average rating
- * for the company. If the company does not exist, it adds it to the list of companies.
- *
- * @param companies A pointer to the 'Companies' structure containing company data.
- *                  The function uses this to search for and update the rating of a company.
+ * @brief This function allows the user to rate a company and computes the average rating for the company. If the company does not exist, it adds it to the list of companies.
+ * @param companies A pointer to the 'Companies' structure containing company data. The function uses this to search for and update the rating of a company.
  * @return An integer value:
  *         - The index of the rated company in the 'companies' array if successful.
  *         - '-1' if the company name already exists in the list or if there's an error.
@@ -76,6 +73,12 @@ void listCompaniesByCategory(Companies companies);
  */
 void listCompaniesByLocality(Companies companies);
 
+/**
+ * Falta documentar
+ * @param companies
+ * @return 
+ */
+int selectCompany(Companies companies);
 
 //documentar
 int addComment(Comments *comments);
