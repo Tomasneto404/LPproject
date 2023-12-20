@@ -97,9 +97,9 @@ void printCompany(Company company) {
     printf(" %-5d %-15s %-15s %-15d ", company.branch, company.street, company.locality, company.postalCode);
     
     if (company.state == 0) {
-        printf("%-10s", "Inactive");
+        printf("%-10s", "Inactive\n");
     } else {
-        printf("%-10s", "Active");
+        printf("%-10s", "Active\n");
     }
 
 }

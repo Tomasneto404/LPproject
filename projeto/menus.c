@@ -14,39 +14,16 @@
 #include "user.h"
 
 //COMPANY MENU
-void company_menu(Companies companiess) {
-
-    /*APENAS PARA TESTE*/
-    Companies companies = {.counter = 2}; //só para teste
-    companies.companies[0].nif = 123456789;
-    companies.companies[0].branch = 1;
-    companies.companies[0].category = 1;
-    strcpy(companies.companies[0].name, "worten");
-    companies.companies[0].postalCode = 1234123;
-    strcpy(companies.companies[0].street, "worten");
-    companies.companies[0].views = 10;
-    strcpy(companies.companies[0].locality, "Pacos de Ferreira");
-    companies.companies[0].state = 1;
-    
-    companies.companies[1].nif = 123456789;
-    companies.companies[1].branch = 2;
-    companies.companies[1].category = 0;
-    strcpy(companies.companies[1].name, "Fnac");
-    companies.companies[1].postalCode = 1234123;
-    strcpy(companies.companies[1].street, "worten");
-    companies.companies[1].views = 10;
-    strcpy(companies.companies[1].locality, "Pacos de Ferreira");
-    companies.companies[1].state = 1;
-    /*APENAS PARA TESTE*/
+void company_menu(Companies *companies) {
     
     int flag = 0, option = 0, companyPosition = -1;
     Company company;
     
-    companyPosition = selectCompany(companies);
+    companyPosition = selectCompany(*companies);
     
     if (companyPosition != -1) {
         
-        company = companies.companies[companyPosition];
+        company = companies->companies[companyPosition];
         
     } else {
         
@@ -70,7 +47,7 @@ void company_menu(Companies companiess) {
         switch (option) {
 
             case 1:
-                //Manage Company function
+                updateCompany(&company);
                 break;
 
             case 2:
@@ -95,32 +72,9 @@ void company_menu(Companies companiess) {
 
 //USER MENUS
 
-void search_company_menu() {
+void search_company_menu(Companies *companies) {
 
     int flag = 0, option = 0;
-    
-    /*APENAS PARA TESTE*/
-    Companies companies = {.counter = 2}; //só para teste
-    companies.companies[0].nif = 123456789;
-    companies.companies[0].branch = 1;
-    companies.companies[0].category = 1;
-    strcpy(companies.companies[0].name, "worten");
-    companies.companies[0].postalCode = 1234123;
-    strcpy(companies.companies[0].street, "worten");
-    companies.companies[0].views = 10;
-    strcpy(companies.companies[0].locality, "Pacos de Ferreira");
-    companies.companies[0].state = 1;
-    
-    companies.companies[1].nif = 123456789;
-    companies.companies[1].branch = 2;
-    companies.companies[1].category = 0;
-    strcpy(companies.companies[1].name, "Fnac");
-    companies.companies[1].postalCode = 1234123;
-    strcpy(companies.companies[1].street, "worten");
-    companies.companies[1].views = 10;
-    strcpy(companies.companies[1].locality, "Pacos de Ferreira");
-    companies.companies[1].state = 1;
-    /*APENAS PARA TESTE*/
 
     do {
 
@@ -137,15 +91,15 @@ void search_company_menu() {
         switch (option) {
 
             case 1:
-                listCompaniesByName(companies);
+                listCompaniesByName(*companies);
                 break;
 
             case 2:
-                listCompaniesByCategory(companies);
+                listCompaniesByCategory(*companies);
                 break;
 
             case 3:
-                listCompaniesByLocality(companies);
+                listCompaniesByLocality(*companies);
                 break;
 
             default:
@@ -158,22 +112,9 @@ void search_company_menu() {
 
 }
 
-void user_menu() {
+void user_menu(Companies *companies) {
 
     int flag = 0, option = 0;
-    
-    /*APENAS PARA TESTE*/
-    Companies companies = {.counter = 1}; //só para teste
-    companies.companies[0].nif = 123456789;
-    companies.companies[0].branch = 1;
-    companies.companies[0].category = 1;
-    strcpy(companies.companies[0].name, "worten");
-    companies.companies[0].postalCode = 1234123;
-    strcpy(companies.companies[0].street, "worten");
-    companies.companies[0].views = 10;
-    strcpy(companies.companies[0].locality, "Pacos de Ferreira");
-    companies.companies[0].state = 1;     
-    /*APENAS PARA TESTE*/
 
     do {
 
@@ -190,8 +131,7 @@ void user_menu() {
         switch (option) {
 
             case 1:
-                //Search Companys menu
-                search_company_menu();
+                search_company_menu(companies);
                 break;
 
             case 2:
@@ -216,7 +156,7 @@ void user_menu() {
 
 //ADMIN MENUS
 
-void company_manage_menu(Companies companies) {
+void company_manage_menu(Companies *companies, ActivityBranchs *branchs) {
 
     int flag = 0, option = 0;
 
@@ -228,28 +168,27 @@ void company_manage_menu(Companies companies) {
                 "3 - Update Company\n"
                 "4 - Delete Company\n\n"
 
-                "0 - Back\n"
-                "\n");
+                "0 - Back\n");
+        printf("Companies: %d/%d\n\n", companies->counter, MAX_COMPANIES);
 
         option = getInt(0, 4, OPTION_MESSAGE);
 
         switch (option) {
 
             case 1:
-                createCompanies(&companies);
+                createCompanies(companies);
                 break;
 
             case 2:
-                listCompanies(companies);
+                listCompanies(*companies);
                 break;
 
             case 3:
-                updateCompanies(&companies);
+                updateCompanies(companies);
                 break;
 
             case 4:
-                //Delete Company function
-                deleteCompanies(&companies);
+                deleteCompanies(companies);
                 break;
 
             default:
@@ -263,7 +202,7 @@ void company_manage_menu(Companies companies) {
 
 }
 
-void manage_activity_branch_menu(ActivityBranchs branchs) {
+void manage_activity_branch_menu(ActivityBranchs *branchs) {
 
     int flag = 0, option = 0;
 
@@ -275,31 +214,27 @@ void manage_activity_branch_menu(ActivityBranchs branchs) {
                 "3 - Update Activity Branch\n"
                 "4 - Delete Activity Branch\n\n"
 
-                "0 - Back\n"
-                "\n");
+                "0 - Back\n");
+        printf("Activity Branchs: %d/%d\n\n", branchs->counter, MAX_ACTIVITY_BRANCHS);
 
         option = getInt(0, 4, OPTION_MESSAGE);
 
         switch (option) {
 
             case 1:
-                //Create Activity Branch  function
-                createActivityBranchs(&branchs);
+                createActivityBranchs(branchs);
                 break;
 
             case 2:
-                //List Activity Branchs function
-                listActivityBranchs(branchs);
+                listActivityBranchs(*branchs);
                 break;
 
             case 3:
-                //Update Activity Branch function
-                updateActivityBranchs(&branchs);
+                updateActivityBranchs(branchs);
                 break;
 
             case 4:
-                //Delete Activity Branch function
-                deleteActivityBranchs(&branchs);
+                deleteActivityBranchs(branchs);
                 break;
 
             default:
@@ -372,17 +307,14 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs) {
         switch (option) {
 
             case 1:
-                //Manage Companys menu
-                company_manage_menu(*companies);
+                company_manage_menu(companies, branchs);
                 break;
 
             case 2:
-                //Manage Activity Branchs menu
-                manage_activity_branch_menu(*branchs);
+                manage_activity_branch_menu(branchs);
                 break;
 
             case 3:
-                //Reports menu
                 reports_menu();
                 break;
 
@@ -400,8 +332,41 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs) {
 //MAIN MENU
 void main_menu() {
     
-    Companies companies = {.counter = 0};
-    ActivityBranchs branchs = {.counter = 0};
+    Companies *companies;
+    companies->counter = 2;
+    
+    ActivityBranchs *branchs;
+    branchs->counter = 2;
+    
+    /*SÓ DADOS DE TESTE*/
+    /*COMPANIES*/
+    companies->companies[0].nif = 147147147;
+    strcpy(companies->companies[0].name, "worten");
+    companies->companies[0].postalCode = 4000000;
+    companies->companies[0].category = 0;
+    companies->companies[0].state = 1;
+    strcpy(companies->companies[0].locality, "Lamoso");
+    strcpy(companies->companies[0].street, "Rua das flores");
+    companies->companies[0].branch = 1;
+    
+    companies->companies[1].nif = 258258258;
+    strcpy(companies->companies[1].name, "Fnac");
+    companies->companies[1].postalCode = 4000001;
+    companies->companies[1].category = 0;
+    companies->companies[1].state = 1;
+    strcpy(companies->companies[1].locality, "Lamoso");
+    strcpy(companies->companies[1].street, "Rua das flores");
+    companies->companies[1].branch = 2;
+    
+    /*BRANCHS*/
+    branchs->branchs[0].code = 1;
+    branchs->branchs[0].state = 1;
+    strcpy(branchs->branchs[0].name, "Agricultura");
+    
+    branchs->branchs[1].code = 2;
+    branchs->branchs[1].state = 0;
+    strcpy(branchs->branchs[1].name, "Eletricidade");
+    /*SÓ DADOS DE TESTE*/
     
     int flag = 0, option = 0;
 
@@ -411,37 +376,25 @@ void main_menu() {
                 "1 - Admin Panel\n"
                 "2 - User Panel\n"
                 "3 - Company Panel\n\n"
-                "4 - Load Data\n"
-                "5 - Save Data\n"
                 "0 - Quit\n"
                 "\n");
 
-        option = getInt(0, 5, OPTION_MESSAGE);
+        option = getInt(0, 3, OPTION_MESSAGE);
 
         switch (option) {
 
             case 1:
-                //Admin Menu
-                admin_menu(&companies, &branchs);
+                admin_menu(companies, branchs);
                 break;
 
             case 2:
-                //User Menu
-                user_menu();
+                user_menu(companies);
                 break;
 
             case 3:
-                //Company Menu
                 company_menu(companies);
                 break;
 
-            case 4:
-                //Load Data Function
-                break;
-
-            case 5:
-                //Save Data Function
-                break;
 
             default:
                 flag = 1;

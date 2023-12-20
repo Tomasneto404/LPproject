@@ -19,9 +19,6 @@
 
 int main() {
     
-    //Companies companies = {.counter = 0};
-    //ActivityBranchs branchs = {.counter = 0};
-    
     main_menu();
     
     return (EXIT_SUCCESS);
