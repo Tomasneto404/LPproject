@@ -17,13 +17,45 @@
 void company_menu(Companies *companies) {
     
     int flag = 0, option = 0, companyPosition = -1;
-    Company company;
     
     companyPosition = selectCompany(*companies);
     
     if (companyPosition != -1) {
         
-        company = companies->companies[companyPosition];
+        do {
+
+            printf("\n----COMPANY MENU----\n"
+                    "1 - Manage Company\n"
+                    "2 - View Comments \n" //Adicionar o ocultar comments neste
+                    "3 - See Reports\n\n"
+
+                    "0 - Back\n"
+                    "\n");
+
+            option = getInt(0, 3, OPTION_MESSAGE);
+
+            switch (option) {
+
+                case 1:
+                    updateCompany(&companies->companies[companyPosition]);
+                    break;
+
+                case 2:
+                    //View comments e info function
+                    break;
+
+                case 3:
+                    //View Reports function
+                    break;
+
+                default:
+                    flag = 1;
+                    break;
+
+            }
+
+
+        } while (flag != 1);
         
     } else {
         
@@ -32,47 +64,14 @@ void company_menu(Companies *companies) {
     }
     
 
-    do {
-
-        printf("\n----COMPANY MENU----\n"
-                "1 - Manage Company\n"
-                "2 - View Comments \n" //Adicionar o ocultar comments neste
-                "3 - See Reports\n\n"
-
-                "0 - Back\n"
-                "\n");
-
-        option = getInt(0, 3, OPTION_MESSAGE);
-
-        switch (option) {
-
-            case 1:
-                updateCompany(&company);
-                break;
-
-            case 2:
-                //View comments e info function
-                break;
-
-            case 3:
-                //View Reports function
-                break;
-
-            default:
-                flag = 1;
-                break;
-
-        }
-
-
-    } while (flag != 1);
+    
 
 }
 
 
 //USER MENUS
 
-void search_company_menu(Companies *companies) {
+void search_company_menu(Companies *companies, ActivityBranchs *branchs) {
 
     int flag = 0, option = 0;
 
@@ -112,7 +111,7 @@ void search_company_menu(Companies *companies) {
 
 }
 
-void user_menu(Companies *companies) {
+void user_menu(Companies *companies, ActivityBranchs *branchs) {
 
     int flag = 0, option = 0;
 
@@ -131,7 +130,7 @@ void user_menu(Companies *companies) {
         switch (option) {
 
             case 1:
-                search_company_menu(companies);
+                search_company_menu(companies, branchs);
                 break;
 
             case 2:
@@ -176,7 +175,7 @@ void company_manage_menu(Companies *companies, ActivityBranchs *branchs) {
         switch (option) {
 
             case 1:
-                createCompanies(companies);
+                createCompanies(companies, branchs);
                 break;
 
             case 2:
@@ -388,7 +387,7 @@ void main_menu() {
                 break;
 
             case 2:
-                user_menu(companies);
+                user_menu(companies, branchs);
                 break;
 
             case 3:

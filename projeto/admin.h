@@ -91,6 +91,15 @@ typedef struct {
     Company companies[MAX_COMPANIES];
 } Companies;
 
+typedef struct ActivityBranch {
+    int code, state;
+    char name[MAX_AB_NAME_SIZE];
+} ActivityBranch;
+
+typedef struct ActivityBranchs {
+    int counter;
+    ActivityBranch branchs[MAX_ACTIVITY_BRANCHS];
+} ActivityBranchs;
 /**
  * @brief This function is used to analyze whether there is already a company with the same NIF
  * @param receives an Companies's type called companies
@@ -111,14 +120,14 @@ int verify_PostalCode(int *PostalCode);
  * @param receives as a parameter a pointer of type Companies
  * @return counter if successful, returns -1 if not
  */
-int createCompany(Companies *companies);
+int createCompany(Companies *companies, ActivityBranchs *branchs);
 
 /**
  * @brief This function is used to create several companies and check if the list
  *  is full or if the company exists
  * @param receives as a parameter a pointer of type Companies
  */
-void createCompanies(Companies *companies);
+void createCompanies(Companies *companies, ActivityBranchs *branchs);
 
 /**
  * @brief The function aims to print all company data
@@ -176,16 +185,6 @@ void top5lookedCompanies(Companies *companies);
  */
 void top5bestCompanies(Companies *companies);
 /**********************************ACTIVITY BRANCH**************************************/
-
-typedef struct ActivityBranch {
-    int code, state;
-    char name[MAX_AB_NAME_SIZE];
-} ActivityBranch;
-
-typedef struct ActivityBranchs {
-    int counter;
-    ActivityBranch branchs[MAX_ACTIVITY_BRANCHS];
-} ActivityBranchs;
 
 /**
  * @brief This function is used to convert the entire string to lowercase

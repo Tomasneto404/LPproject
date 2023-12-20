@@ -41,7 +41,7 @@ int verify_PostalCode(int *postalCode) {
     return 1;
 }
 
-int createCompany(Companies *companies) {
+int createCompany(Companies *companies, ActivityBranchs *branchs) {
     int nif;
 
     nif = getInt(MIN_NIF, MAX_NIF, MSG_NIF);
@@ -53,8 +53,8 @@ int createCompany(Companies *companies) {
 
         companies->companies[companies->counter].category = getInt(0, 3, MSG_CATEGORY);
 
-        //listActivityBranch();
-        companies->companies[companies->counter].branch = getInt(0, 3, MSG_BRANCH); //adicionar o contador e trocar o 3
+        listActivityBranchs(*branchs);
+        companies->companies[companies->counter].branch = getInt(1, branchs->counter, MSG_BRANCH);
 
         readString(companies->companies[companies->counter].street, 50, MSG_STREET);
         readString(companies->companies[companies->counter].locality, 50, MSG_LOCALITY);
@@ -70,9 +70,9 @@ int createCompany(Companies *companies) {
     return -1;
 }
 
-void createCompanies(Companies *companies) {
+void createCompanies(Companies *companies, ActivityBranchs *branchs) {
     if (companies->counter < MAX_COMPANIES) {
-        if (createCompany(companies) == -1) {
+        if (createCompany(companies, branchs) == -1) {
             puts("COMPANIE DOESN'T EXIST\n");
         }
     } else {
