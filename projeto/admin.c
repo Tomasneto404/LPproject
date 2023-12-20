@@ -124,7 +124,7 @@ void updateCompany(Company *company) {
     company->branch = getInt(0, 50, MSG_BRANCH); //alterar
     readString(company->street, 50, MSG_STREET);
     readString(company->locality, 50, MSG_LOCALITY);
-    company->postalCode = getInt(MAX_POSTALCODE, MIN_POSTALCODE, MSG_POSTALCODE);
+    company->postalCode = getInt(MIN_POSTALCODE, MAX_POSTALCODE, MSG_POSTALCODE);
     verify_PostalCode(&company->postalCode);
     company->state = getInt(0, 1, MSG_STATE);
 }
