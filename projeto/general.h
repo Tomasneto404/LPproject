@@ -48,10 +48,17 @@ void freeCompanies(Companies *companies);
 void freeBranchs(ActivityBranchs *branchs);
 
 /**
- * 
+ * Falta documentar
  * @param companies
  * @param file
  */
 void loadCompanies(Companies *companies, char *file);
+
+/**
+ * Falta documentar
+ * @param branchs
+ * @param file
+ */
+void loadBranchs(ActivityBranchs *branchs, char *file);
 #endif /* GENERAL_H */
 

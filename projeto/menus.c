@@ -341,6 +341,7 @@ void main_menu() {
     branchs = (ActivityBranchs*) malloc(MAX_ACTIVITY_BRANCHS * sizeof (ActivityBranchs));
 
     loadCompanies(companies, COMPANIES_FILE);
+    loadBranchs(branchs, BRANCHS_FILE);
     
     //martelaDados(companies, branchs); //SÓ PARA TESTES (ESCREVE DADOS NO PROGRAMA)
 

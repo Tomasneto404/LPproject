@@ -91,21 +91,34 @@ void freeBranchs(ActivityBranchs *branchs) {
 void loadCompanies(Companies *companies, char *file) {
     FILE *fp = fopen(file, "rb");
     if (fp == NULL) {
+        perror("Error opening file");
         exit(EXIT_FAILURE);
     }
 
-    fread(&companies->counter, sizeof (int), 1, fp);
-
-    companies = malloc(companies->counter * sizeof (Company));
-    if (companies->companies == NULL) {
-        fclose(fp);
-        exit(EXIT_FAILURE);
-    }
+    fread(&companies->counter, sizeof(int), 1, fp);
 
     int i;
     for (i = 0; i < companies->counter; i++) {
-        fread(&companies->companies[i], sizeof (Company), 1, fp);
+        fread(&companies->companies[i], sizeof(Company), 1, fp);
     }
 
     fclose(fp);
 }
+
+void loadBranchs(ActivityBranchs *branchs, char *file) {
+    FILE *fp = fopen(file, "rb");
+    if (fp == NULL) {
+        perror("Error opening file");
+        exit(EXIT_FAILURE);
+    }
+
+    fread(&branchs->counter, sizeof(int), 1, fp);
+
+    int i;
+    for (i = 0; i < branchs->counter; i++) {
+        fread(&branchs->branchs[i], sizeof(Company), 1, fp);
+    }
+
+    fclose(fp);
+}
+
