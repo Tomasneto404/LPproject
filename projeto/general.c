@@ -116,7 +116,7 @@ void loadBranchs(ActivityBranchs *branchs, char *file) {
 
     int i;
     for (i = 0; i < branchs->counter; i++) {
-        fread(&branchs->branchs[i], sizeof(Company), 1, fp);
+        fread(&branchs->branchs[i], sizeof(ActivityBranch), 1, fp);
     }
 
     fclose(fp);

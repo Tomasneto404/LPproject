@@ -342,8 +342,6 @@ void main_menu() {
 
     loadCompanies(companies, COMPANIES_FILE);
     loadBranchs(branchs, BRANCHS_FILE);
-    
-    //martelaDados(companies, branchs); //SÓ PARA TESTES (ESCREVE DADOS NO PROGRAMA)
 
     int flag = 0, option = 0;
 
