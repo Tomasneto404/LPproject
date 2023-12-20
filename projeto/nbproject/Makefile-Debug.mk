@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/admin.o \
+	${OBJECTDIR}/general.o \
 	${OBJECTDIR}/input.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/menus.o \
@@ -70,6 +71,11 @@ ${OBJECTDIR}/admin.o: admin.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/admin.o admin.c
+
+${OBJECTDIR}/general.o: general.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/general.o general.c
 
 ${OBJECTDIR}/input.o: input.c
 	${MKDIR} -p ${OBJECTDIR}

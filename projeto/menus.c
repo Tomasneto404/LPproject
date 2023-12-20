@@ -12,16 +12,18 @@
 #include "admin.h"
 #include "menus.h"
 #include "user.h"
+#include "general.h"
 
 //COMPANY MENU
+
 void company_menu(Companies *companies) {
-    
+
     int flag = 0, option = 0, companyPosition = -1;
-    
+
     companyPosition = selectCompany(*companies);
-    
+
     if (companyPosition != -1) {
-        
+
         do {
 
             printf("\n----COMPANY MENU----\n"
@@ -56,15 +58,15 @@ void company_menu(Companies *companies) {
 
 
         } while (flag != 1);
-        
-    } else {
-        
-        return;
-        
-    }
-    
 
-    
+    } else {
+
+        return;
+
+    }
+
+
+
 
 }
 
@@ -267,12 +269,12 @@ void reports_menu() {
 
             case 1:
                 //Most viewed company function
-                
+
                 break;
 
             case 2:
                 //Meter outro
-               
+
                 break;
 
             default:
@@ -329,44 +331,19 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs) {
 }
 
 //MAIN MENU
+
 void main_menu() {
-    
+
     Companies *companies;
-    companies->counter = 2;
-    
+    companies = (Companies*) malloc(MAX_COMPANIES * sizeof (Companies));
+
     ActivityBranchs *branchs;
-    branchs->counter = 2;
+    branchs = (ActivityBranchs*) malloc(MAX_ACTIVITY_BRANCHS * sizeof (ActivityBranchs));
+
+    loadCompanies(companies, COMPANIES_FILE);
     
-    /*SÓ DADOS DE TESTE*/
-    /*COMPANIES*/
-    companies->companies[0].nif = 147147147;
-    strcpy(companies->companies[0].name, "worten");
-    companies->companies[0].postalCode = 4000000;
-    companies->companies[0].category = 0;
-    companies->companies[0].state = 1;
-    strcpy(companies->companies[0].locality, "Lamoso");
-    strcpy(companies->companies[0].street, "Rua das flores");
-    companies->companies[0].branch = 1;
-    
-    companies->companies[1].nif = 258258258;
-    strcpy(companies->companies[1].name, "Fnac");
-    companies->companies[1].postalCode = 4000001;
-    companies->companies[1].category = 0;
-    companies->companies[1].state = 1;
-    strcpy(companies->companies[1].locality, "Lamoso");
-    strcpy(companies->companies[1].street, "Rua das flores");
-    companies->companies[1].branch = 2;
-    
-    /*BRANCHS*/
-    branchs->branchs[0].code = 1;
-    branchs->branchs[0].state = 1;
-    strcpy(branchs->branchs[0].name, "Agricultura");
-    
-    branchs->branchs[1].code = 2;
-    branchs->branchs[1].state = 0;
-    strcpy(branchs->branchs[1].name, "Eletricidade");
-    /*SÓ DADOS DE TESTE*/
-    
+    //martelaDados(companies, branchs); //SÓ PARA TESTES (ESCREVE DADOS NO PROGRAMA)
+
     int flag = 0, option = 0;
 
     do {
@@ -374,11 +351,12 @@ void main_menu() {
         printf("\n----MAIN MENU----\n"
                 "1 - Admin Panel\n"
                 "2 - User Panel\n"
-                "3 - Company Panel\n\n"
+                "3 - Company Panel\n"
+                "4 - Save Data to File\n\n"
                 "0 - Quit\n"
                 "\n");
 
-        option = getInt(0, 3, OPTION_MESSAGE);
+        option = getInt(0, 4, OPTION_MESSAGE);
 
         switch (option) {
 
@@ -394,13 +372,17 @@ void main_menu() {
                 company_menu(companies);
                 break;
 
+            case 4:
+                saveCompanies(companies, COMPANIES_FILE);
+                saveBranchs(branchs, BRANCHS_FILE);
+                break;
 
             default:
                 flag = 1;
+                freeCompanies(companies);
+                freeBranchs(branchs);
                 break;
-
         }
-
 
     } while (flag != 1);
 }

@@ -11,6 +11,7 @@
 #include "input.h"
 #include "admin.h"
 
+
 /**********************************COMPANY********************************************/
 
 int verifyNif(Companies companies, int nif) {

@@ -54,6 +54,9 @@
 #define EMPTY_LIST "ERROR: List is empty."
 #define FULL_LIST "ERROR: List is full."
 
+#define COMPANIES_FILE "companies.bin"
+#define BRANCHS_FILE "branchs.bin"
+
 /**********************************COMPANY********************************************/
 
 typedef struct{

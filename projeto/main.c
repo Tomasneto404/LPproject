@@ -14,8 +14,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "menus.h"
-#include "admin.h"
-
 
 int main() {
     
