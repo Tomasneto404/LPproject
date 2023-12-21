@@ -269,12 +269,12 @@ void reports_menu(Companies *companies) {
 
             case 1:
                 //Most viewed company function
-                //top5lookedCompanies(companies);
+                top5lookedCompanies(companies);
                 break;
 
             case 2:
                 //Meter outro
-                //top5bestCompanies(companies);
+                top5bestCompanies(companies);
                 break;
 
             default:

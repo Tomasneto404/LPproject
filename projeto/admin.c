@@ -222,7 +222,7 @@ int compare_rate(const void *a, const void *b) {
     return 0;
 }
 
-void top5rateCompanies(Companies *companies) {
+void top5bestCompanies(Companies *companies) {
     if (companies->counter > 0) {
         // Sorting the list of companies in descending order based on rate using quicksort
         qsort(companies->companies, companies->counter, sizeof(Company), compare_rate);
