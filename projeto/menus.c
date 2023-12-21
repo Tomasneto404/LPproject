@@ -141,7 +141,7 @@ void user_menu(Companies *companies, ActivityBranchs *branchs) {
 
             case 3:
                 //Comment Company Menu
-                //addComments(&companies);
+                addComments(companies);
                 break;
 
             default:
@@ -258,7 +258,7 @@ void reports_menu(Companies *companies) {
 
         printf("\n----REPORTS MENU----\n"
                 "1 - Most Viewed Company\n"
-                "2 - Meter outro \n\n"
+                "2 - Top 5 Companys \n\n"
 
                 "0 - Back\n"
                 "\n");
@@ -268,12 +268,10 @@ void reports_menu(Companies *companies) {
         switch (option) {
 
             case 1:
-                //Most viewed company function
                 top5lookedCompanies(companies);
                 break;
 
             case 2:
-                //Meter outro
                 top5bestCompanies(companies);
                 break;
 

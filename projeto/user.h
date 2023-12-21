@@ -21,18 +21,19 @@
 #define MAX_RATING 5
 #define MSG_RATING "Please, rate the Company!\n"
 
-#define MSG_SEARCH_COMPANY "\n Please put the company name\n"
+#define MSG_SEARCH_COMPANY "\n Please put the company name\n > "
 
 #define MAX_COMMENTS_SIZE 100
+#define MAX_COMMENT_CARACTER 300
+#define MSG_COMMENT "Comment \n > "
 
 #define MAX_NAME 256
-#define MSG_NAME_USER "Please, insert your name!\n"
+#define MSG_NAME_USER "Please, insert your name!\n > "
 
 #define MAX_EMAIL 256
-#define MSG_EMAIL "Please, insert your email\n"
+#define MSG_EMAIL "Please, insert your email\n > "
 
-#define MAX_CARACTER 300
-#define MSG_COMMENT "Comment:\n\n"
+
 
 
 

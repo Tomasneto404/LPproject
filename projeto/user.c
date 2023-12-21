@@ -55,7 +55,7 @@ void listCompaniesByName(Companies companies) {
     companyCode = searchCompanyByName(companies, name);
 
     if (companyCode != -1) {
-
+        printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "STATE");
         printCompany(companies.companies[companyCode]);
 
     } else {
@@ -82,6 +82,7 @@ void listCompaniesByCategory(Companies companies) {
 
     category = getInt(0, 2, MSG_CATEGORY);
 
+    printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "STATE");
     for (i = 0; i < companies.counter; i++) {
         if (companies.companies[i].category == category) {
             printCompany(companies.companies[i]);
@@ -158,21 +159,20 @@ int verifyEmail(char *email) {
     return 1;
 }
 
-int addComment(Comments *comments) {
-    Companies companies;
-    char companyName[MAX_COMPANY_NAME_SIZE];
-
-    readString(companyName, MAX_COMPANY_NAME_SIZE, MSG_SEARCH_COMPANY);
-
-    if (searchCompanyByName(companies, companyName)) {
-
-        readString(comments->comments[comments->counter].name, MAX_NAME, MSG_NAME_USER);
-        readString(comments->comments[comments->counter].email, MAX_EMAIL, MSG_EMAIL);
-        readString(comments->comments[comments->counter].comment, MAX_CARACTER, MSG_COMMENT);
-
-        return comments->counter++;
-    }
-    return -1;
+void addComment(Company *company) {
+    
+    //char email[MAX_EMAIL], name[MAX_NAME], comment[MAX_COMMENT_CARACTER];
+    
+//    if (company->last_comment_position < MAX_COMMENTS_SIZE) {
+//        readString(company->comments[company->last_comment_position].email, MAX_EMAIL, MSG_EMAIL);
+//        readString(company->comments[company->last_comment_position].name, MAX_NAME, MSG_NAME);
+//        readString(company->comments[company->last_comment_position].comment, MAX_COMMENT_CARACTER, MSG_COMMENT);
+//        
+//        company->last_comment_position++;
+//    } else {
+//        puts("ERROR: Maximum of comments reached.");
+//    }
+    
 }
 
 void expandCommentsCapacity(Comments *comments) {
@@ -185,7 +185,7 @@ void expandCommentsCapacity(Comments *comments) {
 }
 
 void addComments(Companies *companies) {
-
+    
     int companyCode = 0;
     char name[MAX_COMPANY_NAME_SIZE];
     readString(name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
@@ -193,7 +193,9 @@ void addComments(Companies *companies) {
     companyCode = searchCompanyByName(*companies, name);
 
     if (companyCode != -1) {
-        
+        addComment(&companies->companies[companyCode]);
+    } else {
+        puts("ERROR: Company not found.");
     }
 }
 

@@ -72,43 +72,48 @@ int createCompany(Companies *companies, ActivityBranchs *branchs) {
 }
 
 void createCompanies(Companies *companies, ActivityBranchs *branchs) {
-    if (companies->counter < MAX_COMPANIES) {
-        if (createCompany(companies, branchs) == -1) {
-            puts("COMPANIE DOESN'T EXIST\n");
+    
+    if (branchs->counter > 0) {
+        if (companies->counter < MAX_COMPANIES) {
+            if (createCompany(companies, branchs) == -1) {
+                puts("COMPANIE DOESN'T EXIST\n");
+            }
+        } else {
+            puts(FULL_LIST);
         }
     } else {
-        puts(FULL_LIST);
+        puts("ERROR: No Activity Branchs created.");
     }
+    
 }
 
 void printCompany(Company company) {
-    printf("%-10d %-10s ", company.nif, company.name);
+    printf("\n%-10d %-20s ", company.nif, company.name);
 
     switch (company.category) {
         case MICRO:
-            printf("MICRO");
+            printf("%-15s", "MICRO");
             break;
         case SME:
-            printf("SME");
+            printf("%-15s", "SME");
             break;
         case BIG_COMPANY:
-            printf("BIG COMPANY");
+            printf("%-15s", "BIG COMPANY");
             break;
     }
-    printf(" %-5d %-15s %-15s %-15d %-15.2f", company.branch, company.street, company.locality, company.postalCode, company.rate);
+    printf("%-15d %-20s %-20s %-15d %-15.2f", company.branch, company.street, company.locality, company.postalCode, company.rate);
     
     if (company.state == 0) {
         printf("%-10s", "Inactive\n");
     } else {
         printf("%-10s", "Active\n");
     }
-
 }
 
 void listCompanies(Companies companies) {
     int i;
 
-    printf("\n%-10s %-10s %-15s %-5s %-15s %-15s %-15s %-15s %-15s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE","STATE");
+    printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "STATE");
     if (companies.counter > 0) {
         for (i = 0; i < companies.counter; i++) {
             printCompany(companies.companies[i]);
@@ -117,6 +122,7 @@ void listCompanies(Companies companies) {
         puts(EMPTY_LIST);
     }
 }
+
 
 void updateCompany(Company *company) {
 

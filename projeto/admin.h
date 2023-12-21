@@ -89,6 +89,7 @@ typedef struct {
     float rate;
     int state;
     //Comment comments[30];
+    //int last_comment_position;
 } Company;
 
 typedef struct {
