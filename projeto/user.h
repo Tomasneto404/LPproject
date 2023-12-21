@@ -80,9 +80,13 @@ void listCompaniesByLocality(Companies companies);
  */
 int selectCompany(Companies companies);
 
-//documentar
-int addComment(Comments *comments);
-void expandCommentsCapacity(Comments *comments);
+/**
+ * @brief this function aims to add comments, that is, if the list of comments 
+ * is full, it allocates more memory, in addition, it checks if it is possible 
+ * to insert comments in that company
+ * 
+ * @param receives a parameter called companies of companies type
+ */
 void addComments (Companies *companies);
 
 #endif /* USER_H */

@@ -114,6 +114,50 @@ void listCompaniesByLocality(Companies companies) {
 
 }
 
+/**
+ * @brief 
+ * @param email
+ * @return 
+ */
+int verifyEmail(char *email) {
+    int i, tam, x;
+    char *atSign = NULL, *point = NULL;
+
+    tam = strlen(email);
+
+    for (i = 0; i < tam; i++) {
+        if (email[i] == '@') {
+            atSign = email + i;
+            x = i;
+            break;
+        }
+    }
+
+    if (atSign == NULL) {
+        return 0;
+    }
+
+    for (i = x; i < tam; i++) {
+        if (email[i] == '.') {
+            point = email + i;
+            break;
+        }
+    }
+
+    if (point == NULL) {
+        return 0;
+    }
+    if (point == atSign + 1) {
+        return 0;
+    }
+
+    if (point + 1 == email + tam) {
+        return 0;
+    }
+
+    return 1;
+}
+
 int addComment(Comments *comments) {
     Companies companies;
     char companyName[MAX_COMPANY_NAME_SIZE];
