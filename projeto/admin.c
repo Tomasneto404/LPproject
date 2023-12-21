@@ -95,7 +95,7 @@ void printCompany(Company company) {
             printf("BIG COMPANY");
             break;
     }
-    printf(" %-5d %-15s %-15s %-15d ", company.branch, company.street, company.locality, company.postalCode);
+    printf(" %-5d %-15s %-15s %-15d %-15.2f", company.branch, company.street, company.locality, company.postalCode, company.rate);
     
     if (company.state == 0) {
         printf("%-10s", "Inactive\n");
@@ -108,7 +108,7 @@ void printCompany(Company company) {
 void listCompanies(Companies companies) {
     int i;
 
-    printf("\n%-10s %-10s %-15s %-5s %-15s %-15s %-15s %-15s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "STATE");
+    printf("\n%-10s %-10s %-15s %-5s %-15s %-15s %-15s %-15s %-15s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE","STATE");
     if (companies.counter > 0) {
         for (i = 0; i < companies.counter; i++) {
             printCompany(companies.companies[i]);
@@ -188,45 +188,51 @@ void deleteCompanies(Companies *companies) {
  *         - Zero if 'a' and 'b' have the same number of views.
  *         - Positive value if 'a' has more views than 'b'.
  */
+
 int compare_company(const void *a, const void *b) {
-    Company *companyA = (Company *)a;
-    Company *companyB = (Company *)b;
+    const Company *companyA = (const Company *)a;
+    const Company *companyB = (const Company *)b;
     return companyB->views - companyA->views;
 }
 
-void top5lookedCompanys(Companies *companies){
-    int i;
-    
+void top5lookedCompanies(Companies *companies) {
     if (companies->counter > 0) {
-        //esta a ordenar a lista de empresas decrescente com base nas visualizações usando o quick sort
+        // Sorting the list of companies in descending order based on views using quicksort
         qsort(companies->companies, companies->counter, sizeof(Company), compare_company);
-        
-        for (i = 0; i < companies->counter && i <= TOP_5; i++) {
+
+        printf("The most looked companies are:\n");
+
+        int numPrinted = 0;
+        for (int i = 0; i < companies->counter && numPrinted < TOP_5; i++) {
             printf("%s\n", companies->companies[i].name);
+            numPrinted++;
         }
     } else {
         puts(ERROR_EMPTY_LIST);
     }
 }
 
+
 int compare_rate(const void *a, const void *b) {
-    Company *companyA = (Company *)a;
-    Company *companyB = (Company *)b;
-    
-    return companyB->rate - companyA->rate;
+    const Company *companyA = (const Company *)a;
+    const Company *companyB = (const Company *)b;
+
+    if (companyA->rate < companyB->rate) return 1;
+    if (companyA->rate > companyB->rate) return -1;
+    return 0;
 }
 
 void top5rateCompanies(Companies *companies) {
-    int i;
-    
     if (companies->counter > 0) {
-        //esta a ordenar a lista de empresas decrescente com base no rate usando o quick sort
-        qsort(companies->companies, companies->counter, sizeof(Company), *compare_rate);
-        
+        // Sorting the list of companies in descending order based on rate using quicksort
+        qsort(companies->companies, companies->counter, sizeof(Company), compare_rate);
+
         printf("Top 5 best companies are:\n");
-        
-        for (i = 0; i < companies->counter && i <= TOP_5; i++) {
+
+        int numPrinted = 0;
+        for (int i = 0; i < companies->counter && numPrinted < TOP_5; i++) {
             printf("%s\n", companies->companies[i].name);
+            numPrinted++;
         }
     } else {
         puts(ERROR_EMPTY_LIST);

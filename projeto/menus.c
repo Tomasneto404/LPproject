@@ -136,7 +136,7 @@ void user_menu(Companies *companies, ActivityBranchs *branchs) {
                 break;
 
             case 2:
-                //Classify Company Menu
+                rate_company(companies);
                 break;
 
             case 3:
@@ -250,7 +250,7 @@ void manage_activity_branch_menu(ActivityBranchs *branchs) {
 
 }
 
-void reports_menu() {
+void reports_menu(Companies *companies) {
 
     int flag = 0, option = 0;
 
@@ -269,12 +269,12 @@ void reports_menu() {
 
             case 1:
                 //Most viewed company function
-
+                //top5lookedCompanies(companies);
                 break;
 
             case 2:
                 //Meter outro
-
+                //top5bestCompanies(companies);
                 break;
 
             default:
@@ -316,7 +316,7 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs) {
                 break;
 
             case 3:
-                reports_menu();
+                reports_menu(companies);
                 break;
 
             default:

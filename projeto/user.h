@@ -53,7 +53,7 @@ int searchCompanyByName(Companies companies, char *name);
  *         - The index of the rated company in the 'companies' array if successful.
  *         - '-1' if the company name already exists in the list or if there's an error.
  */
-float rate_company(Companies *companies);
+void rate_company(Companies *companies);
 
 /**
  * @brief This function lists the details of the provided data structer

@@ -52,7 +52,7 @@ void manage_activity_branch_menu();
  * @brief This function shows the reports's menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
  * @return This functions does not return a value. Prints in the terminal the reports's menu, asks the user for an option and executes a function associated with the chosen option.
  */
-void reports_menu();
+void reports_menu(Companies *companies);
 
 /**
  * @brief This function shows the admin's menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.

@@ -23,8 +23,10 @@
 #define MSG_POSTALCODE "Insert postal code\n> "
 #define MSG_STATE "State [1 - Active | 0 - Inactive] > "
 
-#define ERROR_EMPTY_LIST "The Company list is empty."
+#define ERROR_EMPTY_LIST "The Company list is empty.\n"
 #define TOP_5 5
+
+#define ERROR_COMPANY_NOT_FOUND "Company not found!\n"
 
 #define MIN_NIF 100000000
 #define MAX_NIF 999999999
@@ -84,7 +86,7 @@ typedef struct {
     char locality[50];
     int postalCode;
     int views;
-    int rate;
+    float rate;
     int state;
     //Comment comments[30];
 } Company;

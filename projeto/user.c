@@ -15,34 +15,35 @@ int searchCompanyByName(Companies companies, char *name) {
     return -1;
 }
 
-float company_average(Companies *companies, float *rate) {
+float company_average(Company *company, float rate) {
     float media;
 
-    media = (companies->companies[companies->counter].rate + *rate) / 2;
+    media = (company->rate + rate) / 2;
 
     return media;
 }
 
-float rate_company(Companies *companies) {
+void rate_company(Companies *companies) {
     char name[MAX_NAME];
     float rate;
+    int code;
 
     readString(name, MAX_NAME, MSG_NAME_COMP);
 
-    if (searchCompanyByName(*companies, name) == -1) {
-        strcpy(companies->companies[companies->counter].name, name);
+    code = searchCompanyByName(*companies, name);
+    
+    if (code != -1) {
 
         rate = getFloat(MIN_RATING, MAX_RATING, MSG_RATING);
-        if (companies->companies[companies->counter].rate == 0) {
-            companies->companies[companies->counter].rate = rate;
+        if (companies->companies[code].rate == 0) {
+            companies->companies[code].rate = rate;
         } else {
-            companies->companies[companies->counter].rate = company_average(companies, &rate);
+            companies->companies[code].rate = company_average(&companies->companies[code], rate);
         }
-
-        return companies->counter++;
+        printf("%.2f", companies->companies[code].rate);
+    } else {
+        puts(ERROR_COMPANY_NOT_FOUND);
     }
-
-    return -1;
 }
 
 void listCompaniesByName(Companies companies) {
