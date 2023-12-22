@@ -46,17 +46,18 @@ void rate_company(Companies *companies) {
     }
 }
 
-void listCompaniesByName(Companies companies) {
+void listCompaniesByName(Companies *companies) {
 
     int companyCode = 0;
     char name[MAX_COMPANY_NAME_SIZE];
     readString(name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
 
-    companyCode = searchCompanyByName(companies, name);
+    companyCode = searchCompanyByName(*companies, name);
 
     if (companyCode != -1) {
-        printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "STATE");
-        printCompany(companies.companies[companyCode]);
+        printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "VIEWS", "STATE");
+        companies->companies[companyCode].views++;
+        printCompany(companies->companies[companyCode]);
 
     } else {
 
@@ -76,16 +77,17 @@ int searchCompanyByCategory(Companies companies, int category) {
     return -1;
 }
 
-void listCompaniesByCategory(Companies companies) {
+void listCompaniesByCategory(Companies *companies) {
 
     int i = 0, category = 0, counter = 0;
 
     category = getInt(0, 2, MSG_CATEGORY);
 
-    printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "STATE");
-    for (i = 0; i < companies.counter; i++) {
-        if (companies.companies[i].category == category) {
-            printCompany(companies.companies[i]);
+    printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "VIEWS", "STATE");
+    for (i = 0; i < companies->counter; i++) {
+        if (companies->companies[i].category == category) {
+            companies->companies[i].views++;
+            printCompany(companies->companies[i]);
             counter++;
         }
     }
@@ -96,15 +98,17 @@ void listCompaniesByCategory(Companies companies) {
 
 }
 
-void listCompaniesByLocality(Companies companies) {
+void listCompaniesByLocality(Companies *companies) {
 
     int i, counter = 0;
     char locality[MAX_COMPANY_LOCALITY_SIZE];
     readString(locality, MAX_COMPANY_LOCALITY_SIZE, MSG_LOCALITY);
 
-    for (i = 0; i < companies.counter; i++) {
-        if (strcmp(companies.companies[i].locality, locality) == 0) {
-            printCompany(companies.companies[i]);
+    printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "VIEWS", "STATE");
+    for (i = 0; i < companies->counter; i++) {
+        if (strcmp(companies->companies[i].locality, locality) == 0) {
+            companies->companies[i].views++;
+            printCompany(companies->companies[i]);
             counter++;
         }
     }

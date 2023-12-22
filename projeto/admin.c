@@ -64,6 +64,8 @@ int createCompany(Companies *companies, ActivityBranchs *branchs) {
         verify_PostalCode(&(companies->companies[companies->counter].postalCode));
         
         companies->companies[companies->counter].state = getInt(0, 1, MSG_STATE);
+        companies->companies[companies->counter].views = 0;
+        companies->companies[companies->counter].rate = 0;
 
 
         return companies->counter++;
@@ -101,19 +103,20 @@ void printCompany(Company company) {
             printf("%-15s", "BIG COMPANY");
             break;
     }
-    printf("%-15d %-20s %-20s %-15d %-15.2f", company.branch, company.street, company.locality, company.postalCode, company.rate);
+    printf("%-15d %-20s %-20s %-15d %-15.2f %-15d", company.branch, company.street, company.locality, company.postalCode, company.rate, company.views);
     
     if (company.state == 0) {
         printf("%-10s", "Inactive\n");
     } else {
         printf("%-10s", "Active\n");
     }
+    
 }
 
 void listCompanies(Companies companies) {
     int i;
 
-    printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "STATE");
+    printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "VIEWS", "STATE");
     if (companies.counter > 0) {
         for (i = 0; i < companies.counter; i++) {
             printCompany(companies.companies[i]);

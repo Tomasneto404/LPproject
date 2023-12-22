@@ -60,19 +60,19 @@ void rate_company(Companies *companies);
  * @brief This function lists the details of the provided data structer
  * @param companies The variable containing the details to be listed
  */
-void listCompaniesByName(Companies companies);
+void listCompaniesByName(Companies *companies);
 
 /**
  * @brief This function promps the user to introduce a Category and lists the details of the provided data that has a matching Category field
  * @param companies The variable containing the details to be listed
  */
-void listCompaniesByCategory(Companies companies);
+void listCompaniesByCategory(Companies *companies);
 
 /**
  * @brief This function promps the user to introduce a Locality and lists the details of the provided data that has a matching Locality field
  * @param companies The variable containing the details to be listed
  */
-void listCompaniesByLocality(Companies companies);
+void listCompaniesByLocality(Companies *companies);
 
 /**
  * Falta documentar
