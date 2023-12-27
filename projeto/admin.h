@@ -139,13 +139,13 @@ void createCompanies(Companies *companies, ActivityBranchs *branchs);
  * @brief The function aims to print all company data
  * @param receives as parameter a variable calls company of type company
  */
-void printCompany(Company company);
+void printCompany(Company company, ActivityBranchs branchs);
 
 /**
  * @brief aims to print all companies, if they exist, if it does not display an error message
  * @param receives as parameter a variable calls company of type company
  */
-void listCompanies(Companies companies);
+void listCompanies(Companies companies, ActivityBranchs branchs);
 
 /**
  * @brief aims to update all of a company's data, except the NIF

@@ -46,7 +46,7 @@ void rate_company(Companies *companies) {
     }
 }
 
-void listCompaniesByName(Companies *companies) {
+void listCompaniesByName(Companies *companies, ActivityBranchs branchs) {
 
     int companyCode = 0;
     char name[MAX_COMPANY_NAME_SIZE];
@@ -57,7 +57,7 @@ void listCompaniesByName(Companies *companies) {
     if (companyCode != -1) {
         printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "VIEWS", "STATE");
         companies->companies[companyCode].views++;
-        printCompany(companies->companies[companyCode]);
+        printCompany(companies->companies[companyCode], branchs);
 
     } else {
 
@@ -77,7 +77,7 @@ int searchCompanyByCategory(Companies companies, int category) {
     return -1;
 }
 
-void listCompaniesByCategory(Companies *companies) {
+void listCompaniesByCategory(Companies *companies, ActivityBranchs branchs) {
 
     int i = 0, category = 0, counter = 0;
 
@@ -87,7 +87,7 @@ void listCompaniesByCategory(Companies *companies) {
     for (i = 0; i < companies->counter; i++) {
         if (companies->companies[i].category == category) {
             companies->companies[i].views++;
-            printCompany(companies->companies[i]);
+            printCompany(companies->companies[i], branchs);
             counter++;
         }
     }
@@ -98,7 +98,7 @@ void listCompaniesByCategory(Companies *companies) {
 
 }
 
-void listCompaniesByLocality(Companies *companies) {
+void listCompaniesByLocality(Companies *companies, ActivityBranchs branchs) {
 
     int i, counter = 0;
     char locality[MAX_COMPANY_LOCALITY_SIZE];
@@ -108,7 +108,7 @@ void listCompaniesByLocality(Companies *companies) {
     for (i = 0; i < companies->counter; i++) {
         if (strcmp(companies->companies[i].locality, locality) == 0) {
             companies->companies[i].views++;
-            printCompany(companies->companies[i]);
+            printCompany(companies->companies[i], branchs);
             counter++;
         }
     }

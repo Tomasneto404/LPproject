@@ -89,7 +89,9 @@ void createCompanies(Companies *companies, ActivityBranchs *branchs) {
     
 }
 
-void printCompany(Company company) {
+void printCompany(Company company, ActivityBranchs branchs) {
+    int i;
+    
     printf("\n%-10d %-20s ", company.nif, company.name);
 
     switch (company.category) {
@@ -103,7 +105,16 @@ void printCompany(Company company) {
             printf("%-15s", "BIG COMPANY");
             break;
     }
-    printf("%-15d %-20s %-20s %-15d %-15.2f %-15d", company.branch, company.street, company.locality, company.postalCode, company.rate, company.views);
+    
+    for (i = 0; i < branchs.counter; i++) {
+        
+        if (company.branch == branchs.branchs[i].code) {
+            printf("%-15s ", branchs.branchs[i].name);
+        }
+        
+    }
+    
+    printf("%-20s %-20s %-15d %-15.2f %-15d", company.street, company.locality, company.postalCode, company.rate, company.views);
     
     if (company.state == 0) {
         printf("%-10s", "Inactive\n");
@@ -113,13 +124,13 @@ void printCompany(Company company) {
     
 }
 
-void listCompanies(Companies companies) {
+void listCompanies(Companies companies, ActivityBranchs branchs) {
     int i;
 
     printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "VIEWS", "STATE");
     if (companies.counter > 0) {
         for (i = 0; i < companies.counter; i++) {
-            printCompany(companies.companies[i]);
+            printCompany(companies.companies[i], branchs);
         }
     } else {
         puts(EMPTY_LIST);

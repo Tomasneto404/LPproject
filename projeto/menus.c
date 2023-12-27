@@ -92,15 +92,15 @@ void search_company_menu(Companies *companies, ActivityBranchs *branchs) {
         switch (option) {
 
             case 1:
-                listCompaniesByName(companies);
+                listCompaniesByName(companies, *branchs);
                 break;
 
             case 2:
-                listCompaniesByCategory(companies);
+                listCompaniesByCategory(companies, *branchs);
                 break;
 
             case 3:
-                listCompaniesByLocality(companies);
+                listCompaniesByLocality(companies, *branchs);
                 break;
 
             default:
@@ -181,7 +181,7 @@ void company_manage_menu(Companies *companies, ActivityBranchs *branchs) {
                 break;
 
             case 2:
-                listCompanies(*companies);
+                listCompanies(*companies, *branchs);
                 break;
 
             case 3:
