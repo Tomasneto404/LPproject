@@ -494,34 +494,20 @@ void freeCompanies(Companies *companies) {
 }
 
 void loadCompanies(Companies *companies, char *file) {
-     int i, success = 0;
+     int i;
      
     FILE *fp = fopen(file, "rb");
     if (fp != NULL) {
         fread(&companies->counter, sizeof (int), 1, fp);
-
+        
         for (i = 0; i < companies->counter; i++) {
             fread(&companies->companies[i], sizeof (Company), 1, fp);
         }
         
-        success = 1;
         fclose(fp);
     } else {
         perror("Error opening file");
         exit(EXIT_FAILURE);
-    }
-
-    if (!success) {
-        fp = fopen(file, "wb");
-        
-        if (fp != NULL) {
-
-            //companies->companies = (Company*) malloc(ROOMS_INITIAL_CAPACITY * sizeof (Company));
-            companies->counter = 0;
-
-            fclose(fp);
-        }
-        
     }
     
 }

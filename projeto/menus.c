@@ -13,10 +13,11 @@
 #include "menus.h"
 #include "branchs.h"
 #include "general.h"
+#include "comments.h"
 
 //COMPANY MENU
 
-void company_menu(Companies *companies) {
+void company_menu(Companies *companies, Comments *comments) {
 
     int flag = 0, option = 0, companyPosition = -1;
 
@@ -113,7 +114,7 @@ void search_company_menu(Companies *companies, ActivityBranchs *branchs) {
 
 }
 
-void user_menu(Companies *companies, ActivityBranchs *branchs) {
+void user_menu(Companies *companies, ActivityBranchs *branchs, Comments *comments) {
 
     int flag = 0, option = 0;
 
@@ -141,7 +142,7 @@ void user_menu(Companies *companies, ActivityBranchs *branchs) {
 
             case 3:
                 //Comment Company Menu
-                //addComments(companies);
+                createComments(comments, *companies);
                 break;
 
             default:
@@ -334,12 +335,16 @@ void main_menu() {
 
     Companies *companies;
     companies = (Companies*) malloc(MAX_COMPANIES * sizeof (Companies));
+    loadCompanies(companies, COMPANIES_FILE);
 
     ActivityBranchs *branchs;
     branchs = (ActivityBranchs*) malloc(MAX_ACTIVITY_BRANCHS * sizeof (ActivityBranchs));
-
-    loadCompanies(companies, COMPANIES_FILE);
     loadBranchs(branchs, BRANCHS_FILE);
+    
+    Comments *comments;
+    comments = (Comments*) malloc(MAX_COMMENTS * sizeof (Comments));
+    //loadComments(comments, COMMENTS_FILE); 
+   
 
     int flag = 0, option = 0;
 
@@ -362,16 +367,17 @@ void main_menu() {
                 break;
 
             case 2:
-                user_menu(companies, branchs);
+                user_menu(companies, branchs, comments);
                 break;
 
             case 3:
-                company_menu(companies);
+                company_menu(companies, comments);
                 break;
 
             case 4:
                 saveCompanies(companies, COMPANIES_FILE);
                 saveBranchs(branchs, BRANCHS_FILE);
+                saveComments(comments, COMMENTS_FILE);
                 break;
 
             default:

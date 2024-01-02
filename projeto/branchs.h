@@ -6,7 +6,7 @@
 
 /* 
  * File:   branchs.h
- * Author: tomas
+ * Author: Tania, Gonçalo, Tomas
  *
  * Created on 2 de janeiro de 2024, 15:07
  */

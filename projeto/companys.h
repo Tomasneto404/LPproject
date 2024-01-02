@@ -6,7 +6,7 @@
 
 /* 
  * File:   companys.h
- * Author: tomas
+ * Author: Tania, Gonçalo, Tomas
  *
  * Created on 2 de janeiro de 2024, 15:05
  */
@@ -73,8 +73,6 @@ typedef struct {
     int views;
     float rate;
     int state;
-    //Comment comments[30];
-    //int last_comment_position;
 } Company;
 
 typedef struct {

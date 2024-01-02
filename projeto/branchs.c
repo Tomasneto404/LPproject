@@ -198,3 +198,4 @@ void loadBranchs(ActivityBranchs *branchs, char *file) {
 
     fclose(fp);
 }
+
