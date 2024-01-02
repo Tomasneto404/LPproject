@@ -21,44 +21,5 @@
  */
 void martelaDados(Companies *companies, ActivityBranchs *branchs);
 
-/**
- * Falta documentar - Guardar dados de memoria para ficheiro
- * @param companies
- * @param file
- */
-void saveCompanies(Companies *companies, char *file);
-
-/**
- * Falta documentar
- * @param branchs
- * @param file
- */
-void saveBranchs(ActivityBranchs *branchs, char *file);
-
-/**
- * Falta documentar
- * @param companies
- */
-void freeCompanies(Companies *companies);
-
-/**
- * Falta documentar
- * @param branchs
- */
-void freeBranchs(ActivityBranchs *branchs);
-
-/**
- * Falta documentar
- * @param companies
- * @param file
- */
-void loadCompanies(Companies *companies, char *file);
-
-/**
- * Falta documentar
- * @param branchs
- * @param file
- */
-void loadBranchs(ActivityBranchs *branchs, char *file);
 #endif /* GENERAL_H */
 

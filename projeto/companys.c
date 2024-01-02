@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 #include "input.h"
-#include "admin.h"
-
-
-/**********************************COMPANY********************************************/
+#include "branchs.h"
+#include "companys.h"
 
 int verifyNif(Companies companies, int nif) {
     int i;
@@ -259,155 +250,278 @@ void top5bestCompanies(Companies *companies) {
     }
 }
 
-/**********************************ACTIVITY BRANCH************************************/
+int searchCompanyByName(Companies companies, char *name) {
+    int i;
+    for (i = 0; i < companies.counter; i++) {
+        if (strcmp(companies.companies[i].name, name) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
 
+float company_average(Company *company, float rate) {
+    float media;
 
-char convertLowercase(ActivityBranchs *branchs) {
-    int counter, i;
+    media = (company->rate + rate) / 2;
 
-    while ((branchs->branchs[branchs->counter].name)[counter] != '\0') {
-        counter++;
+    return media;
+}
+
+void rate_company(Companies *companies) {
+    char name[MAX_NAME];
+    float rate;
+    int code;
+
+    readString(name, MAX_NAME, MSG_NAME_COMP);
+
+    code = searchCompanyByName(*companies, name);
+    
+    if (code != -1) {
+
+        rate = getFloat(MIN_RATING, MAX_RATING, MSG_RATING);
+        if (companies->companies[code].rate == 0) {
+            companies->companies[code].rate = rate;
+        } else {
+            companies->companies[code].rate = company_average(&companies->companies[code], rate);
+        }
+        printf("%.2f", companies->companies[code].rate);
+    } else {
+        puts(ERROR_COMPANY_NOT_FOUND);
+    }
+}
+
+void listCompaniesByName(Companies *companies, ActivityBranchs branchs) {
+
+    int companyCode = 0;
+    char name[MAX_COMPANY_NAME_SIZE];
+    readString(name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
+
+    companyCode = searchCompanyByName(*companies, name);
+
+    if (companyCode != -1) {
+        printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "VIEWS", "STATE");
+        companies->companies[companyCode].views++;
+        printCompany(companies->companies[companyCode], branchs);
+
+    } else {
+
+        puts("ERROR: Company not found.");
+
     }
 
-    if ((branchs->branchs[branchs->counter].name)[counter - 1] == '\n') {
-        (branchs->branchs[branchs->counter].name)[--counter] = '\0';
+}
+
+int searchCompanyByCategory(Companies companies, int category) {
+    int i;
+    for (i = 0; i < companies.counter; i++) {
+        if (companies.companies[i].category == category) {
+            return i;
+        }
     }
+    return -1;
+}
 
-    for (i = 0; i < counter; i++) {
-        if (branchs->branchs[branchs->counter].name[i] >= 65 && branchs->branchs[branchs->counter].name[i] <= 90) {
+void listCompaniesByCategory(Companies *companies, ActivityBranchs branchs) {
 
-           return branchs->branchs[branchs->counter].name[i] += 32;
+    int i = 0, category = 0, counter = 0;
+
+    category = getInt(0, 2, MSG_CATEGORY);
+
+    printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "VIEWS", "STATE");
+    for (i = 0; i < companies->counter; i++) {
+        if (companies->companies[i].category == category) {
+            companies->companies[i].views++;
+            printCompany(companies->companies[i], branchs);
+            counter++;
         }
     }
 
-    return 0;
-}
-
-void createActivityBranchs(ActivityBranchs *branchs){
-    
-    if (branchs->counter < MAX_ACTIVITY_BRANCHS) {
-        
-        if (createActivityBranch(branchs) == -1) {
-            puts(AB_ALREADY_EXISTS);
-        } 
-        
-    } else {
-        puts(FULL_LIST);
+    if (!counter) {
+        puts("No companies found.");
     }
-    
+
 }
 
-int createActivityBranch(ActivityBranchs *branchs){
+void listCompaniesByLocality(Companies *companies, ActivityBranchs branchs) {
+
+    int i, counter = 0;
+    char locality[MAX_COMPANY_LOCALITY_SIZE];
+    readString(locality, MAX_COMPANY_LOCALITY_SIZE, MSG_LOCALITY);
+
+    printf("\n%-10s %-20s %-15s %-15s %-20s %-20s %-15s %-15s %-15s %-10s\n", "NIF", "NAME", "CATEGORY", "BRANCH", "STREET", "LOCALITY", "POSTAL CODE", "RATE", "VIEWS", "STATE");
+    for (i = 0; i < companies->counter; i++) {
+        if (strcmp(companies->companies[i].locality, locality) == 0) {
+            companies->companies[i].views++;
+            printCompany(companies->companies[i], branchs);
+            counter++;
+        }
+    }
+
+    if (!counter) {
+        puts("No companies found.");
+    }
+
+}
+
+/**
+ * @brief 
+ * @param email
+ * @return 
+ */
+int verifyEmail(char *email) {
+    int i, tam, x;
+    char *atSign = NULL, *point = NULL;
+
+    tam = strlen(email);
+
+    for (i = 0; i < tam; i++) {
+        if (email[i] == '@') {
+            atSign = email + i;
+            x = i;
+            break;
+        }
+    }
+
+    if (atSign == NULL) {
+        return 0;
+    }
+
+    for (i = x; i < tam; i++) {
+        if (email[i] == '.') {
+            point = email + i;
+            break;
+        }
+    }
+
+    if (point == NULL) {
+        return 0;
+    }
+    if (point == atSign + 1) {
+        return 0;
+    }
+
+    if (point + 1 == email + tam) {
+        return 0;
+    }
+
+    return 1;
+}
+
+void addComment(Company *company) {
     
-    int code = getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG);
-    //char temp_name[MAX_AB_NAME_SIZE];
+    //char email[MAX_EMAIL], name[MAX_NAME], comment[MAX_COMMENT_CARACTER];
     
-    if (searchActivityBranch(*branchs, code) == -1) {
-        branchs->branchs[branchs->counter].code = code;
-        
-        readString(branchs->branchs[branchs->counter].name, MAX_AB_NAME_SIZE, NAME_MSG);
-        
-//        readString(temp_name, MAX_AB_NAME_SIZE, NAME_MSG);      
+//    if (company->last_comment_position < MAX_COMMENTS_SIZE) {
+//        readString(company->comments[company->last_comment_position].email, MAX_EMAIL, MSG_EMAIL);
+//        readString(company->comments[company->last_comment_position].name, MAX_NAME, MSG_NAME);
+//        readString(company->comments[company->last_comment_position].comment, MAX_COMMENT_CARACTER, MSG_COMMENT);
 //        
-//        if (searhAbName(branchs, temp_name) == -1) {
-//            strcpy(branchs->branchs[branchs->counter].name, temp_name);
-//        } else {
-//            puts("ERROR: This is already in use.");
-//        }
-        
-        branchs->branchs[branchs->counter].state = getInt(MIN_STATE_VALUE, MAX_STATE_VALUE, STATE_MSG);
-        
-        return branchs->counter++;
+//        company->last_comment_position++;
+//    } else {
+//        puts("ERROR: Maximum of comments reached.");
+//    }
+    
+}
+
+//void expandCommentsCapacity(Comments *comments) {
+//    int tam = (comments->size) == 0 ? MAX_COMMENTS_SIZE : comments->size * 2;
+//    Comment *temp = (Comment*) realloc(comments->comments, sizeof (Comment) * (tam));
+//    if (temp != NULL) {
+//        comments->size = tam;
+//        comments->comments = temp;
+//    }
+//}
+
+void addComments(Companies *companies) {
+    
+    int companyCode = 0;
+    char name[MAX_COMPANY_NAME_SIZE];
+    readString(name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
+
+    companyCode = searchCompanyByName(*companies, name);
+
+    if (companyCode != -1) {
+        addComment(&companies->companies[companyCode]);
+    } else {
+        puts("ERROR: Company not found.");
+    }
+}
+
+int selectCompany(Companies companies) {
+    
+    int companyCode = 0;
+    char name[MAX_COMPANY_NAME_SIZE];
+    readString(name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
+
+    companyCode = searchCompanyByName(companies, name);
+
+    if (companyCode != -1) {
+
+        return companyCode;
+
+    } else {
+
+        puts("ERROR: Company not found.");
+
     }
     return -1;
 }
 
-int searchActivityBranch(ActivityBranchs branchs, int code) {
+void saveCompanies(Companies *companies, char *file){
     int i;
-    for (i = 0; i < branchs.counter; i++) {
-        if (branchs.branchs[i].code == code) {
-            return i;
-        }
-    }
-    return -1;
-}
 
-void listActivityBranchs(ActivityBranchs branchs){
-    if (branchs.counter > 0) {
-        int i;
-        printf("\n%-5s %-15s %-10s\n", "CODE", "NAME", "STATE");
-        for (i = 0; i < branchs.counter; i++) {
-            printActivityBranch(branchs.branchs[i]);
-        }
-    } else {
-        puts(EMPTY_LIST);
-    }
-}
-
-void printActivityBranch(ActivityBranch branch){
-    
-    printf("%-5d %-15s", branch.code, branch.name);
-    
-    if (branch.state == 1) {
-        printf("%-10s\n", "Active");
-    } else {
-        printf("%-10s\n", "Inactive");
-    }
-}
-
-void updateActivityBranchs(ActivityBranchs *branchs){
-    
-    int code = searchActivityBranch(*branchs, getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG));
-    
-    if (code != -1) {
-        updateActivityBranch(&branchs->branchs[code]);
-    } else {
-        puts(AB_DOES_NOT_EXIST);
+    FILE *fp = fopen(file, "wb");
+    if (fp == NULL) {
+        exit(EXIT_FAILURE);
     }
     
+    fwrite(&companies->counter, sizeof (int), 1, fp);
+    
+    for (i = 0; i < companies->counter; i++) {
+        fwrite(&companies->companies[i], sizeof (Company), 1, fp);
+    }
+    
+    fclose(fp);
 }
 
-void updateActivityBranch(ActivityBranch *branch){
-    
-    branch->state = getInt(MIN_STATE_VALUE, MAX_STATE_VALUE, STATE_MSG);
-    
+void freeCompanies(Companies *companies) {
+    if (companies->companies) {
+        free(companies);
+    }
+
+    companies = NULL;
 }
 
-void deleteActivityBranchs(ActivityBranchs *branchs){
-    int i, code = searchActivityBranch(*branchs, getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG));
-    
-    if (code != -1) {
-        
-        for (i = code; i < branchs->counter - 1; i++) {
-            branchs->branchs[i] = branchs->branchs[i + 1];
+void loadCompanies(Companies *companies, char *file) {
+     int i, success = 0;
+     
+    FILE *fp = fopen(file, "rb");
+    if (fp != NULL) {
+        fread(&companies->counter, sizeof (int), 1, fp);
+
+        for (i = 0; i < companies->counter; i++) {
+            fread(&companies->companies[i], sizeof (Company), 1, fp);
         }
         
-        deleteActivityBranch(&branchs->branchs[i]);
-        
-        branchs->counter--;
-        
+        success = 1;
+        fclose(fp);
     } else {
-        puts(AB_DOES_NOT_EXIST);
+        perror("Error opening file");
+        exit(EXIT_FAILURE);
     }
-    
-}
 
-void deleteActivityBranch(ActivityBranch *branch){
-    branch->code = 0;
-    strcpy(branch->name, "");
-    branch->state = 0;
-}
-
-int searhAbName(ActivityBranchs branchs, char *name) {
-    
-    int i;
-    
-    for (i = 0; i < branchs.counter; i++) {
+    if (!success) {
+        fp = fopen(file, "wb");
         
-        if (branchs.branchs[i].name == name) {
-            return i;
+        if (fp != NULL) {
+
+            //companies->companies = (Company*) malloc(ROOMS_INITIAL_CAPACITY * sizeof (Company));
+            companies->counter = 0;
+
+            fclose(fp);
         }
         
     }
-    return -1;
+    
 }

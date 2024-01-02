@@ -35,12 +35,13 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/admin.o \
+	${OBJECTDIR}/branchs.o \
+	${OBJECTDIR}/comments.o \
+	${OBJECTDIR}/companys.o \
 	${OBJECTDIR}/general.o \
 	${OBJECTDIR}/input.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/menus.o \
-	${OBJECTDIR}/user.o
+	${OBJECTDIR}/menus.o
 
 
 # C Compiler Flags
@@ -67,10 +68,20 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projeto.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/projeto ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/admin.o: admin.c
+${OBJECTDIR}/branchs.o: branchs.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/admin.o admin.c
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/branchs.o branchs.c
+
+${OBJECTDIR}/comments.o: comments.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/comments.o comments.c
+
+${OBJECTDIR}/companys.o: companys.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/companys.o companys.c
 
 ${OBJECTDIR}/general.o: general.c
 	${MKDIR} -p ${OBJECTDIR}
@@ -91,11 +102,6 @@ ${OBJECTDIR}/menus.o: menus.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/menus.o menus.c
-
-${OBJECTDIR}/user.o: user.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/user.o user.c
 
 # Subprojects
 .build-subprojects:

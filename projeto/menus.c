@@ -9,9 +9,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "input.h"
-#include "admin.h"
+#include "companys.h"
 #include "menus.h"
-#include "user.h"
+#include "branchs.h"
 #include "general.h"
 
 //COMPANY MENU
@@ -141,7 +141,7 @@ void user_menu(Companies *companies, ActivityBranchs *branchs) {
 
             case 3:
                 //Comment Company Menu
-                addComments(companies);
+                //addComments(companies);
                 break;
 
             default:

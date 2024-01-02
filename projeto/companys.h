@@ -5,14 +5,16 @@
  */
 
 /* 
- * File:   admin.h
- * Author: Tania, Gonçalo, Tomas
+ * File:   companys.h
+ * Author: tomas
  *
- * Created on 29 de novembro de 2023, 18:13
+ * Created on 2 de janeiro de 2024, 15:05
  */
 
-#ifndef ADMIN_H
-#define ADMIN_H
+#ifndef COMPANYS_H
+#define COMPANYS_H
+
+#include "branchs.h"
 
 #define MSG_NIF "Please, insert your nif!\n> "
 #define MSG_NAME "Please, insert company's name\n> "
@@ -36,42 +38,25 @@
 #define MAX_COMPANY_NAME_SIZE 100
 #define MAX_COMPANY_LOCALITY_SIZE 100
 
+#define MSG_NAME_COMP "Company name.\n"
 
+#define MIN_RATING 0
+#define MAX_RATING 5
+#define MSG_RATING "Please, rate the Company!\n"
 
-#define MAX_ACTIVITY_BRANCHS 30
-#define MAX_AB_NAME_SIZE 100
-#define NAME_MSG "Name > "
+#define MSG_SEARCH_COMPANY "\n Please put the company name\n > "
 
-#define STATE_MSG "State [1 - Active | 0 - Inactive] > "
-#define MIN_STATE_VALUE 0
-#define MAX_STATE_VALUE 1
+#define MAX_COMMENTS_SIZE 100
+#define MAX_COMMENT_CARACTER 300
+#define MSG_COMMENT "Comment \n > "
 
-#define CODE_MSG "Code > "
-#define MIN_AB_CODE_VALUE 0
-#define MAX_AB_CODE_VALUE 1000
+#define MAX_NAME 256
+#define MSG_NAME_USER "Please, insert your name!\n > "
 
-#define AB_DOES_NOT_EXIST "ERROR: This Activity Branch does not exist."
-#define AB_ALREADY_EXISTS "ERROR: This activity branch already exists."
-
-#define EMPTY_LIST "ERROR: List is empty."
-#define FULL_LIST "ERROR: List is full."
+#define MAX_EMAIL 256
+#define MSG_EMAIL "Please, insert your email\n > "
 
 #define COMPANIES_FILE "companies.bin"
-#define BRANCHS_FILE "branchs.bin"
-
-/**********************************COMPANY********************************************/
-
-typedef struct{
-    char name[256];
-    char email[256];
-    char comment[256];
-    int state;
-}Comment;
-
-typedef struct{
-    int counter,size;
-    Comment *comments;
-}Comments;
 
 typedef enum {
     MICRO, SME, BIG_COMPANY
@@ -97,15 +82,7 @@ typedef struct {
     Company companies[MAX_COMPANIES];
 } Companies;
 
-typedef struct ActivityBranch {
-    int code, state;
-    char name[MAX_AB_NAME_SIZE];
-} ActivityBranch;
 
-typedef struct ActivityBranchs {
-    int counter;
-    ActivityBranch branchs[MAX_ACTIVITY_BRANCHS];
-} ActivityBranchs;
 /**
  * @brief This function is used to analyze whether there is already a company with the same NIF
  * @param receives an Companies's type called companies
@@ -190,75 +167,68 @@ void top5lookedCompanies(Companies *companies);
  *                  The 'companies' array is sorted based on the ratings of each company.
  */
 void top5bestCompanies(Companies *companies);
-/**********************************ACTIVITY BRANCH**************************************/
+
 
 /**
- * @brief This function is used to convert the entire string to lowercase
- * @param receives a pointer of type ActivityBranchs called name
- * @return zero in the end of function
+ * @brief This fuction searchs the position of the provided data array that matches the provided name
+ * @param companies The array to be searched
+ * @param name The name to see if matches
+ * @return i if it encounters a position that has an equal name, -1 if not
  */
-char convertLowercase(ActivityBranchs *name);
+int searchCompanyByName(Companies companies, char *name);
 
 /**
- * @brief Creates a new activity branch and adds it to the collection of activity branches.
- * @param branchs A pointer to the structure containing the array of activity branches.
+ * @brief This function allows the user to rate a company and computes the average rating for the company. If the company does not exist, it adds it to the list of companies.
+ * @param companies A pointer to the 'Companies' structure containing company data. The function uses this to search for and update the rating of a company.
+ * @return An integer value:
+ *         - The index of the rated company in the 'companies' array if successful.
+ *         - '-1' if the company name already exists in the list or if there's an error.
  */
-void createActivityBranchs(ActivityBranchs *branchs);
+void rate_company(Companies *companies);
 
 /**
- * @brief Creates a new activity branch and adds it to the collection if the code is unique.
- * @param branchs A pointer to the structure containing the array of activity branches.
- * @return The index of the newly created activity branch if successful, or -1 if the code already exists.
+ * @brief This function lists the details of the provided data structer
+ * @param companies The variable containing the details to be listed
  */
-int createActivityBranch(ActivityBranchs *branchs);
+void listCompaniesByName(Companies *companies, ActivityBranchs branchs);
 
 /**
- * @brief Searches for an activity branch with a specific code within an array of activity branches.
- * @param branchs The structure containing the array of activity branches.
- * @param code The code to search for within the activity branches.
- * @return The index of the activity branch if found, or -1 if not found.
+ * @brief This function promps the user to introduce a Category and lists the details of the provided data that has a matching Category field
+ * @param companies The variable containing the details to be listed
  */
-int searchActivityBranch(ActivityBranchs branchs, int code);
+void listCompaniesByCategory(Companies *companies, ActivityBranchs branchs);
 
 /**
- * @brief Lists the details of all activity branches in the provided array.
- * @param branchs The structure containing the array of activity branches to be listed.
+ * @brief This function promps the user to introduce a Locality and lists the details of the provided data that has a matching Locality field
+ * @param companies The variable containing the details to be listed
  */
-void listActivityBranchs(ActivityBranchs branchs);
+void listCompaniesByLocality(Companies *companies, ActivityBranchs branchs);
 
 /**
- * @brief Prints the details of an individual activity branch.
- * @param branch The activity branch to be printed.
+ * Falta documentar
+ * @param companies
+ * @return 
  */
-void printActivityBranch(ActivityBranch branch);
+int selectCompany(Companies companies);
 
 /**
- * @brief Updates the details of an activity branch within an array of activity branches.
- * @param branchs A pointer to the structure containing the array of activity branches.
+ * Falta documentar - Guardar dados de memoria para ficheiro
+ * @param companies
+ * @param file
  */
-void updateActivityBranchs(ActivityBranchs *branchs);
+void saveCompanies(Companies *companies, char *file);
 
 /**
- * @brief Updates the state of an individual activity branch.
- * @param branch A pointer to the specific activity branch to be updated.
+ * Falta documentar
+ * @param companies
  */
-void updateActivityBranch(ActivityBranch *branch);
+void freeCompanies(Companies *companies);
 
 /**
- * @brief Deletes an activity branch from the array of activity branches.
- * @param branchs A pointer to the structure containing the array of activity branches.
+ * Falta documentar
+ * @param companies
+ * @param file
  */
-void deleteActivityBranchs(ActivityBranchs *branchs);
-
-/**
- * @brief Deletes an individual activity branch by resetting its attributes.
- * @param branch A pointer to the specific activity branch to be deleted.
- */
-void deleteActivityBranch(ActivityBranch *branch);
-
-/*
- Falta documentar
- */
-int verifyAbName(ActivityBranchs branchs, char *name);
-#endif /* ADMIN_H */
+void loadCompanies(Companies *companies, char *file);
+#endif /* COMPANYS_H */
 

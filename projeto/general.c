@@ -1,8 +1,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "admin.h"
-#include "user.h"
+#include "branchs.h"
+#include "companys.h"
 
 void martelaDados(Companies *companies, ActivityBranchs *branchs){
     /*SÓ DADOS DE TESTE*/
@@ -38,87 +38,4 @@ void martelaDados(Companies *companies, ActivityBranchs *branchs){
     /*SÓ DADOS DE TESTE*/
 }
 
-void saveCompanies(Companies *companies, char *file){
-    int i;
-
-    FILE *fp = fopen(file, "wb");
-    if (fp == NULL) {
-        exit(EXIT_FAILURE);
-    }
-    
-    fwrite(&companies->counter, sizeof (int), 1, fp);
-    
-    for (i = 0; i < companies->counter; i++) {
-        fwrite(&companies->companies[i], sizeof (Company), 1, fp);
-    }
-    
-    fclose(fp);
-}
-
-void saveBranchs(ActivityBranchs *branchs, char *file){
-    int i;
-
-    FILE *fp = fopen(file, "wb");
-    if (fp == NULL) {
-        exit(EXIT_FAILURE);
-    }
-
-    fwrite(&branchs->counter, sizeof (int), 1, fp);
-
-    for (i = 0; i < branchs->counter; i++) {
-        fwrite(&branchs->branchs[i], sizeof (ActivityBranch), 1, fp);
-    }
-
-    fclose(fp);
-}
-
-void freeCompanies(Companies *companies) {
-    if (companies->companies) {
-        free(companies);
-    }
-
-    companies = NULL;
-}
-
-void freeBranchs(ActivityBranchs *branchs) {
-    if (branchs->branchs) {
-        free(branchs);
-    }
-
-    branchs = NULL;
-}
-
-void loadCompanies(Companies *companies, char *file) {
-    FILE *fp = fopen(file, "rb");
-    if (fp == NULL) {
-        perror("Error opening file");
-        exit(EXIT_FAILURE);
-    }
-
-    fread(&companies->counter, sizeof(int), 1, fp);
-
-    int i;
-    for (i = 0; i < companies->counter; i++) {
-        fread(&companies->companies[i], sizeof(Company), 1, fp);
-    }
-
-    fclose(fp);
-}
-
-void loadBranchs(ActivityBranchs *branchs, char *file) {
-    FILE *fp = fopen(file, "rb");
-    if (fp == NULL) {
-        perror("Error opening file");
-        exit(EXIT_FAILURE);
-    }
-
-    fread(&branchs->counter, sizeof(int), 1, fp);
-
-    int i;
-    for (i = 0; i < branchs->counter; i++) {
-        fread(&branchs->branchs[i], sizeof(ActivityBranch), 1, fp);
-    }
-
-    fclose(fp);
-}
 

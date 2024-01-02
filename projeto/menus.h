@@ -14,7 +14,8 @@
 #ifndef MENUS_H
 #define MENUS_H
 
-#include "admin.h"
+#include "companys.h"
+#include "branchs.h"
 
 #define OPTION_MESSAGE "Option > "
 
