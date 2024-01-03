@@ -33,6 +33,7 @@ void createComments(Comments *comments, Companies companies){
 }
 
 
+
 int createComment(Comments *comments, Companies companies){
     
     int companyCode = 0, code = getInt(MIN_COMMENT_CODE, MAX_COMMENT_CODE, CODE_MSG);
