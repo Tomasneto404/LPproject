@@ -26,7 +26,7 @@
 #define MAX_COMMENT_EMAIL 100
 #define COMMENT_EMAIL_MSG "Email > "
 
-#define MAX_COMMENT_SIZE 500
+#define MAX_COMMENT_SIZE 50
 #define COMMENT_MSG "Comment > "
 
 #define COMMENTS_FILE "comments.bin"
@@ -40,7 +40,7 @@ typedef struct{
 }Comment;
 
 typedef struct{
-    int counter;
+    int counter, size;
     Comment *comments;
 }Comments;
 
