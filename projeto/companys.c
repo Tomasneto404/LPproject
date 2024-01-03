@@ -498,6 +498,9 @@ void loadCompanies(Companies *companies, char *file) {
      
     FILE *fp = fopen(file, "rb");
     if (fp != NULL) {
+        
+        companies->counter = 0;
+        
         fread(&companies->counter, sizeof (int), 1, fp);
         
         for (i = 0; i < companies->counter; i++) {

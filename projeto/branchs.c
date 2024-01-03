@@ -190,7 +190,11 @@ void loadBranchs(ActivityBranchs *branchs, char *file) {
         exit(EXIT_FAILURE);
     }
 
+    branchs->counter = 0;
+    
     fread(&branchs->counter, sizeof(int), 1, fp);
+    
+    
     
     for (i = 0; i < branchs->counter; i++) {
         fread(&branchs->branchs[i], sizeof(ActivityBranch), 1, fp);

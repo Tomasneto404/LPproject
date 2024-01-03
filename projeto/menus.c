@@ -343,7 +343,7 @@ void main_menu() {
     
     Comments *comments;
     comments = (Comments*) malloc(MAX_COMMENTS * sizeof (Comments));
-    //loadComments(comments, COMMENTS_FILE); 
+    loadComments(comments, COMMENTS_FILE); 
    
 
     int flag = 0, option = 0;

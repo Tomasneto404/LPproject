@@ -75,6 +75,8 @@ void loadComments(Comments *comments, char *file) {
     if (fp != NULL) {
         fread(&comments->counter, sizeof (int), 1, fp);
 
+        comments->counter = 0;
+        
         for (i = 0; i < comments->counter; i++) {
             fread(&comments->comments[i], sizeof (Comment), 1, fp);
             
