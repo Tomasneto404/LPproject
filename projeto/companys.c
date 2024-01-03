@@ -33,6 +33,16 @@ int verify_PostalCode(int *postalCode) {
     return 1;
 }
 
+void expandCompaniesCapacity(Companies *companies) {
+    int tam = (companies->size) == 0 ? MAX_COMPANIES : companies->size * 2;
+    Company *tmp = (Company*) realloc(companies->companies, sizeof (Company)*(tam));
+
+    if (tmp != NULL) {
+        companies->size = tam;
+        companies->companies = tmp;
+    }
+}
+
 int createCompany(Companies *companies, ActivityBranchs *branchs) {
     int nif;
 
@@ -53,7 +63,7 @@ int createCompany(Companies *companies, ActivityBranchs *branchs) {
 
         companies->companies[companies->counter].postalCode = getInt(MIN_POSTALCODE, MAX_POSTALCODE, MSG_POSTALCODE);
         verify_PostalCode(&(companies->companies[companies->counter].postalCode));
-        
+
         companies->companies[companies->counter].state = getInt(0, 1, MSG_STATE);
         companies->companies[companies->counter].views = 0;
         companies->companies[companies->counter].rate = 0;
@@ -65,24 +75,22 @@ int createCompany(Companies *companies, ActivityBranchs *branchs) {
 }
 
 void createCompanies(Companies *companies, ActivityBranchs *branchs) {
-    
-    if (branchs->counter > 0) {
-        if (companies->counter < MAX_COMPANIES) {
-            if (createCompany(companies, branchs) == -1) {
-                puts("COMPANIE DOESN'T EXIST\n");
-            }
-        } else {
-            puts(FULL_LIST);
+    if (companies->counter == companies->size) {
+        expandCompaniesCapacity(companies);
+    }
+
+    if (companies->counter < companies->size) {
+        if(createCompany(companies, branchs)== -1){
+            puts("COMPANIE DOESN'T EXIST\n");
         }
-    } else {
+    }else{
         puts("ERROR: No Activity Branchs created.");
     }
-    
 }
 
 void printCompany(Company company, ActivityBranchs branchs) {
     int i;
-    
+
     printf("\n%-10d %-20s ", company.nif, company.name);
 
     switch (company.category) {
@@ -96,23 +104,23 @@ void printCompany(Company company, ActivityBranchs branchs) {
             printf("%-15s", "BIG COMPANY");
             break;
     }
-    
+
     for (i = 0; i < branchs.counter; i++) {
-        
+
         if (company.branch == branchs.branchs[i].code) {
             printf("%-15s ", branchs.branchs[i].name);
         }
-        
+
     }
-    
+
     printf("%-20s %-20s %-15d %-15.2f %-15d", company.street, company.locality, company.postalCode, company.rate, company.views);
-    
+
     if (company.state == 0) {
         printf("%-10s", "Inactive\n");
     } else {
         printf("%-10s", "Active\n");
     }
-    
+
 }
 
 void listCompanies(Companies companies, ActivityBranchs branchs) {
@@ -127,7 +135,6 @@ void listCompanies(Companies companies, ActivityBranchs branchs) {
         puts(EMPTY_LIST);
     }
 }
-
 
 void updateCompany(Company *company) {
 
@@ -201,15 +208,15 @@ void deleteCompanies(Companies *companies) {
  */
 
 int compare_company(const void *a, const void *b) {
-    const Company *companyA = (const Company *)a;
-    const Company *companyB = (const Company *)b;
+    const Company *companyA = (const Company *) a;
+    const Company *companyB = (const Company *) b;
     return companyB->views - companyA->views;
 }
 
 void top5lookedCompanies(Companies *companies) {
     if (companies->counter > 0) {
         // Sorting the list of companies in descending order based on views using quicksort
-        qsort(companies->companies, companies->counter, sizeof(Company), compare_company);
+        qsort(companies->companies, companies->counter, sizeof (Company), compare_company);
 
         printf("The most looked companies are:\n");
 
@@ -223,10 +230,9 @@ void top5lookedCompanies(Companies *companies) {
     }
 }
 
-
 int compare_rate(const void *a, const void *b) {
-    const Company *companyA = (const Company *)a;
-    const Company *companyB = (const Company *)b;
+    const Company *companyA = (const Company *) a;
+    const Company *companyB = (const Company *) b;
 
     if (companyA->rate < companyB->rate) return 1;
     if (companyA->rate > companyB->rate) return -1;
@@ -236,7 +242,7 @@ int compare_rate(const void *a, const void *b) {
 void top5bestCompanies(Companies *companies) {
     if (companies->counter > 0) {
         // Sorting the list of companies in descending order based on rate using quicksort
-        qsort(companies->companies, companies->counter, sizeof(Company), compare_rate);
+        qsort(companies->companies, companies->counter, sizeof (Company), compare_rate);
 
         printf("Top 5 best companies are:\n");
 
@@ -276,7 +282,7 @@ void rate_company(Companies *companies) {
     readString(name, MAX_NAME, MSG_NAME_COMP);
 
     code = searchCompanyByName(*companies, name);
-    
+
     if (code != -1) {
 
         rate = getFloat(MIN_RATING, MAX_RATING, MSG_RATING);
@@ -408,48 +414,8 @@ int verifyEmail(char *email) {
     return 1;
 }
 
-void addComment(Company *company) {
-    
-    //char email[MAX_EMAIL], name[MAX_NAME], comment[MAX_COMMENT_CARACTER];
-    
-//    if (company->last_comment_position < MAX_COMMENTS_SIZE) {
-//        readString(company->comments[company->last_comment_position].email, MAX_EMAIL, MSG_EMAIL);
-//        readString(company->comments[company->last_comment_position].name, MAX_NAME, MSG_NAME);
-//        readString(company->comments[company->last_comment_position].comment, MAX_COMMENT_CARACTER, MSG_COMMENT);
-//        
-//        company->last_comment_position++;
-//    } else {
-//        puts("ERROR: Maximum of comments reached.");
-//    }
-    
-}
-
-//void expandCommentsCapacity(Comments *comments) {
-//    int tam = (comments->size) == 0 ? MAX_COMMENTS_SIZE : comments->size * 2;
-//    Comment *temp = (Comment*) realloc(comments->comments, sizeof (Comment) * (tam));
-//    if (temp != NULL) {
-//        comments->size = tam;
-//        comments->comments = temp;
-//    }
-//}
-
-void addComments(Companies *companies) {
-    
-    int companyCode = 0;
-    char name[MAX_COMPANY_NAME_SIZE];
-    readString(name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
-
-    companyCode = searchCompanyByName(*companies, name);
-
-    if (companyCode != -1) {
-        addComment(&companies->companies[companyCode]);
-    } else {
-        puts("ERROR: Company not found.");
-    }
-}
-
 int selectCompany(Companies companies) {
-    
+
     int companyCode = 0;
     char name[MAX_COMPANY_NAME_SIZE];
     readString(name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
@@ -468,20 +434,20 @@ int selectCompany(Companies companies) {
     return -1;
 }
 
-void saveCompanies(Companies *companies, char *file){
+void saveCompanies(Companies *companies, char *file) {
     int i;
 
     FILE *fp = fopen(file, "wb");
     if (fp == NULL) {
         exit(EXIT_FAILURE);
     }
-    
+
     fwrite(&companies->counter, sizeof (int), 1, fp);
-    
+
     for (i = 0; i < companies->counter; i++) {
         fwrite(&companies->companies[i], sizeof (Company), 1, fp);
     }
-    
+
     fclose(fp);
 }
 
@@ -494,23 +460,23 @@ void freeCompanies(Companies *companies) {
 }
 
 void loadCompanies(Companies *companies, char *file) {
-     int i;
-     
+    int i;
+
     FILE *fp = fopen(file, "rb");
     if (fp != NULL) {
-        
+
         companies->counter = 0;
-        
+
         fread(&companies->counter, sizeof (int), 1, fp);
-        
+
         for (i = 0; i < companies->counter; i++) {
             fread(&companies->companies[i], sizeof (Company), 1, fp);
         }
-        
+
         fclose(fp);
     } else {
         perror("Error opening file");
         exit(EXIT_FAILURE);
     }
-    
+
 }

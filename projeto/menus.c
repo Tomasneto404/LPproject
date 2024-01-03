@@ -335,15 +335,15 @@ void main_menu() {
 
     Companies *companies;
     companies = (Companies*) malloc(MAX_COMPANIES * sizeof (Companies));
-    loadCompanies(companies, COMPANIES_FILE);
+    //loadCompanies(companies, COMPANIES_FILE);
 
     ActivityBranchs *branchs;
     branchs = (ActivityBranchs*) malloc(MAX_ACTIVITY_BRANCHS * sizeof (ActivityBranchs));
-    loadBranchs(branchs, BRANCHS_FILE);
+    //loadBranchs(branchs, BRANCHS_FILE);
     
     Comments *comments;
     comments = (Comments*) malloc(MAX_COMMENTS * sizeof (Comments));
-    loadComments(comments, COMMENTS_FILE); 
+    //loadComments(comments, COMMENTS_FILE); 
    
 
     int flag = 0, option = 0;
