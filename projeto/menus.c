@@ -337,7 +337,6 @@ void main_menu() {
     loadCompanies(companies, COMPANIES_FILE);
 
     ActivityBranchs *branchs;
-    //branchs = (ActivityBranchs*) malloc(MAX_ACTIVITY_BRANCHS * sizeof (ActivityBranchs));
     loadBranchs(branchs, BRANCHS_FILE);
     
     Comments *comments;
