@@ -191,6 +191,7 @@ void company_manage_menu(Companies *companies, ActivityBranchs *branchs) {
 
             case 4:
                 deleteCompanies(companies);
+                
                 break;
 
             default:
