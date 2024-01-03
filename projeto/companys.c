@@ -80,10 +80,10 @@ void createCompanies(Companies *companies, ActivityBranchs *branchs) {
     }
 
     if (companies->counter < companies->size) {
-        if(createCompany(companies, branchs)== -1){
+        if (createCompany(companies, branchs) == -1) {
             puts("COMPANIE DOESN'T EXIST\n");
         }
-    }else{
+    } else {
         puts("ERROR: No Activity Branchs created.");
     }
 }
@@ -453,30 +453,42 @@ void saveCompanies(Companies *companies, char *file) {
 
 void freeCompanies(Companies *companies) {
     if (companies->companies) {
-        free(companies);
+        free(companies->companies);
+        companies->companies = NULL;
     }
 
     companies = NULL;
 }
 
 void loadCompanies(Companies *companies, char *file) {
-    int i;
+    int i, sucesso = 0;
 
     FILE *fp = fopen(file, "rb");
     if (fp != NULL) {
-
-        companies->counter = 0;
-
         fread(&companies->counter, sizeof (int), 1, fp);
 
-        for (i = 0; i < companies->counter; i++) {
-            fread(&companies->companies[i], sizeof (Company), 1, fp);
+        if (companies->counter > 0) {
+            companies->size = companies->counter;
+            companies->companies = (Company*) malloc(companies->counter * sizeof (Company));
+            for (i = 0; i < companies->counter; i++) {
+                fread(&companies->companies[i], sizeof (Company), 1, fp);
+            }
+            sucesso = 1;
         }
 
         fclose(fp);
-    } else {
-        perror("Error opening file");
-        exit(EXIT_FAILURE);
+    }
+
+    if (!sucesso) {
+        fp = fopen(file, "wb");
+        if (fp != NULL) {
+
+            companies->companies = (Company*) malloc(MAX_COMPANIES * sizeof (Company));
+            companies->counter = 0;
+            companies->size = MAX_COMPANIES;
+
+            fclose(fp);
+        }
     }
 
 }

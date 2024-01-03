@@ -175,31 +175,42 @@ void saveBranchs(ActivityBranchs *branchs, char *file){
 
 void freeBranchs(ActivityBranchs *branchs) {
     if (branchs->branchs) {
-        free(branchs);
+        free(branchs->branchs);
+        branchs->branchs = NULL;
     }
 
     branchs = NULL;
 }
 
 void loadBranchs(ActivityBranchs *branchs, char *file) {
-    int i;
-    
+    int i, sucesso = 0;
+
     FILE *fp = fopen(file, "rb");
-    if (fp == NULL) {
-        perror("Error opening file");
-        exit(EXIT_FAILURE);
+    if (fp != NULL) {
+        fread(&branchs->counter, sizeof (int), 1, fp);
+
+        if (branchs->counter > 0) {
+            branchs->size = branchs->counter;
+            branchs->branchs = (ActivityBranch*) malloc(branchs->counter * sizeof (ActivityBranch));
+            for (i = 0; i < branchs->counter; i++) {
+                fread(&branchs->branchs[i], sizeof (ActivityBranch), 1, fp);
+            }
+            sucesso = 1;
+        }
+
+        fclose(fp);
     }
 
-    branchs->counter = 0;
-    
-    fread(&branchs->counter, sizeof(int), 1, fp);
-    
-    
-    
-    for (i = 0; i < branchs->counter; i++) {
-        fread(&branchs->branchs[i], sizeof(ActivityBranch), 1, fp);
-    }
+    if (!sucesso) {
+        fp = fopen(file, "wb");
+        if (fp != NULL) {
 
-    fclose(fp);
+            branchs->branchs = (ActivityBranch*) malloc(MAX_ACTIVITY_BRANCHS * sizeof (ActivityBranch));
+            branchs->counter = 0;
+            branchs->size = MAX_ACTIVITY_BRANCHS;
+
+            fclose(fp);
+        }
+    }
 }
 

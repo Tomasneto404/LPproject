@@ -334,12 +334,11 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs) {
 void main_menu() {
 
     Companies *companies;
-    companies = (Companies*) malloc(MAX_COMPANIES * sizeof (Companies));
-    //loadCompanies(companies, COMPANIES_FILE);
+    loadCompanies(companies, COMPANIES_FILE);
 
     ActivityBranchs *branchs;
-    branchs = (ActivityBranchs*) malloc(MAX_ACTIVITY_BRANCHS * sizeof (ActivityBranchs));
-    //loadBranchs(branchs, BRANCHS_FILE);
+    //branchs = (ActivityBranchs*) malloc(MAX_ACTIVITY_BRANCHS * sizeof (ActivityBranchs));
+    loadBranchs(branchs, BRANCHS_FILE);
     
     Comments *comments;
     comments = (Comments*) malloc(MAX_COMMENTS * sizeof (Comments));
@@ -384,6 +383,7 @@ void main_menu() {
                 flag = 1;
                 freeCompanies(companies);
                 freeBranchs(branchs);
+                freeComments(comments);
                 break;
         }
 

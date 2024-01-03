@@ -117,7 +117,8 @@ void saveComments(Comments *comments, char *file) {
 
 void freeComments(Comments *comments) {
     if (comments->comments) {
-        free(comments);
+        free(comments->comments);
+        comments->comments = NULL;
     }
 
     comments = NULL;

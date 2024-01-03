@@ -40,8 +40,8 @@ typedef struct ActivityBranch {
 } ActivityBranch;
 
 typedef struct ActivityBranchs {
-    int counter;
-    ActivityBranch branchs[MAX_ACTIVITY_BRANCHS];
+    int counter, size;
+    ActivityBranch *branchs;
 } ActivityBranchs;
 
 
