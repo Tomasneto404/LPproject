@@ -14,6 +14,8 @@
 #ifndef COMMENTS_H
 #define COMMENTS_H
 
+#include "companys.h"
+
 #define MAX_COMMENTS 10
 #define CODE_ALREADY_EXISTS "ERROR: This code is alredy in use!\n"
 

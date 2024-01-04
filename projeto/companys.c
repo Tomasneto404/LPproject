@@ -183,10 +183,15 @@ void deleteCompanyData(Company *company) {
 
 void deleteCompanies(Companies *companies) {
 
-    int i, nif = verifyNif(*companies, getInt(MIN_NIF, MAX_NIF, MSG_NIF));
+    char name[MAX_NAME];
+    int code, i;
+    
+    readString(name, MAX_NAME, MSG_NAME_COMP);
+    
+    code = searchCompanyByName(*companies, name);
 
-    if (nif != -1) {
-        for (i = nif; i < companies->counter - 1; i++) {
+    if (code != -1) {
+        for (i = code; i < companies->counter - 1; i++) {
             companies->companies[i] = companies->companies[i + 1];
         }
 

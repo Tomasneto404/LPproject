@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include "input.h"
-#include "companys.h"
 #include "comments.h"
 
 int searchComment(Comments comments, int code) {
@@ -144,10 +142,10 @@ void freeComments(Comments *comments) {
 
 void printComment(Comment comment){
     
-    printf(" ID - %-10d | State - %-10d\n", comment.code, comment.state);
-    printf(" Author - %-20s\n", comment.name);
-    printf(" Title - %-20s\n", comment.title);
-    printf(" Text - %-20s\n\n", comment.comment);
+    printf("| ID - %-10d | State - %-10d\n", comment.code, comment.state);
+    printf("| Author - %-20s\n", comment.name);
+    printf("| Title - %-20s\n", comment.title);
+    printf("| Text - %-20s\n", comment.comment);
     
 }
 
@@ -155,17 +153,17 @@ void listComments(Comments *comments, Company company){
     int i;
 
     if (comments->counter > 0) {
-        printf("+++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|+++++++++++++++++++++++++++++++++++++++++|\n");
         for (i = 0; i < comments->counter; i++) {
             
             if (comments->comments[i].company_nif == company.nif) {
-                printf("-----------------------------------\n");
+                printf("\n| -----------------------------------\n");
                 printComment(comments->comments[i]);
-                printf("-----------------------------------\n");
+                printf("| -----------------------------------\n");
             }
             
         }
-        printf("+++++++++++++++++++++++++++++++++++++++++\n");
+        printf("\n|+++++++++++++++++++++++++++++++++++++++++|\n");
     } else {
         
         puts(EMPTY_LIST);

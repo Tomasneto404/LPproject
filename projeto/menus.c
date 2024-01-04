@@ -160,7 +160,7 @@ void user_menu(Companies *companies, ActivityBranchs *branchs, Comments *comment
 
 //ADMIN MENUS
 
-void company_manage_menu(Companies *companies, ActivityBranchs *branchs) {
+void company_manage_menu(Companies *companies, ActivityBranchs *branchs, Comments *comments) {
 
     int flag = 0, option = 0;
 
@@ -291,7 +291,7 @@ void reports_menu(Companies *companies) {
 
 }
 
-void admin_menu(Companies *companies, ActivityBranchs *branchs) {
+void admin_menu(Companies *companies, ActivityBranchs *branchs, Comments *comments) {
 
     int flag = 0, option = 0;
 
@@ -310,7 +310,7 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs) {
         switch (option) {
 
             case 1:
-                company_manage_menu(companies, branchs);
+                company_manage_menu(companies, branchs, comments);
                 break;
 
             case 2:
@@ -361,7 +361,7 @@ void main_menu() {
         switch (option) {
 
             case 1:
-                admin_menu(companies, branchs);
+                admin_menu(companies, branchs, comments);
                 break;
 
             case 2:

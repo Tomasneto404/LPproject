@@ -38,13 +38,13 @@
 #define MAX_COMPANY_NAME_SIZE 100
 #define MAX_COMPANY_LOCALITY_SIZE 100
 
-#define MSG_NAME_COMP "Company name.\n"
+#define MSG_NAME_COMP "Company name > "
 
 #define MIN_RATING 0
 #define MAX_RATING 5
 #define MSG_RATING "Please, rate the Company!\n"
 
-#define MSG_SEARCH_COMPANY "\n Please put the company name\n > "
+#define MSG_SEARCH_COMPANY "Company name > "
 
 #define MAX_COMMENTS_SIZE 100
 #define MAX_COMMENT_CARACTER 300

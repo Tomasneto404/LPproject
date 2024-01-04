@@ -16,6 +16,7 @@
 
 #include "companys.h"
 #include "branchs.h"
+#include "comments.h"
 
 #define OPTION_MESSAGE "Option > "
 
@@ -41,7 +42,7 @@ void user_menu();
  * @brief This function shows the menu that will allow to execute manage functions related with the Companys. It asks the user for an option and then executes the function associated with the chosen option.
  * @return This functions does not return a value. Prints in the terminal the company manage menu, asks the user for an option and executes a function associated with the chosen option.
  */
-void company_manage_menu();
+void company_manage_menu(Companies *companies, ActivityBranchs *branchs, Comments *comments);
 
 /**
  * @brief This function shows the menu that will allow to execute manage functions related with the Activity Branchs. It asks the user for an option and then executes the function associated with the chosen option.
@@ -59,7 +60,7 @@ void reports_menu(Companies *companies);
  * @brief This function shows the admin's menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
  * @return This functions does not return a value. Prints in the terminal the admin's menu, asks the user for an option and executes a function associated with the chosen option.
  */
-void admin_menu(Companies *companies, ActivityBranchs *branchs);
+void admin_menu(Companies *companies, ActivityBranchs *branchs, Comments *comments);
 
 /**
  * @brief This function shows the application's main menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
