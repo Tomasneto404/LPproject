@@ -189,6 +189,8 @@ void loadBranchs(ActivityBranchs *branchs, char *file) {
 
     FILE *fp = fopen(file, "rb");
     if (fp != NULL) {
+        branchs->counter = 0;
+        
         fread(&branchs->counter, sizeof (int), 1, fp);
 
         if (branchs->counter > 0) {

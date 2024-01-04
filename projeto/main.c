@@ -14,11 +14,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "menus.h"
+#include "branchs.h"
+#include "comments.h"
+#include "companys.h"
 
 int main() {
     
     main_menu();
-    
+        
     return (EXIT_SUCCESS);
 }
 

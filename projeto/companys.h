@@ -34,7 +34,7 @@
 #define MAX_NIF 999999999
 #define MIN_POSTALCODE 4000000
 #define MAX_POSTALCODE 9999999
-#define MAX_COMPANIES 30
+#define MAX_COMPANIES 10
 #define MAX_COMPANY_NAME_SIZE 100
 #define MAX_COMPANY_LOCALITY_SIZE 100
 
@@ -76,7 +76,7 @@ typedef struct {
 } Company;
 
 typedef struct {
-    int counter,size;
+    int counter, size;
     Company *companies;
 } Companies;
 

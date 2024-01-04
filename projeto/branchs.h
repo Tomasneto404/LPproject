@@ -14,7 +14,7 @@
 #ifndef BRANCHS_H
 #define BRANCHS_H
 
-#define MAX_ACTIVITY_BRANCHS 30
+#define MAX_ACTIVITY_BRANCHS 10
 #define MAX_AB_NAME_SIZE 100
 #define NAME_MSG "Name > "
 

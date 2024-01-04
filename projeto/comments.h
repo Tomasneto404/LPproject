@@ -14,7 +14,7 @@
 #ifndef COMMENTS_H
 #define COMMENTS_H
 
-#define MAX_COMMENTS 30
+#define MAX_COMMENTS 10
 #define CODE_ALREADY_EXISTS "ERROR: This code is alredy in use!\n"
 
 #define MIN_COMMENT_CODE 1
@@ -26,7 +26,10 @@
 #define MAX_COMMENT_EMAIL 100
 #define COMMENT_EMAIL_MSG "Email > "
 
-#define MAX_COMMENT_SIZE 50
+#define MAX_TITLE_SIZE 100
+#define TITLE_MSG "Title > "
+
+#define MAX_COMMENT_SIZE 256
 #define COMMENT_MSG "Comment > "
 
 #define COMMENTS_FILE "comments.bin"
@@ -36,6 +39,7 @@ typedef struct{
     int state, company_nif, code;
     char name[256];
     char email[256];
+    char title[256];
     char comment[256];
 }Comment;
 
@@ -87,6 +91,13 @@ void saveComments(Comments *comments, char *file);
  * @param comments
  */
 void freeComments(Comments *comments);
+
+/**
+ * Falta documentar
+ * @param comments
+ * @param company
+ */
+void listComments(Comments *comments, Company company);
 
 #endif /* COMMENTS_H */
 

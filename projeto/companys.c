@@ -53,7 +53,7 @@ int createCompany(Companies *companies, ActivityBranchs *branchs) {
 
         readString(companies->companies[companies->counter].name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
 
-        companies->companies[companies->counter].category = getInt(0, 3, MSG_CATEGORY);
+        companies->companies[companies->counter].category = getInt(0, 2, MSG_CATEGORY);
 
         listActivityBranchs(*branchs);
         companies->companies[companies->counter].branch = getInt(1, branchs->counter, MSG_BRANCH);
@@ -75,17 +75,23 @@ int createCompany(Companies *companies, ActivityBranchs *branchs) {
 }
 
 void createCompanies(Companies *companies, ActivityBranchs *branchs) {
-    if (companies->counter == companies->size) {
-        expandCompaniesCapacity(companies);
-    }
+    
+    if (branchs->counter > 0) {
+        if (companies->counter == companies->size) {
+            expandCompaniesCapacity(companies);
+        }
 
-    if (companies->counter < companies->size) {
-        if (createCompany(companies, branchs) == -1) {
-            puts("COMPANIE DOESN'T EXIST\n");
+        if (companies->counter < companies->size) {
+            if (createCompany(companies, branchs) == -1) {
+                puts("ERROR: Companie already exists\n");
+            }
+        } else {
+            puts("ERROR: Companies List is Full.");
         }
     } else {
-        puts("ERROR: No Activity Branchs created.");
+        puts("ERROR: Activity Branchs list is empty.");
     }
+    
 }
 
 void printCompany(Company company, ActivityBranchs branchs) {
@@ -132,7 +138,7 @@ void listCompanies(Companies companies, ActivityBranchs branchs) {
             printCompany(companies.companies[i], branchs);
         }
     } else {
-        puts(EMPTY_LIST);
+        puts(EMPTY_LIST); 
     }
 }
 
@@ -461,10 +467,12 @@ void freeCompanies(Companies *companies) {
 }
 
 void loadCompanies(Companies *companies, char *file) {
-    int i, sucesso = 0;
+    int i, success = 0;
 
     FILE *fp = fopen(file, "rb");
     if (fp != NULL) {
+        companies->counter = 0;
+        
         fread(&companies->counter, sizeof (int), 1, fp);
 
         if (companies->counter > 0) {
@@ -473,13 +481,13 @@ void loadCompanies(Companies *companies, char *file) {
             for (i = 0; i < companies->counter; i++) {
                 fread(&companies->companies[i], sizeof (Company), 1, fp);
             }
-            sucesso = 1;
+            success = 1;
         }
 
         fclose(fp);
     }
 
-    if (!sucesso) {
+    if (!success) {
         fp = fopen(file, "wb");
         if (fp != NULL) {
 

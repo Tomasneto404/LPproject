@@ -29,13 +29,14 @@ void company_menu(Companies *companies, Comments *comments) {
 
             printf("\n----COMPANY MENU----\n"
                     "1 - Manage Company\n"
-                    "2 - View Comments \n" //Adicionar o ocultar comments neste
-                    "3 - See Reports\n\n"
+                    "2 - View Comments \n"
+                    "3 - Hide Comment \n"//Adicionar o ocultar comments neste
+                    "4 - See Reports\n\n"
 
                     "0 - Back\n"
                     "\n");
 
-            option = getInt(0, 3, OPTION_MESSAGE);
+            option = getInt(0, 4, OPTION_MESSAGE);
 
             switch (option) {
 
@@ -45,6 +46,7 @@ void company_menu(Companies *companies, Comments *comments) {
 
                 case 2:
                     //View comments e info function
+                    listComments(comments, companies->companies[companyPosition]);
                     break;
 
                 case 3:
@@ -171,7 +173,7 @@ void company_manage_menu(Companies *companies, ActivityBranchs *branchs) {
                 "4 - Delete Company\n\n"
 
                 "0 - Back\n");
-        printf("Companies: %d/%d\n\n", companies->counter, MAX_COMPANIES);
+        printf("Companies: %d/%d\n\n", companies->counter, companies->size);
 
         option = getInt(0, 4, OPTION_MESSAGE);
 
@@ -218,7 +220,7 @@ void manage_activity_branch_menu(ActivityBranchs *branchs) {
                 "4 - Delete Activity Branch\n\n"
 
                 "0 - Back\n");
-        printf("Activity Branchs: %d/%d\n\n", branchs->counter, MAX_ACTIVITY_BRANCHS);
+        printf("Activity Branchs: %d/%d\n\n", branchs->counter, branchs->size);
 
         option = getInt(0, 4, OPTION_MESSAGE);
 
@@ -335,16 +337,13 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs) {
 void main_menu() {
 
     Companies *companies;
-    loadCompanies(companies, COMPANIES_FILE);
-
     ActivityBranchs *branchs;
-    loadBranchs(branchs, BRANCHS_FILE);
-    
     Comments *comments;
-    comments = (Comments*) malloc(MAX_COMMENTS * sizeof (Comments));
-    //loadComments(comments, COMMENTS_FILE); 
-   
 
+    loadCompanies(companies, COMPANIES_FILE);
+    //loadBranchs(branchs, BRANCHS_FILE);
+    loadComments(comments, COMMENTS_FILE); 
+    
     int flag = 0, option = 0;
 
     do {
@@ -375,17 +374,18 @@ void main_menu() {
 
             case 4:
                 saveCompanies(companies, COMPANIES_FILE);
-                saveBranchs(branchs, BRANCHS_FILE);
+                //saveBranchs(branchs, BRANCHS_FILE);
                 saveComments(comments, COMMENTS_FILE);
                 break;
 
             default:
                 flag = 1;
-                freeCompanies(companies);
-                freeBranchs(branchs);
-                freeComments(comments);
                 break;
         }
 
     } while (flag != 1);
+    
+    freeCompanies(companies);
+    //freeBranchs(branchs);
+    freeComments(comments);
 }
