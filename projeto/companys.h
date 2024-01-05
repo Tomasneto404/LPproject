@@ -16,6 +16,7 @@
 
 #include "branchs.h"
 
+
 #define MSG_NIF "Please, insert your nif!\n> "
 #define MSG_NAME "Please, insert company's name\n> "
 #define MSG_CATEGORY "Choose the category:\n0.MICRO\n1.SME\n2.BIG_COMPANY\n> "
@@ -79,7 +80,6 @@ typedef struct {
     int counter, size;
     Company *companies;
 } Companies;
-
 
 /**
  * @brief This function is used to analyze whether there is already a company with the same NIF
@@ -146,7 +146,7 @@ void deleteCompanyData(Company *company);
  * @brief deletes data from a specific company
  * @param receives as a parameter a pointer of type Companies
  */
-void deleteCompanies(Companies *companies);
+void deleteCompanies();
 
 /**
  * @brief This function displays the names of the top 5 most viewed companies 
@@ -228,5 +228,13 @@ void freeCompanies(Companies *companies);
  * @param file
  */
 void loadCompanies(Companies *companies, char *file);
+
+/**
+ * Falta documentar
+ * @param company
+ * @param comments
+ * @return 
+ */
+int hasComments();
 #endif /* COMPANYS_H */
 

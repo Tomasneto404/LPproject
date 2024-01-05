@@ -80,39 +80,43 @@ void search_company_menu(Companies *companies, ActivityBranchs *branchs) {
 
     int flag = 0, option = 0;
 
-    do {
+    if (companies->counter > 0){
+        do {
 
-        printf("\n----SEARCH COMPANY MENU----\n"
-                "1 - Search By Name\n"
-                "2 - Search By Category\n"
-                "3 - Search By Location\n\n"
+            printf("\n----SEARCH COMPANY MENU----\n"
+                    "1 - Search By Name\n"
+                    "2 - Search By Category\n"
+                    "3 - Search By Location\n\n"
 
-                "0 - Back\n"
-                "\n");
+                    "0 - Back\n"
+                    "\n");
 
-        option = getInt(0, 3, OPTION_MESSAGE);
+            option = getInt(0, 3, OPTION_MESSAGE);
 
-        switch (option) {
+            switch (option) {
 
-            case 1:
-                listCompaniesByName(companies, *branchs);
-                break;
+                case 1:
+                    listCompaniesByName(companies, *branchs);
+                    break;
 
-            case 2:
-                listCompaniesByCategory(companies, *branchs);
-                break;
+                case 2:
+                    listCompaniesByCategory(companies, *branchs);
+                    break;
 
-            case 3:
-                listCompaniesByLocality(companies, *branchs);
-                break;
+                case 3:
+                    listCompaniesByLocality(companies, *branchs);
+                    break;
 
-            default:
-                flag = 1;
-                break;
+                default:
+                    flag = 1;
+                    break;
 
-        }
+            }
 
-    } while (flag != 1);
+        } while (flag != 1);
+    } else {
+        puts("ERROR: lista vazia de companies");
+    }
 
 }
 
@@ -143,7 +147,6 @@ void user_menu(Companies *companies, ActivityBranchs *branchs, Comments *comment
                 break;
 
             case 3:
-                //Comment Company Menu
                 createComments(comments, *companies);
                 break;
 
@@ -192,7 +195,7 @@ void company_manage_menu(Companies *companies, ActivityBranchs *branchs, Comment
                 break;
 
             case 4:
-                deleteCompanies(companies);
+                deleteCompanies(companies, comments);
 
                 break;
 
@@ -331,8 +334,6 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs, Comments *commen
     } while (flag != 1);
 
 }
-
-//MAIN MENU
 
 void main_menu() {
     Companies companies;

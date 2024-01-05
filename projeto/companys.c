@@ -4,6 +4,7 @@
 #include "input.h"
 #include "branchs.h"
 #include "companys.h"
+#include "comments.h"
 
 int verifyNif(Companies companies, int nif) {
     int i;
@@ -75,7 +76,7 @@ int createCompany(Companies *companies, ActivityBranchs *branchs) {
 }
 
 void createCompanies(Companies *companies, ActivityBranchs *branchs) {
-    
+
     if (branchs->counter > 0) {
         if (companies->counter == companies->size) {
             expandCompaniesCapacity(companies);
@@ -91,7 +92,7 @@ void createCompanies(Companies *companies, ActivityBranchs *branchs) {
     } else {
         puts("ERROR: Activity Branchs list is empty.");
     }
-    
+
 }
 
 void printCompany(Company company, ActivityBranchs branchs) {
@@ -138,7 +139,7 @@ void listCompanies(Companies companies, ActivityBranchs branchs) {
             printCompany(companies.companies[i], branchs);
         }
     } else {
-        puts(EMPTY_LIST); 
+        puts(EMPTY_LIST);
     }
 }
 
@@ -181,25 +182,30 @@ void deleteCompanyData(Company *company) {
 
 //alterar função quando criarmos função para os comenatarios
 
-void deleteCompanies(Companies *companies) {
+void deleteCompanies(Companies *companies, Comments *comments) {
 
     char name[MAX_NAME];
     int code, i;
-    
+
     readString(name, MAX_NAME, MSG_NAME_COMP);
-    
+
     code = searchCompanyByName(*companies, name);
 
-    if (code != -1) {
-        for (i = code; i < companies->counter - 1; i++) {
-            companies->companies[i] = companies->companies[i + 1];
+    if (!hasComments(companies->companies[code], comments)) {
+        if (code != -1) {
+            for (i = code; i < companies->counter - 1; i++) {
+                companies->companies[i] = companies->companies[i + 1];
+            }
+
+            deleteCompanyData(&companies->companies[i]);
+
+            companies->counter--;
+        } else {
+            puts("ERROR: Company not found.");
         }
-
-        deleteCompanyData(&companies->companies[i]);
-
-        companies->counter--;
     } else {
-        puts("ERROR");
+        companies->companies[code].state = 0;
+        puts("\n*ERROR: Can´t delete companies with comments. \nState was changed to Inactive.*\n");
     }
 }
 
@@ -302,7 +308,6 @@ void rate_company(Companies *companies) {
         } else {
             companies->companies[code].rate = company_average(&companies->companies[code], rate);
         }
-        printf("%.2f", companies->companies[code].rate);
     } else {
         puts(ERROR_COMPANY_NOT_FOUND);
     }
@@ -312,6 +317,9 @@ void listCompaniesByName(Companies *companies, ActivityBranchs branchs) {
 
     int companyCode = 0;
     char name[MAX_COMPANY_NAME_SIZE];
+
+
+
     readString(name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
 
     companyCode = searchCompanyByName(*companies, name);
@@ -326,6 +334,7 @@ void listCompaniesByName(Companies *companies, ActivityBranchs branchs) {
         puts("ERROR: Company not found.");
 
     }
+
 
 }
 
@@ -342,6 +351,7 @@ int searchCompanyByCategory(Companies companies, int category) {
 void listCompaniesByCategory(Companies *companies, ActivityBranchs branchs) {
 
     int i = 0, category = 0, counter = 0;
+
 
     category = getInt(0, 2, MSG_CATEGORY);
 
@@ -378,6 +388,7 @@ void listCompaniesByLocality(Companies *companies, ActivityBranchs branchs) {
     if (!counter) {
         puts("No companies found.");
     }
+
 
 }
 
@@ -477,7 +488,7 @@ void loadCompanies(Companies *companies, char *file) {
     FILE *fp = fopen(file, "rb");
     if (fp != NULL) {
         companies->counter = 0;
-        
+
         fread(&companies->counter, sizeof (int), 1, fp);
 
         if (companies->counter > 0) {
@@ -504,4 +515,18 @@ void loadCompanies(Companies *companies, char *file) {
         }
     }
 
+}
+
+int hasComments(Company company, Comments comments) {
+    
+    int i;
+    
+    for (i = 0; i < comments.counter; i++){
+        
+        if (comments.comments[i].company_nif == company.nif) {
+            return 1;
+        }
+        
+    }
+    return 0;
 }
