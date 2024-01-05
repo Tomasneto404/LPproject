@@ -193,7 +193,7 @@ void company_manage_menu(Companies *companies, ActivityBranchs *branchs, Comment
 
             case 4:
                 deleteCompanies(companies);
-                
+
                 break;
 
             default:
@@ -335,15 +335,14 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs, Comments *commen
 //MAIN MENU
 
 void main_menu() {
+    Companies companies;
+    ActivityBranchs branchs;
+    Comments comments;
 
-    Companies *companies;
-    ActivityBranchs *branchs;
-    Comments *comments;
+    loadCompanies(&companies, COMPANIES_FILE);
+    loadBranchs(&branchs, BRANCHS_FILE);
+    loadComments(&comments, COMMENTS_FILE);
 
-    loadCompanies(companies, COMPANIES_FILE);
-    //loadBranchs(branchs, BRANCHS_FILE);
-    loadComments(comments, COMMENTS_FILE); 
-    
     int flag = 0, option = 0;
 
     do {
@@ -361,21 +360,21 @@ void main_menu() {
         switch (option) {
 
             case 1:
-                admin_menu(companies, branchs, comments);
+                admin_menu(&companies, &branchs, &comments);
                 break;
 
             case 2:
-                user_menu(companies, branchs, comments);
+                user_menu(&companies, &branchs, &comments);
                 break;
 
             case 3:
-                company_menu(companies, comments);
+                company_menu(&companies, &comments);
                 break;
 
             case 4:
-                saveCompanies(companies, COMPANIES_FILE);
-                //saveBranchs(branchs, BRANCHS_FILE);
-                saveComments(comments, COMMENTS_FILE);
+                saveCompanies(&companies, COMPANIES_FILE);
+                saveBranchs(&branchs, BRANCHS_FILE);
+                saveComments(&comments, COMMENTS_FILE);
                 break;
 
             default:
@@ -384,8 +383,8 @@ void main_menu() {
         }
 
     } while (flag != 1);
-    
-    freeCompanies(companies);
-    //freeBranchs(branchs);
-    freeComments(comments);
+
+    freeCompanies(&companies);
+    freeBranchs(&branchs);
+    freeComments(&comments);
 }
