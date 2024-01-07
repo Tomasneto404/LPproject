@@ -101,5 +101,12 @@ void freeComments(Comments *comments);
  */
 void listComments(Comments *comments, Company company);
 
+/**
+ * Falta documentar
+ * @param company
+ * @param comments
+ */
+void hideComment(Company company, Comments *comments);
+
 #endif /* COMMENTS_H */
 

@@ -156,18 +156,19 @@ void updateCompany(Company *company) {
 }
 
 void updateCompanies(Companies *companies) {
+    char name[MAX_NAME];
+    int code;
+    readString(name, MAX_NAME, MSG_NAME_COMP);
+    
+    code = searchCompanyByName(*companies, name);
 
-    int nif = verifyNif(*companies, getInt(MIN_NIF, MAX_NIF, MSG_NIF));
-
-    if (nif != -1) {
-        updateCompany(&companies->companies[nif]);
+    if (code != -1) {
+        updateCompany(&companies->companies[code]);
     } else {
 
         puts("ERROR");
     }
 }
-
-//alterar função quando houver comentarios de utilizadores
 
 void deleteCompanyData(Company *company) {
 
@@ -179,8 +180,6 @@ void deleteCompanyData(Company *company) {
     strcpy(company->locality, "");
     company->postalCode = 0;
 }
-
-//alterar função quando criarmos função para os comenatarios
 
 void deleteCompanies(Companies *companies, Comments *comments) {
 
@@ -445,14 +444,8 @@ int selectCompany(Companies companies) {
     companyCode = searchCompanyByName(companies, name);
 
     if (companyCode != -1) {
-
         return companyCode;
-
-    } else {
-
-        puts("ERROR: Company not found.");
-
-    }
+    } 
     return -1;
 }
 

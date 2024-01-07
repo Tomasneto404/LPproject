@@ -30,7 +30,7 @@ void company_menu(Companies *companies, Comments *comments) {
             printf("\n----COMPANY MENU----\n"
                     "1 - Manage Company\n"
                     "2 - View Comments \n"
-                    "3 - Hide Comment \n"//Adicionar o ocultar comments neste
+                    "3 - Hide Comment \n"
                     "4 - See Reports\n\n"
 
                     "0 - Back\n"
@@ -45,11 +45,15 @@ void company_menu(Companies *companies, Comments *comments) {
                     break;
 
                 case 2:
-                    //View comments e info function
                     listComments(comments, companies->companies[companyPosition]);
                     break;
 
                 case 3:
+                    //Hide comments function
+                    hideComment(companies->companies[companyPosition], comments);
+                    break;
+                    
+                case 4:
                     //View Reports function
                     break;
 
