@@ -101,7 +101,7 @@ void updateActivityBranch(ActivityBranch *branch);
  * @brief Deletes an activity branch from the array of activity branches.
  * @param branchs A pointer to the structure containing the array of activity branches.
  */
-void deleteActivityBranchs(ActivityBranchs *branchs);
+void deleteActivityBranchs();
 
 /**
  * @brief Deletes an individual activity branch by resetting its attributes.

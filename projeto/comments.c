@@ -147,6 +147,11 @@ void freeComments(Comments *comments) {
     comments = NULL;
 }
 
+/**
+ * Falta documentar
+ * @param comment
+ * @return 
+ */
 int isStateActive(Comment comment) {
     
     if (comment.state != 0){
@@ -157,7 +162,7 @@ int isStateActive(Comment comment) {
 
 void printComment(Comment comment){
     
-    printf("| ID - %-10d | State - %-10d\n", comment.code, comment.state);
+    printf("| ID - %-10d \n", comment.code);
     printf("| Author - %-20s\n", comment.name);
     printf("| Title - %-20s\n", comment.title);
     printf("| Text - %-20s\n", comment.comment);

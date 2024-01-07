@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include "input.h"
 #include "branchs.h"
+#include "companys.h"
 
 char convertLowercase(ActivityBranchs *branchs) {
     int counter, i;
@@ -119,21 +120,57 @@ void updateActivityBranch(ActivityBranch *branch) {
 
 }
 
-void deleteActivityBranchs(ActivityBranchs *branchs) {
-    int i, code = searchActivityBranch(*branchs, getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG));
-
-    if (code != -1) {
-
-        for (i = code; i < branchs->counter - 1; i++) {
-            branchs->branchs[i] = branchs->branchs[i + 1];
+int hasCompany(ActivityBranch branch, Companies companies) {
+    
+    int i, counter = 0;
+    
+    for (i = 0; i < companies.counter; i++) {
+        
+        if (companies.companies[i].branch == branch.code){   
+            companies.companies[i].state = 0;   
+            counter++;
         }
+        
+    }
+    
+    if (counter > 0) {
+        return 0;
+    }
+    
+    return -1;
+}
 
-        deleteActivityBranch(&branchs->branchs[i]);
+void deleteActivityBranchs(ActivityBranchs *branchs, Companies *companies) {
+    
+    int i, code = 0, companyCode = 0; 
 
-        branchs->counter--;
+    if (branchs->counter > 0) {
+        code = searchActivityBranch(*branchs, getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG));
+                
+        if (code != -1) {
 
+            if ( hasCompany(branchs->branchs[code], *companies) == -1) {
+                
+                for (i = code; i < branchs->counter - 1; i++) {
+                    branchs->branchs[i] = branchs->branchs[i + 1];
+                }
+
+                deleteActivityBranch(&branchs->branchs[i]);
+
+                branchs->counter--;
+                
+                puts("SUCCESS: Activity Branch deleted.");
+                
+            } else {
+                branchs->branchs[code].state = 0;
+                puts("ERROR: There are companies with this branch in use. Activity Branch's and Company's state have been changed to Inactive.");
+            }
+
+        } else {
+            puts(AB_DOES_NOT_EXIST);
+        }
     } else {
-        puts(AB_DOES_NOT_EXIST);
+        puts("ERROR: Activity Branch List is empty.");
     }
 
 }

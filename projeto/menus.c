@@ -214,7 +214,7 @@ void company_manage_menu(Companies *companies, ActivityBranchs *branchs, Comment
 
 }
 
-void manage_activity_branch_menu(ActivityBranchs *branchs) {
+void manage_activity_branch_menu(ActivityBranchs *branchs, Companies *companies) {
 
     int flag = 0, option = 0;
 
@@ -246,7 +246,7 @@ void manage_activity_branch_menu(ActivityBranchs *branchs) {
                 break;
 
             case 4:
-                deleteActivityBranchs(branchs);
+                deleteActivityBranchs(branchs, companies);
                 break;
 
             default:
@@ -321,7 +321,7 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs, Comments *commen
                 break;
 
             case 2:
-                manage_activity_branch_menu(branchs);
+                manage_activity_branch_menu(branchs, companies);
                 break;
 
             case 3:
