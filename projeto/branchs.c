@@ -37,18 +37,47 @@ void expandBranchsCapacity(ActivityBranchs *branchs) {
     }
 }
 
+int verifyABName(ActivityBranchs branchs, char *name) {
+
+    int i;
+
+    for (i = 0; i < branchs.counter; i++) {
+
+        if (strcmp(branchs.branchs[i].name, name) == 0) {
+            return 0;
+        }
+
+    }
+    return -1;
+}
+
 int createActivityBranch(ActivityBranchs *branchs) {
 
     int code = getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG);
-
+    char name[MAX_NAME];
+    
+    
     if (searchActivityBranch(*branchs, code) == -1) {
-        branchs->branchs[branchs->counter].code = code;
+        
+        readString(name, MAX_COMPANY_NAME_SIZE, NAME_MSG);
+        
+        if (verifyABName(*branchs, name) == -1) {
+            
+            branchs->branchs[branchs->counter].code = code;
+            
+            strcpy(branchs->branchs[branchs->counter].name, name);
 
-        readString(branchs->branchs[branchs->counter].name, MAX_AB_NAME_SIZE, NAME_MSG);
+            branchs->branchs[branchs->counter].state = getInt(MIN_STATE_VALUE, MAX_STATE_VALUE, STATE_MSG);
 
-        branchs->branchs[branchs->counter].state = getInt(MIN_STATE_VALUE, MAX_STATE_VALUE, STATE_MSG);
-
-        return branchs->counter++;
+            branchs->counter++;
+            
+            return 0;
+        } else {
+            return 1;
+        }
+        
+    } else {
+        return 2;
     }
     return -1;
 }
@@ -60,9 +89,21 @@ void createActivityBranchs(ActivityBranchs *branchs) {
     }
 
     if (branchs->counter < branchs->size) {
-        if (createActivityBranch(branchs) == -1) {
-            puts("Branch DOESN'T EXIST\n");
+        
+        switch (createActivityBranch(branchs)) {
+            case 1:
+                puts("ERROR: Name is already in use.");
+                break;
+
+            case 2:
+                puts("ERROR: Code is already in use.");
+                break;
+
+            default:
+                puts("SUCCESS: Activity Branch created");
+                break;
         }
+        
     } else {
         puts("ERROR: No Activity Branchs created.");
     }

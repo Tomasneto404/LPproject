@@ -44,34 +44,63 @@ void expandCompaniesCapacity(Companies *companies) {
     }
 }
 
+int verifyName(Companies companies, char *name) {
+    
+    int i;
+    
+    for (i = 0; i < companies.counter; i++) {
+        
+        if (strcmp(companies.companies[i].name, name) == 0){
+            return 0;
+        }
+        
+    }
+    return -1;
+}
+
 int createCompany(Companies *companies, ActivityBranchs *branchs) {
     int nif;
+    char name[MAX_NAME];
 
     nif = getInt(MIN_NIF, MAX_NIF, MSG_NIF);
 
     if (verifyNif(*companies, nif) == -1) {
-        companies->companies[companies->counter].nif = nif;
+        
+        readString(name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
+        
+        if (verifyName(*companies, name) == -1){
+            companies->companies[companies->counter].nif = nif;
 
-        readString(companies->companies[companies->counter].name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
+            strcpy(companies->companies[companies->counter].name, name);
 
-        companies->companies[companies->counter].category = getInt(0, 2, MSG_CATEGORY);
+            companies->companies[companies->counter].category = getInt(0, 2, MSG_CATEGORY);
 
-        listActivityBranchs(*branchs);
-        companies->companies[companies->counter].branch = getInt(1, branchs->counter, MSG_BRANCH);
+            listActivityBranchs(*branchs);
+            companies->companies[companies->counter].branch = getInt(1, branchs->counter, MSG_BRANCH);
 
-        readString(companies->companies[companies->counter].street, 50, MSG_STREET);
-        readString(companies->companies[companies->counter].locality, 50, MSG_LOCALITY);
+            readString(companies->companies[companies->counter].street, 50, MSG_STREET);
+            readString(companies->companies[companies->counter].locality, 50, MSG_LOCALITY);
 
-        companies->companies[companies->counter].postalCode = getInt(MIN_POSTALCODE, MAX_POSTALCODE, MSG_POSTALCODE);
-        verify_PostalCode(&(companies->companies[companies->counter].postalCode));
+            companies->companies[companies->counter].postalCode = getInt(MIN_POSTALCODE, MAX_POSTALCODE, MSG_POSTALCODE);
+            verify_PostalCode(&(companies->companies[companies->counter].postalCode));
 
-        companies->companies[companies->counter].state = getInt(0, 1, MSG_STATE);
-        companies->companies[companies->counter].views = 0;
-        companies->companies[companies->counter].rate = 0;
+            companies->companies[companies->counter].state = getInt(0, 1, MSG_STATE);
+            companies->companies[companies->counter].views = 0;
+            companies->companies[companies->counter].rate = 0;
 
+            companies->counter++;
 
-        return companies->counter++;
+            return 0;
+            
+        } else {
+            return 1;
+        }
+        
+    } else {
+        return 2;
     }
+        
+        
     return -1;
 }
 
@@ -83,9 +112,22 @@ void createCompanies(Companies *companies, ActivityBranchs *branchs) {
         }
 
         if (companies->counter < companies->size) {
-            if (createCompany(companies, branchs) == -1) {
-                puts("ERROR: Companie already exists\n");
+            
+            switch(createCompany(companies, branchs)){
+                case 1:
+                    puts("ERROR: Name is already in use.");
+                    break;
+                    
+                case 2:
+                    puts("ERROR: Nif is already in use.");
+                    break;
+                    
+                default:
+                    puts("SUCCESS: Company created");
+                    break;
             }
+            
+            
         } else {
             puts("ERROR: Companies List is Full.");
         }
