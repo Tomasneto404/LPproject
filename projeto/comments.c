@@ -173,6 +173,7 @@ void listComments(Comments *comments, Company company){
     int i;
     
     if (hasComments(company, *comments) == 1){
+        
         if (comments->counter > 0) {
             printf("|+++++++++++++++++++++++++++++++++++++++++|\n");
             for (i = 0; i < comments->counter; i++) {
@@ -195,7 +196,7 @@ void listComments(Comments *comments, Company company){
 
         }
     } else {
-        puts("ERROR: Companys doesn´t have comments.");
+        puts("ERROR: Company doesn´t have comments.");
     }
 
     
@@ -203,23 +204,30 @@ void listComments(Comments *comments, Company company){
 
 void hideComment(Company company, Comments *comments){
     
-    int commentPosition = -1, code = getInt(MIN_COMMENT_CODE, MAX_COMMENT_CODE, CODE_MSG);
+    int commentPosition = -1, code = 0;
     
-    commentPosition = searchComment(*comments, code);
-    
-    if (commentPosition != -1) {
-        if (comments->comments[commentPosition].company_nif == company.nif) {
-            if (isStateActive(comments->comments[commentPosition]) == 0){   
-                comments->comments[commentPosition].state = 0;
-                puts("SUCCESS: Comment state was changed to Inactive.");   
+    if (hasComments(company, *comments) == 1){
+        
+        code = getInt(MIN_COMMENT_CODE, MAX_COMMENT_CODE, CODE_MSG);
+        commentPosition = searchComment(*comments, code);
+                
+        if (commentPosition != -1) {
+            if (comments->comments[commentPosition].company_nif == company.nif) {
+                if (isStateActive(comments->comments[commentPosition]) == 0) {
+                    comments->comments[commentPosition].state = 0;
+                    puts("SUCCESS: Comment state was changed to Inactive.");
+                } else {
+                    puts("ERROR: Comment is already Inactive.");
+                }
             } else {
-                puts("ERROR: Comment is already Inactive.");
+                puts("ERROR: This comment doesn´t belong to this company.");
             }
         } else {
-            puts("ERROR: This comment doesn´t belong to this company.");
+            puts("ERROR: Comment not found.");
         }
     } else {
-        puts("ERROR: Comment not found.");
+        puts("ERROR: Company doesn´t have comments.");
     }
+    
     
 }
