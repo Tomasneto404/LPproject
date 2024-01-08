@@ -45,15 +45,15 @@ void expandCompaniesCapacity(Companies *companies) {
 }
 
 int verifyName(Companies companies, char *name) {
-    
+
     int i;
-    
+
     for (i = 0; i < companies.counter; i++) {
-        
-        if (strcmp(companies.companies[i].name, name) == 0){
+
+        if (strcmp(companies.companies[i].name, name) == 0) {
             return 0;
         }
-        
+
     }
     return -1;
 }
@@ -65,42 +65,42 @@ int createCompany(Companies *companies, ActivityBranchs *branchs) {
     nif = getInt(MIN_NIF, MAX_NIF, MSG_NIF);
 
     if (verifyNif(*companies, nif) == -1) {
-        
+
         readString(name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
-        
-        if (verifyName(*companies, name) == -1){
+
+        if (verifyName(*companies, name) == -1) {
             companies->companies[companies->counter].nif = nif;
 
             strcpy(companies->companies[companies->counter].name, name);
 
-            companies->companies[companies->counter].category = getInt(0, 2, MSG_CATEGORY);
+            companies->companies[companies->counter].category = getInt(MIN_CATEGORY, MAX_CATEGORY, MSG_CATEGORY);
 
             listActivityBranchs(*branchs);
-            companies->companies[companies->counter].branch = getInt(1, branchs->counter, MSG_BRANCH);
+            companies->companies[companies->counter].branch = getInt(MIN_BRANCH, branchs->counter, MSG_BRANCH);
 
-            readString(companies->companies[companies->counter].street, 50, MSG_STREET);
-            readString(companies->companies[companies->counter].locality, 50, MSG_LOCALITY);
+            readString(companies->companies[companies->counter].street, MAX_STREET, MSG_STREET);
+            readString(companies->companies[companies->counter].locality, MAX_LOCALITY, MSG_LOCALITY);
 
             companies->companies[companies->counter].postalCode = getInt(MIN_POSTALCODE, MAX_POSTALCODE, MSG_POSTALCODE);
             verify_PostalCode(&(companies->companies[companies->counter].postalCode));
 
-            companies->companies[companies->counter].state = getInt(0, 1, MSG_STATE);
+            companies->companies[companies->counter].state = getInt(MIN_STATE, MAX_STATE, MSG_STATE);
             companies->companies[companies->counter].views = 0;
             companies->companies[companies->counter].rate = 0;
 
             companies->counter++;
 
             return 0;
-            
+
         } else {
             return 1;
         }
-        
+
     } else {
         return 2;
     }
-        
-        
+
+
     return -1;
 }
 
@@ -112,31 +112,31 @@ void createCompanies(Companies *companies, ActivityBranchs *branchs) {
         }
 
         if (companies->counter < companies->size) {
-            
-            switch(createCompany(companies, branchs)){
-                
+
+            switch (createCompany(companies, branchs)) {
+
                 case -1:
-                    puts("ERROR: Was not possible to create a new company.");
+                    puts(ERROR_IMPOSSIBLE_COMPANY);
                     break;
                 case 1:
-                    puts("ERROR: Name is already in use.");
+                    puts(ERROR_NAME_COMPANY);
                     break;
-                    
+
                 case 2:
-                    puts("ERROR: Nif is already in use.");
+                    puts(ERROR_NIF_COMPANY);
                     break;
-                    
+
                 default:
-                    puts("SUCCESS: Company created");
+                    puts(SUCCESS_COMPANY_CREATE);
                     break;
             }
-            
-            
+
+
         } else {
-            puts("ERROR: Companies List is Full.");
+            puts(FULL_LIST_COMPANY);
         }
     } else {
-        puts("ERROR: No Space available to create new company.");
+        puts(ERROR_SPACE_COMPANY);
     }
 
 }
@@ -190,29 +190,33 @@ void listCompanies(Companies companies, ActivityBranchs branchs) {
 }
 
 void updateCompany(Company *company) {
-
+    ActivityBranchs* branchs;
+    
     readString(company->name, MAX_COMPANY_NAME_SIZE, MSG_NAME);
-    company->category = getInt(0, 3, MSG_CATEGORY);
-    company->branch = getInt(0, 50, MSG_BRANCH); //alterar
-    readString(company->street, 50, MSG_STREET);
-    readString(company->locality, 50, MSG_LOCALITY);
+    company->category = getInt(MIN_CATEGORY, MAX_CATEGORY, MSG_CATEGORY);
+    
+    listActivityBranchs(*branchs);
+    company->branch = getInt(MIN_BRANCH,branchs->counter , MSG_BRANCH);
+    
+    readString(company->street, MAX_STREET, MSG_STREET);
+    readString(company->locality, MAX_LOCALITY, MSG_LOCALITY);
     company->postalCode = getInt(MIN_POSTALCODE, MAX_POSTALCODE, MSG_POSTALCODE);
     verify_PostalCode(&company->postalCode);
-    company->state = getInt(0, 1, MSG_STATE);
+    company->state = getInt(MIN_STATE, MAX_STATE, MSG_STATE);
 }
 
 void updateCompanies(Companies *companies) {
     char name[MAX_NAME];
     int code;
     readString(name, MAX_NAME, MSG_NAME_COMP);
-    
+
     code = searchCompanyByName(*companies, name);
 
     if (code != -1) {
         updateCompany(&companies->companies[code]);
     } else {
 
-        puts("ERROR");
+        puts(ERROR);
     }
 }
 
@@ -246,11 +250,11 @@ void deleteCompanies(Companies *companies, Comments *comments) {
 
             companies->counter--;
         } else {
-            puts("ERROR: Company not found.");
+            puts(ERROR_COMPANY_NOT_FOUND);
         }
     } else {
         companies->companies[code].state = 0;
-        puts("\n*ERROR: Can´t delete companies with comments. \nState was changed to Inactive.*\n");
+        puts(ERROR_DELETE_COMPANY);
     }
 }
 
@@ -280,7 +284,7 @@ void top5lookedCompanies(Companies *companies) {
         // Sorting the list of companies in descending order based on views using quicksort
         qsort(companies->companies, companies->counter, sizeof (Company), compare_company);
 
-        printf("The most looked companies are:\n");
+        printf(VIEW_COMPANY);
 
         int numPrinted = 0;
         for (int i = 0; i < companies->counter && numPrinted < TOP_5; i++) {
@@ -306,7 +310,7 @@ void top5bestCompanies(Companies *companies) {
         // Sorting the list of companies in descending order based on rate using quicksort
         qsort(companies->companies, companies->counter, sizeof (Company), compare_rate);
 
-        printf("Top 5 best companies are:\n");
+        printf(TOP_FIVE);
 
         int numPrinted = 0;
         for (int i = 0; i < companies->counter && numPrinted < TOP_5; i++) {
@@ -376,7 +380,7 @@ void listCompaniesByName(Companies *companies, ActivityBranchs branchs) {
 
     } else {
 
-        puts("ERROR: Company not found.");
+        puts(ERROR_COMPANY_NOT_FOUND);
 
     }
 
@@ -410,7 +414,7 @@ void listCompaniesByCategory(Companies *companies, ActivityBranchs branchs) {
     }
 
     if (!counter) {
-        puts("No companies found.");
+        puts(ERROR_COMPANY_NOT_FOUND);
     }
 
 }
@@ -431,7 +435,7 @@ void listCompaniesByLocality(Companies *companies, ActivityBranchs branchs) {
     }
 
     if (!counter) {
-        puts("No companies found.");
+        puts(ERROR_COMPANY_NOT_FOUND);
     }
 
 
@@ -491,7 +495,7 @@ int selectCompany(Companies companies) {
 
     if (companyCode != -1) {
         return companyCode;
-    } 
+    }
     return -1;
 }
 
@@ -557,15 +561,15 @@ void loadCompanies(Companies *companies, char *file) {
 }
 
 int hasComments(Company company, Comments comments) {
-    
+
     int i;
-    
-    for (i = 0; i < comments.counter; i++){
-        
+
+    for (i = 0; i < comments.counter; i++) {
+
         if (comments.comments[i].company_nif == company.nif) {
             return 1;
         }
-        
+
     }
     return 0;
 }

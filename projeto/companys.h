@@ -30,11 +30,29 @@
 #define TOP_5 5
 
 #define ERROR_COMPANY_NOT_FOUND "Company not found!\n"
+#define ERROR_DELETE_COMPANY "\n*ERROR: Can´t delete companies with comments. \nState was changed to Inactive.*\n"
+
+#define VIEW_COMPANY "The most looked companies are:\n"
+#define TOP_FIVE "Top 5 best companies are:\n"
 
 #define MIN_NIF 100000000
 #define MAX_NIF 999999999
+
+#define MIN_CATEGORY 0
+#define MAX_CATEGORY 2
+
+#define MIN_BRANCH 1
+
+#define MAX_STREET 50
+
+#define MAX_LOCALITY 50
+
 #define MIN_POSTALCODE 4000000
 #define MAX_POSTALCODE 9999999
+
+#define MIN_STATE 0
+#define MAX_STATE 1
+
 #define MAX_COMPANIES 10
 #define MAX_COMPANY_NAME_SIZE 100
 #define MAX_COMPANY_LOCALITY_SIZE 100
@@ -56,6 +74,16 @@
 
 #define MAX_EMAIL 256
 #define MSG_EMAIL "Please, insert your email\n > "
+
+#define ERROR_IMPOSSIBLE_COMPANY "ERROR: Was not possible to create a new company."
+#define ERROR_NAME_COMPANY "ERROR: Name is already in use."
+#define ERROR_NIF_COMPANY "ERROR: Nif is already in use."
+#define SUCCESS_COMPANY_CREATE "SUCCESS: Company created"
+
+#define FULL_LIST_COMPANY "ERROR: Companies List is Full."
+#define ERROR_SPACE_COMPANY "ERROR: No Space available to create new company."
+
+#define ERROR "ERROR"
 
 #define COMPANIES_FILE "companies.bin"
 

@@ -92,23 +92,23 @@ void createActivityBranchs(ActivityBranchs *branchs) {
         
         switch (createActivityBranch(branchs)) {
             case -1:
-                puts("ERROR: Was not possible to create a new branch.");
+                puts(ERROR_BRANCH);
                 break;
             case 1:
-                puts("ERROR: Name is already in use.");
+                puts(ERROR_NAME);
                 break;
 
             case 2:
-                puts("ERROR: Code is already in use.");
+                puts(ERROR_CODE);
                 break;
 
             default:
-                puts("SUCCESS: Activity Branch created");
+                puts(SUCCESS_BRANCH);
                 break;
         }
         
     } else {
-        puts("ERROR: No Space available to create new branch.");
+        puts(ERROR_SPACE);
     }
 
 }
@@ -203,18 +203,18 @@ void deleteActivityBranchs(ActivityBranchs *branchs, Companies *companies) {
 
                 branchs->counter--;
                 
-                puts("SUCCESS: Activity Branch deleted.");
+                puts(SUCCESS_DELETE);
                 
             } else {
                 branchs->branchs[code].state = 0;
-                puts("ERROR: There are companies with this branch in use. Activity Branch's and Company's state have been changed to Inactive.");
+                puts(ERROR_DELETE);
             }
 
         } else {
             puts(AB_DOES_NOT_EXIST);
         }
     } else {
-        puts("ERROR: Activity Branch List is empty.");
+        puts(EMPTY_LIST);
     }
 
 }

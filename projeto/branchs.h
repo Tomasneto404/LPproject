@@ -32,6 +32,15 @@
 #define EMPTY_LIST "ERROR: List is empty."
 #define FULL_LIST "ERROR: List is full."
 
+#define ERROR_BRANCH "ERROR: Was not possible to create a new branch."
+#define ERROR_NAME "ERROR: Name is already in use."
+#define ERROR_CODE "ERROR: Code is already in use."
+#define ERROR_SPACE "ERROR: No Space available to create new branch."
+#define SUCCESS_BRANCH "SUCCESS: Activity Branch created"
+
+#define SUCCESS_DELETE "SUCCESS: Activity Branch deleted."
+#define ERROR_DELETE "ERROR: There are companies with this branch in use. Activity Branch's and Company's state have been changed to Inactive."
+
 #define BRANCHS_FILE "branchs.bin"
 
 typedef struct ActivityBranch {

@@ -16,6 +16,9 @@
 
 #include "companys.h"
 
+#define LINES1 "|+++++++++++++++++++++++++++++++++++++++++|\n"
+#define LINES2 "\n| -----------------------------------\n"
+
 #define MAX_COMMENTS 10
 #define CODE_ALREADY_EXISTS "ERROR: This code is alredy in use!\n"
 
@@ -33,6 +36,20 @@
 
 #define MAX_COMMENT_SIZE 256
 #define COMMENT_MSG "Comment > "
+
+#define ERROR_CODE_COMMENTS "ERROR: Code is already in use"
+#define ERROR_NOT_EXIST_COMMENTS "ERROR: Company does not exist."
+#define ERROR_EMPTY_COMMENTS "ERROR: Companies list is empty."
+
+#define SUCCESS_CREATE_COMMENTS "SUCCESS: Comment created."
+#define ERROR_INSERT_COMMENTS  "ERROR: It's not possible to insert a new comment"
+
+#define ERROR_WITHOUT_COMMENTS "ERROR: Company doesn´t have comments."
+
+#define SUCCESS_STATE_COMMENTS "SUCCESS: Comment state was changed to Inactive."
+#define ERROR_STATE_COMMENTS "ERROR: Comment is already Inactive."
+#define ERROR_BELONG_COMMENT "ERROR: This comment doesn´t belong to this company."
+#define ERROR_COMMENT "ERROR: Comment not found."
 
 #define COMMENTS_FILE "comments.bin"
 

@@ -53,15 +53,15 @@ int createComment(Comments *comments, Companies companies) {
                 return comments->counter++;
 
             } else {
-                puts("ERROR: Code is already in use");
+                puts(ERROR_CODE_COMMENTS);
             }
 
         } else {
-            puts("ERROR: Company does not exist.");
+            puts(ERROR_NOT_EXIST_COMMENTS);
         }
         
     } else {
-        puts("ERROR: Companies list is empty.");
+        puts(ERROR_EMPTY_COMMENTS);
     }
     
     return -1;
@@ -76,13 +76,13 @@ void createComments(Comments *comments, Companies companies) {
 
         if (comments->counter < comments->size) {
             if (createComment(comments, companies) != -1) {
-                puts("SUCCESS: Comment created.");
+                puts(SUCCESS_CREATE_COMMENTS);
             }
         } else {
-            puts("ERROR: It's not possible to insert a new comment");
+            puts(ERROR_INSERT_COMMENTS);
         }
     } else {
-        puts("ERROR: Companies list is empty.");
+        puts(ERROR_EMPTY_COMMENTS);
     }
 
 }
@@ -175,28 +175,28 @@ void listComments(Comments *comments, Company company){
     if (hasComments(company, *comments) == 1){
         
         if (comments->counter > 0) {
-            printf("|+++++++++++++++++++++++++++++++++++++++++|\n");
+            printf(LINES1);
             for (i = 0; i < comments->counter; i++) {
 
                 if (comments->comments[i].company_nif == company.nif) {
 
                     if (isStateActive(comments->comments[i]) == 0) {
-                        printf("\n| -----------------------------------\n");
+                        printf(LINES2);
                         printComment(comments->comments[i]);
-                        printf("| -----------------------------------\n");
+                        printf(LINES2);
                     }
 
                 }
 
             }
-            printf("\n|+++++++++++++++++++++++++++++++++++++++++|\n");
+            printf(LINES1);
         } else {
 
             puts(EMPTY_LIST);
 
         }
     } else {
-        puts("ERROR: Company doesn´t have comments.");
+        puts(ERROR_WITHOUT_COMMENTS);
     }
 
     
@@ -215,18 +215,18 @@ void hideComment(Company company, Comments *comments){
             if (comments->comments[commentPosition].company_nif == company.nif) {
                 if (isStateActive(comments->comments[commentPosition]) == 0) {
                     comments->comments[commentPosition].state = 0;
-                    puts("SUCCESS: Comment state was changed to Inactive.");
+                    puts(SUCCESS_STATE_COMMENTS);
                 } else {
-                    puts("ERROR: Comment is already Inactive.");
+                    puts(ERROR_STATE_COMMENTS);
                 }
             } else {
-                puts("ERROR: This comment doesn´t belong to this company.");
+                puts(ERROR_BELONG_COMMENT);
             }
         } else {
-            puts("ERROR: Comment not found.");
+            puts(ERROR_COMMENT);
         }
     } else {
-        puts("ERROR: Company doesn´t have comments.");
+        puts(ERROR_WITHOUT_COMMENTS);
     }
     
     
