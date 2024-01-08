@@ -299,3 +299,11 @@ void loadBranchs(ActivityBranchs *branchs, char *file) {
     }
 }
 
+int isActive(ActivityBranch branch){
+    
+    if (branch.state == 1) {
+        return 0;
+    }
+    
+    return -1;
+}

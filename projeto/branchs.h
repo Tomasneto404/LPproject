@@ -143,5 +143,12 @@ void freeBranchs(ActivityBranchs *branchs);
  */
 void loadBranchs(ActivityBranchs *branchs, char *file);
 
+/**
+ * Falta documentar
+ * @param branch
+ * @return 
+ */
+int isActive(ActivityBranch branch);
+
 #endif /* BRANCHS_H */
 

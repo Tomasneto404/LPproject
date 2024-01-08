@@ -81,7 +81,7 @@
 #define SUCCESS_COMPANY_CREATE "SUCCESS: Company created"
 
 #define FULL_LIST_COMPANY "ERROR: Companies List is Full."
-#define ERROR_SPACE_COMPANY "ERROR: No Space available to create new company."
+#define ERROR_NO_BRANCHS "ERROR: Activity Branchs list is empty."
 
 #define ERROR "ERROR"
 
