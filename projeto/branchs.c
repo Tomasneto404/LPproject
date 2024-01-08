@@ -91,6 +91,9 @@ void createActivityBranchs(ActivityBranchs *branchs) {
     if (branchs->counter < branchs->size) {
         
         switch (createActivityBranch(branchs)) {
+            case -1:
+                puts("ERROR: Was not possible to create a new branch.");
+                break;
             case 1:
                 puts("ERROR: Name is already in use.");
                 break;
@@ -105,7 +108,7 @@ void createActivityBranchs(ActivityBranchs *branchs) {
         }
         
     } else {
-        puts("ERROR: No Activity Branchs created.");
+        puts("ERROR: No Space available to create new branch.");
     }
 
 }

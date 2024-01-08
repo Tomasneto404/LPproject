@@ -114,6 +114,10 @@ void createCompanies(Companies *companies, ActivityBranchs *branchs) {
         if (companies->counter < companies->size) {
             
             switch(createCompany(companies, branchs)){
+                
+                case -1:
+                    puts("ERROR: Was not possible to create a new company.");
+                    break;
                 case 1:
                     puts("ERROR: Name is already in use.");
                     break;
@@ -132,7 +136,7 @@ void createCompanies(Companies *companies, ActivityBranchs *branchs) {
             puts("ERROR: Companies List is Full.");
         }
     } else {
-        puts("ERROR: Activity Branchs list is empty.");
+        puts("ERROR: No Space available to create new company.");
     }
 
 }
