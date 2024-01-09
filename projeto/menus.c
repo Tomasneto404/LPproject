@@ -15,8 +15,6 @@
 #include "general.h"
 #include "comments.h"
 
-//COMPANY MENU
-
 void company_menu(Companies *companies, Comments *comments) {
 
     int flag = 0, option = 0, companyPosition = -1;
@@ -49,7 +47,6 @@ void company_menu(Companies *companies, Comments *comments) {
                     break;
 
                 case 3:
-                    //Hide comments function
                     hideComment(companies->companies[companyPosition], comments);
                     break;
                     

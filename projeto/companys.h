@@ -41,8 +41,6 @@
 #define MIN_CATEGORY 0
 #define MAX_CATEGORY 2
 
-#define MIN_BRANCH 1
-
 #define MAX_STREET 50
 
 #define MAX_LOCALITY 50

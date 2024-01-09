@@ -39,7 +39,7 @@
 #define SUCCESS_BRANCH "SUCCESS: Activity Branch created"
 
 #define SUCCESS_DELETE "SUCCESS: Activity Branch deleted."
-#define ERROR_DELETE "ERROR: There are companies with this branch in use. Activity Branch's and Company's state have been changed to Inactive."
+#define ERROR_DELETE "WARNING: There are companies with this branch in use. Activity Branch's and Company's state have been changed to Inactive."
 
 #define BRANCHS_FILE "branchs.bin"
 

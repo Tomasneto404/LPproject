@@ -58,8 +58,34 @@ int verifyName(Companies companies, char *name) {
     return -1;
 }
 
+int getBranch(ActivityBranchs *branchs){
+    int branchCode = -1, branchPosition = 0, flag = 0;
+    do {
+        branchCode = getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG);
+
+        branchPosition = searchActivityBranch(*branchs, branchCode);
+
+        if (branchPosition != -1) {
+
+            if (isActive(branchs->branchs[branchPosition]) != -1) {
+
+                return branchCode;
+                flag = 1;
+
+            } else {
+                puts("ERROR: This branch is inactive.");
+            }
+
+        } else {
+            puts("ERROR: Activity branch not found.");
+
+        }
+
+    } while (flag != 1);
+}
+
 int createCompany(Companies *companies, ActivityBranchs *branchs) {
-    int nif, branchCode = -1, branchPosition = 0, flag = 0;
+    int nif;
     char name[MAX_NAME];
 
     nif = getInt(MIN_NIF, MAX_NIF, MSG_NIF);
@@ -76,32 +102,7 @@ int createCompany(Companies *companies, ActivityBranchs *branchs) {
             companies->companies[companies->counter].category = getInt(MIN_CATEGORY, MAX_CATEGORY, MSG_CATEGORY);
 
             listActivityBranchs(*branchs);
-
-            do {
-                branchCode = getInt(MIN_BRANCH, 1000, MSG_BRANCH);
-
-                branchPosition = searchActivityBranch(*branchs, branchCode);
-
-                if (branchPosition != -1) {
-
-                    if (isActive(branchs->branchs[branchPosition]) != -1) {
-
-                        companies->companies[companies->counter].branch = branchCode;
-                        flag = 1;
-
-                    } else {
-                        puts("ERROR: This branch is inactive.");
-                    }
-
-                } else {
-                    puts("ERROR: Activity branch not found.");
-                    
-                }
-
-
-
-            } while (flag != 1);
-
+            companies->companies[companies->counter].branch = getBranch(branchs);
 
             readString(companies->companies[companies->counter].street, MAX_STREET, MSG_STREET);
             readString(companies->companies[companies->counter].locality, MAX_LOCALITY, MSG_LOCALITY);
@@ -221,7 +222,7 @@ void updateCompany(Company *company) {
     company->category = getInt(MIN_CATEGORY, MAX_CATEGORY, MSG_CATEGORY);
 
     listActivityBranchs(*branchs);
-    company->branch = getInt(MIN_BRANCH, branchs->counter, MSG_BRANCH);
+    company->branch = getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG);
 
     readString(company->street, MAX_STREET, MSG_STREET);
     readString(company->locality, MAX_LOCALITY, MSG_LOCALITY);
@@ -590,11 +591,9 @@ int hasComments(Company company, Comments comments) {
     int i;
 
     for (i = 0; i < comments.counter; i++) {
-
         if (comments.comments[i].company_nif == company.nif) {
             return 1;
         }
-
     }
     return 0;
 }
