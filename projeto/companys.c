@@ -58,7 +58,7 @@ int verifyName(Companies companies, char *name) {
     return -1;
 }
 
-int getBranch(ActivityBranchs *branchs){
+int getBranch(ActivityBranchs *branchs) {
     int branchCode = -1, branchPosition = 0, flag = 0;
     do {
         branchCode = getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG);
@@ -533,10 +533,10 @@ void saveCompanies(Companies *companies, char *file) {
         exit(EXIT_FAILURE);
     }
 
-    fwrite(&companies->counter, sizeof (int), 1, fp);
+    fwrite(&(companies->counter), sizeof (int), 1, fp);
 
     for (i = 0; i < companies->counter; i++) {
-        fwrite(&companies->companies[i], sizeof (Company), 1, fp);
+        fwrite(&(companies->companies[i]), sizeof (Company), 1, fp);
     }
 
     fclose(fp);
@@ -558,13 +558,13 @@ void loadCompanies(Companies *companies, char *file) {
     if (fp != NULL) {
         companies->counter = 0;
 
-        fread(&companies->counter, sizeof (int), 1, fp);
+        fread(&(companies->counter), sizeof (int), 1, fp);
 
         if (companies->counter > 0) {
             companies->size = companies->counter;
             companies->companies = (Company*) malloc(companies->counter * sizeof (Company));
             for (i = 0; i < companies->counter; i++) {
-                fread(&companies->companies[i], sizeof (Company), 1, fp);
+                fread(&(companies->companies[i]), sizeof (Company), 1, fp);
             }
             success = 1;
         }
@@ -573,15 +573,10 @@ void loadCompanies(Companies *companies, char *file) {
     }
 
     if (!success) {
-        fp = fopen(file, "wb");
-        if (fp != NULL) {
+        companies->companies = (Company*) malloc(MAX_COMPANIES * sizeof (Company));
+        companies->counter = 0;
+        companies->size = MAX_COMPANIES;
 
-            companies->companies = (Company*) malloc(MAX_COMPANIES * sizeof (Company));
-            companies->counter = 0;
-            companies->size = MAX_COMPANIES;
-
-            fclose(fp);
-        }
     }
 
 }

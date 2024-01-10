@@ -32,9 +32,9 @@ int createComment(Comments *comments, Companies companies) {
     if (companies.counter > 0) {
 
         companyCode = selectCompany(companies);
-        
+
         if (companyCode != -1) {
-            
+
             code = getInt(MIN_COMMENT_CODE, MAX_COMMENT_CODE, CODE_MSG);
 
             if (searchComment(*comments, code) == -1) {
@@ -59,11 +59,11 @@ int createComment(Comments *comments, Companies companies) {
         } else {
             puts(ERROR_NOT_EXIST_COMMENTS);
         }
-        
+
     } else {
         puts(ERROR_EMPTY_COMMENTS);
     }
-    
+
     return -1;
 }
 
@@ -93,14 +93,14 @@ void loadComments(Comments *comments, char *file) {
     FILE *fp = fopen(file, "rb");
     if (fp != NULL) {
         comments->counter = 0;
-        
-        fread(&comments->counter, sizeof (int), 1, fp);
+
+        fread(&(comments->counter), sizeof (int), 1, fp);
 
         if (comments->counter > 0) {
             comments->size = comments->counter;
             comments->comments = (Comment*) malloc(comments->counter * sizeof (Comment));
             for (i = 0; i < comments->counter; i++) {
-                fread(&comments->comments[i], sizeof (Comment), 1, fp);
+                fread(&(comments->comments[i]), sizeof (Comment), 1, fp);
             }
             sucesso = 1;
         }
@@ -109,15 +109,9 @@ void loadComments(Comments *comments, char *file) {
     }
 
     if (!sucesso) {
-        fp = fopen(file, "wb");
-        if (fp != NULL) {
-
-            comments->comments = (Comment*) malloc(MAX_COMMENTS * sizeof (comments));
-            comments->counter = 0;
-            comments->size = MAX_COMMENTS;
-
-            fclose(fp);
-        }
+        comments->comments = (Comment*) malloc(MAX_COMMENTS * sizeof (comments));
+        comments->counter = 0;
+        comments->size = MAX_COMMENTS;
     }
 }
 
@@ -129,10 +123,10 @@ void saveComments(Comments *comments, char *file) {
         exit(EXIT_FAILURE);
     }
 
-    fwrite(&comments->counter, sizeof (int), 1, fp);
+    fwrite(&(comments->counter), sizeof (int), 1, fp);
 
     for (i = 0; i < comments->counter; i++) {
-        fwrite(&comments->comments[i], sizeof (Comment), 1, fp);
+        fwrite(&(comments->comments[i]), sizeof (Comment), 1, fp);
     }
 
     fclose(fp);
@@ -153,27 +147,27 @@ void freeComments(Comments *comments) {
  * @return 
  */
 int isStateActive(Comment comment) {
-    
-    if (comment.state != 0){
+
+    if (comment.state != 0) {
         return 0;
     }
     return -1;
 }
 
-void printComment(Comment comment){
-    
+void printComment(Comment comment) {
+
     printf("| ID - %-10d \n", comment.code);
     printf("| Author - %-20s\n", comment.name);
     printf("| Title - %-20s\n", comment.title);
     printf("| Text - %-20s\n", comment.comment);
-    
+
 }
 
-void listComments(Comments *comments, Company company){
+void listComments(Comments *comments, Company company) {
     int i;
-    
-    if (hasComments(company, *comments) == 1){
-        
+
+    if (hasComments(company, *comments) == 1) {
+
         if (comments->counter > 0) {
             printf(LINES1);
             for (i = 0; i < comments->counter; i++) {
@@ -199,18 +193,18 @@ void listComments(Comments *comments, Company company){
         puts(ERROR_WITHOUT_COMMENTS);
     }
 
-    
+
 }
 
-void hideComment(Company company, Comments *comments){
-    
+void hideComment(Company company, Comments *comments) {
+
     int commentPosition = -1, code = 0;
-    
-    if (hasComments(company, *comments) == 1){
-        
+
+    if (hasComments(company, *comments) == 1) {
+
         code = getInt(MIN_COMMENT_CODE, MAX_COMMENT_CODE, CODE_MSG);
         commentPosition = searchComment(*comments, code);
-                
+
         if (commentPosition != -1) {
             if (comments->comments[commentPosition].company_nif == company.nif) {
                 if (isStateActive(comments->comments[commentPosition]) == 0) {
@@ -228,6 +222,6 @@ void hideComment(Company company, Comments *comments){
     } else {
         puts(ERROR_WITHOUT_COMMENTS);
     }
-    
-    
+
+
 }

@@ -43,12 +43,12 @@
 
 #define BRANCHS_FILE "branchs.bin"
 
-typedef struct ActivityBranch {
+typedef struct {
     int code, state;
     char name[MAX_AB_NAME_SIZE];
 } ActivityBranch;
 
-typedef struct ActivityBranchs {
+typedef struct {
     int counter, size;
     ActivityBranch *branchs;
 } ActivityBranchs;

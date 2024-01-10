@@ -55,27 +55,27 @@ int createActivityBranch(ActivityBranchs *branchs) {
 
     int code = getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG);
     char name[MAX_NAME];
-    
-    
+
+
     if (searchActivityBranch(*branchs, code) == -1) {
-        
+
         readString(name, MAX_COMPANY_NAME_SIZE, NAME_MSG);
-        
+
         if (verifyABName(*branchs, name) == -1) {
-            
+
             branchs->branchs[branchs->counter].code = code;
-            
+
             strcpy(branchs->branchs[branchs->counter].name, name);
 
             branchs->branchs[branchs->counter].state = getInt(MIN_STATE_VALUE, MAX_STATE_VALUE, STATE_MSG);
 
             branchs->counter++;
-            
+
             return 0;
         } else {
             return 1;
         }
-        
+
     } else {
         return 2;
     }
@@ -89,7 +89,7 @@ void createActivityBranchs(ActivityBranchs *branchs) {
     }
 
     if (branchs->counter < branchs->size) {
-        
+
         switch (createActivityBranch(branchs)) {
             case -1:
                 puts(ERROR_BRANCH);
@@ -106,7 +106,7 @@ void createActivityBranchs(ActivityBranchs *branchs) {
                 puts(SUCCESS_BRANCH);
                 break;
         }
-        
+
     } else {
         puts(ERROR_SPACE);
     }
@@ -165,36 +165,36 @@ void updateActivityBranch(ActivityBranch *branch) {
 }
 
 int hasCompany(ActivityBranch branch, Companies companies) {
-    
+
     int i, counter = 0;
-    
+
     for (i = 0; i < companies.counter; i++) {
-        
-        if (companies.companies[i].branch == branch.code){   
-            companies.companies[i].state = 0;   
+
+        if (companies.companies[i].branch == branch.code) {
+            companies.companies[i].state = 0;
             counter++;
         }
-        
+
     }
-    
+
     if (counter > 0) {
         return 0;
     }
-    
+
     return -1;
 }
 
 void deleteActivityBranchs(ActivityBranchs *branchs, Companies *companies) {
-    
-    int i, code = 0, companyCode = 0; 
+
+    int i, code = 0, companyCode = 0;
 
     if (branchs->counter > 0) {
         code = searchActivityBranch(*branchs, getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG));
-                
+
         if (code != -1) {
 
-            if ( hasCompany(branchs->branchs[code], *companies) == -1) {
-                
+            if (hasCompany(branchs->branchs[code], *companies) == -1) {
+
                 for (i = code; i < branchs->counter - 1; i++) {
                     branchs->branchs[i] = branchs->branchs[i + 1];
                 }
@@ -202,9 +202,9 @@ void deleteActivityBranchs(ActivityBranchs *branchs, Companies *companies) {
                 deleteActivityBranch(&branchs->branchs[i]);
 
                 branchs->counter--;
-                
+
                 puts(SUCCESS_DELETE);
-                
+
             } else {
                 branchs->branchs[code].state = 0;
                 puts(ERROR_DELETE);
@@ -247,10 +247,11 @@ void saveBranchs(ActivityBranchs *branchs, char *file) {
         exit(EXIT_FAILURE);
     }
 
-    fwrite(&branchs->counter, sizeof (int), 1, fp);
+    fwrite(&(branchs->counter), sizeof (int), 1, fp);
 
     for (i = 0; i < branchs->counter; i++) {
-        fwrite(&branchs->branchs[i], sizeof (ActivityBranch), 1, fp);
+        fwrite(&(branchs->branchs[i]), sizeof (ActivityBranch), 1, fp);
+
     }
 
     fclose(fp);
@@ -271,14 +272,14 @@ void loadBranchs(ActivityBranchs *branchs, char *file) {
     FILE *fp = fopen(file, "rb");
     if (fp != NULL) {
         branchs->counter = 0;
-        
-        fread(&branchs->counter, sizeof (int), 1, fp);
+
+        fread(&(branchs->counter), sizeof (int), 1, fp);
 
         if (branchs->counter > 0) {
             branchs->size = branchs->counter;
             branchs->branchs = (ActivityBranch*) malloc(branchs->counter * sizeof (ActivityBranch));
             for (i = 0; i < branchs->counter; i++) {
-                fread(&branchs->branchs[i], sizeof (ActivityBranch), 1, fp);
+                fread(&(branchs->branchs[i]), sizeof (ActivityBranch), 1, fp);
             }
             sucesso = 1;
         }
@@ -287,23 +288,18 @@ void loadBranchs(ActivityBranchs *branchs, char *file) {
     }
 
     if (!sucesso) {
-        fp = fopen(file, "wb");
-        if (fp != NULL) {
+        branchs->branchs = (ActivityBranch*) malloc(MAX_ACTIVITY_BRANCHS * sizeof (ActivityBranch));
+        branchs->counter = 0;
+        branchs->size = MAX_ACTIVITY_BRANCHS;
 
-            branchs->branchs = (ActivityBranch*) malloc(MAX_ACTIVITY_BRANCHS * sizeof (ActivityBranch));
-            branchs->counter = 0;
-            branchs->size = MAX_ACTIVITY_BRANCHS;
-
-            fclose(fp);
-        }
     }
 }
 
-int isActive(ActivityBranch branch){
-    
+int isActive(ActivityBranch branch) {
+
     if (branch.state == 1) {
         return 0;
     }
-    
+
     return -1;
 }
