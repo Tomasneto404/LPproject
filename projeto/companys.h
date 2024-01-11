@@ -229,37 +229,38 @@ void listCompaniesByCategory(Companies *companies, ActivityBranchs branchs);
 void listCompaniesByLocality(Companies *companies, ActivityBranchs branchs);
 
 /**
- * Falta documentar
- * @param companies
- * @return 
+ * This function selects the company that the user wnats to use and return its position.
+ * @param companies The variable to look for the desired company
+ * @return company postition in the memory if the company was found. -1 if the company was not found.
  */
 int selectCompany(Companies companies);
 
 /**
- * Falta documentar - Guardar dados de memoria para ficheiro
- * @param companies
- * @param file
+ * @brief This function writes the data of Companies that is in memory pointed by the first argument to the specified file.
+ * @param companies The pointer of the data memory.
+ * @param file The file where the data will be stored.
  */
 void saveCompanies(Companies *companies, char *file);
 
 /**
- * Falta documentar
- * @param companies
+ * @brief This function frees the memory that was allocated for the Companies pointer given in the argument that was being used to store the data. After freeing the memory in puts all the values to NULL.
+ * @param companies The pointer where data was being stored.
  */
 void freeCompanies(Companies *companies);
 
 /**
- * Falta documentar
- * @param companies
- * @param file
+ * @brief This function reads the data from the file that is given in the second argument and allocs memmory with the size of the Companies struct and allocs memmory for the data data was read. 
+ * If the file does not exist it allocs a default size of memory for the future data.
+ * @param companies The pointer where the memmory will be allocated
+ * @param file The file that the function will read
  */
 void loadCompanies(Companies *companies, char *file);
 
 /**
- * Falta documentar
- * @param company
- * @param comments
- * @return 
+ * This function verifies if a specified company has comments.
+ * @param company The company to analize it has comments associated.
+ * @param comments The comments to check in any is associeated to the specified company.
+ * @return 1 if the company has comments. 0 if the company does not have comments.
  */
 int hasComments();
 #endif /* COMPANYS_H */

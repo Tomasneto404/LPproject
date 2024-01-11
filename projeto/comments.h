@@ -69,10 +69,10 @@ typedef struct{
 
 
 /**
- * Falta documentar
- * @param comments
- * @param code
- * @return 
+ * @brief This function searchs a comment by a specific code.
+ * @param comments The list of comments to look for.
+ * @param code The specific code to look for.
+ * @return Comment position if found. -1 if not found.
  */
 int searchComment(Comments comments, int code);
 
@@ -92,36 +92,37 @@ void createComments(Comments *comments, Companies companies);
 int createComment(Comments *comments, Companies companies);
 
 /**
- * Falta documentar
- * @param comments
- * @param file
+ * @brief This function reads the data from the file that is given in the second argument and allocs memmory with the size of the Comments struct and allocs memmory for the data data was read. 
+ * If the file does not exist it allocs a default size of memory for the future data.
+ * @param comments The pointer where the memmory will be allocated
+ * @param file The file that the function will read
  */
 void loadComments(Comments *comments, char *file);
 
 /**
- * Falta documentar
- * @param comments
- * @param file
+ * @brief This function writes the data of Comments that is in memory pointed by the first argument to the specified file.
+ * @param comments The pointer of the data memory.
+ * @param file The file where the data will be stored.
  */
 void saveComments(Comments *comments, char *file);
 
 /**
- * Falta documentar
- * @param comments
+ * @brief This function frees the memory that was allocated for the Comments pointer given in the argument that was being used to store the data. After freeing the memory in puts all the values to NULL.
+ * @param comments The pointer where data was being stored.
  */
 void freeComments(Comments *comments);
 
 /**
- * Falta documentar
- * @param comments
- * @param company
+ * @brief This function lists all the active comments of a specific company.
+ * @param comments The comments search and list.
+ * @param company The specific company.
  */
 void listComments(Comments *comments, Company company);
 
 /**
- * Falta documentar
- * @param company
- * @param comments
+ * @brief This function prompts the user to change the state of a specific comment at a specific company.
+ * @param company The company where it will "hide" the comment.
+ * @param comments The list of comments to find the specific one.
  */
 void hideComment(Company company, Comments *comments);
 

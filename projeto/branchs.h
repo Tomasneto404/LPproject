@@ -107,6 +107,13 @@ void updateActivityBranchs(ActivityBranchs *branchs);
 void updateActivityBranch(ActivityBranch *branch);
 
 /**
+ * @brief This prompts until he selects an available activity branch (An activity branch that is neither inactive nor nonexistent). 
+ * @param branchs The pointer to find an available activity branch.
+ * @return Activity branch code if found an availabe one. -1 If it didn´t.
+ */
+int getBranch(ActivityBranchs *branchs);
+
+/**
  * @brief Deletes an activity branch from the array of activity branches.
  * @param branchs A pointer to the structure containing the array of activity branches.
  */
@@ -118,35 +125,39 @@ void deleteActivityBranchs();
  */
 void deleteActivityBranch(ActivityBranch *branch);
 
-/*
- Falta documentar
+/**
+ * @brief This functions search and activity branch by a specified name.
+ * @param branchs The variable to look for.
+ * @param name The specified name to look for int the activity branchs.
+ * @return Activity branch position if found. -1 if activity branch was not found.
  */
-int verifyAbName(ActivityBranchs branchs, char *name);
+int searhAbName(ActivityBranchs branchs, char *name);
 
 /**
- * Falta documentar
- * @param branchs
- * @param file
+ * @brief This function writes the data of Activity Branchs that is in memory pointed by the first argument to the specified file.
+ * @param branchs The pointer of the data memory.
+ * @param file The file where the data will be stored.
  */
 void saveBranchs(ActivityBranchs *branchs, char *file);
 
 /**
- * Falta documentar
- * @param branchs
+ * @brief This function frees the memory that was allocated for the Activity Branchs pointer given in the argument that was being used to store the data. After freeing the memory in puts all the values to NULL.
+ * @param branchs The pointer where data was being stored.
  */
 void freeBranchs(ActivityBranchs *branchs);
 
 /**
- * Falta documentar
- * @param branchs
- * @param file
+ * @brief This function reads the data from the file that is given in the second argument and allocs memmory with the size of the Activity Branchs struct for the data data was read. 
+ * If the file does not exist it allocs a default size of memory for the future data.
+ * @param branchs The pointer where the memmory will be allocated
+ * @param file The file that the function will read
  */
 void loadBranchs(ActivityBranchs *branchs, char *file);
 
 /**
- * Falta documentar
- * @param branch
- * @return 
+ * @brief This function verifies if a specified activity branch is active or not.
+ * @param branch The activity branch to verify if is active or not.
+ * @return 0 If is active. -1 If is not active.
  */
 int isActive(ActivityBranch branch);
 

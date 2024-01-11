@@ -12,7 +12,6 @@
 #include "companys.h"
 #include "menus.h"
 #include "branchs.h"
-#include "general.h"
 #include "comments.h"
 
 void company_menu(Companies *companies, Comments *comments) {
@@ -65,6 +64,7 @@ void company_menu(Companies *companies, Comments *comments) {
 
     } else {
 
+        puts("ERROR: Company not found.");
         return;
 
     }

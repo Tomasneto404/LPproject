@@ -164,6 +164,32 @@ void updateActivityBranch(ActivityBranch *branch) {
 
 }
 
+int getBranch(ActivityBranchs *branchs) {
+    int branchCode = -1, branchPosition = 0, flag = 0;
+    do {
+        branchCode = getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG);
+
+        branchPosition = searchActivityBranch(*branchs, branchCode);
+
+        if (branchPosition != -1) {
+
+            if (isActive(branchs->branchs[branchPosition]) != -1) {
+
+                return branchCode;
+
+            } else {
+                puts("ERROR: This branch is inactive.");
+            }
+
+        } else {
+            puts("ERROR: Activity branch not found.");
+
+        }
+
+    } while (flag != 1);
+    return -1;
+}
+
 int hasCompany(ActivityBranch branch, Companies companies) {
 
     int i, counter = 0;
@@ -186,7 +212,7 @@ int hasCompany(ActivityBranch branch, Companies companies) {
 
 void deleteActivityBranchs(ActivityBranchs *branchs, Companies *companies) {
 
-    int i, code = 0, companyCode = 0;
+    int i, code = 0;
 
     if (branchs->counter > 0) {
         code = searchActivityBranch(*branchs, getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG));

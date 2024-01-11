@@ -38,7 +38,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/branchs.o \
 	${OBJECTDIR}/comments.o \
 	${OBJECTDIR}/companys.o \
-	${OBJECTDIR}/general.o \
 	${OBJECTDIR}/input.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/menus.o
@@ -82,11 +81,6 @@ ${OBJECTDIR}/companys.o: companys.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/companys.o companys.c
-
-${OBJECTDIR}/general.o: general.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/general.o general.c
 
 ${OBJECTDIR}/input.o: input.c
 	${MKDIR} -p ${OBJECTDIR}

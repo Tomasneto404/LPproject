@@ -58,31 +58,6 @@ int verifyName(Companies companies, char *name) {
     return -1;
 }
 
-int getBranch(ActivityBranchs *branchs) {
-    int branchCode = -1, branchPosition = 0, flag = 0;
-    do {
-        branchCode = getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG);
-
-        branchPosition = searchActivityBranch(*branchs, branchCode);
-
-        if (branchPosition != -1) {
-
-            if (isActive(branchs->branchs[branchPosition]) != -1) {
-
-                return branchCode;
-                flag = 1;
-
-            } else {
-                puts("ERROR: This branch is inactive.");
-            }
-
-        } else {
-            puts("ERROR: Activity branch not found.");
-
-        }
-
-    } while (flag != 1);
-}
 
 int createCompany(Companies *companies, ActivityBranchs *branchs) {
     int nif;
