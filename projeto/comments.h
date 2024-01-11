@@ -77,8 +77,8 @@ typedef struct{
 int searchComment(Comments comments, int code);
 
 /**
- * Falta documentar
- * @param comments
+ * @brief This function verifies if it's possible to create a new comment. Verifies if it has enough memory allocated (if it doesn´t it allocs more memory) and calls the function to insert the new comment after the validations. 
+ * @param comments 
  * @param companies
  */
 void createComments(Comments *comments, Companies companies);

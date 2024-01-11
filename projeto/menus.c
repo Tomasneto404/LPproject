@@ -65,7 +65,6 @@ void company_menu(Companies *companies, Comments *comments) {
     } else {
 
         puts("ERROR: Company not found.");
-        return;
 
     }
 
