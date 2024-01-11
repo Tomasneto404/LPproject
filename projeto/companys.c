@@ -6,6 +6,13 @@
 #include "companys.h"
 #include "comments.h"
 
+
+/**
+ * @brief This function is used to analyze whether there is already a company with the same NIF
+ * @param receives an Companies's type called companies
+ * @param receives an integer called nif
+ * @return i if it already exists and -1 if it does not exist 
+ */
 int verifyNif(Companies companies, int nif) {
     int i;
     for (i = 0; i < companies.counter; i++) {
@@ -16,6 +23,12 @@ int verifyNif(Companies companies, int nif) {
     return -1;
 }
 
+
+/**
+ * @brief checks if there is a '-' character between the code and the postal code, if not, add it
+ * @param receives a pointer to characters called postal code that is found inside the struct
+ * @return 1 if was very successfuly
+ */
 int verify_PostalCode(int *postalCode) {
     int i;
 
@@ -34,16 +47,12 @@ int verify_PostalCode(int *postalCode) {
     return 1;
 }
 
-void expandCompaniesCapacity(Companies *companies) {
-    int tam = (companies->size) == 0 ? MAX_COMPANIES : companies->size * 2;
-    Company *tmp = (Company*) realloc(companies->companies, sizeof (Company)*(tam));
-
-    if (tmp != NULL) {
-        companies->size = tam;
-        companies->companies = tmp;
-    }
-}
-
+/**
+ * @brief This function aims to check whether the name entered already exists in a company or not.
+ * @param receives a variable, named companies, of type Companies struct
+ * @param receives a pointer, called name, of char type
+ * @return  0 if the name's exist, return -1 if doesn't
+ */
 int verifyName(Companies companies, char *name) {
 
     int i;
@@ -59,6 +68,27 @@ int verifyName(Companies companies, char *name) {
 }
 
 
+/**
+ * @brief This function aims to expand the allocated memory, using the realloc function
+ * @param receives a pointer named companies of type Companies struct
+ */
+void expandCompaniesCapacity(Companies *companies) {
+    int tam = (companies->size) == 0 ? MAX_COMPANIES : companies->size * 2;
+    Company *tmp = (Company*) realloc(companies->companies, sizeof (Company)*(tam));
+
+    if (tmp != NULL) {
+        companies->size = tam;
+        companies->companies = tmp;
+    }
+}
+
+
+/**
+ * @brief serves to obtain the necessary data for the creation of a company
+ * @param receives as a parameter a pointer of type Companies
+ * @param receives as parameter a pointer of type ActivityBranchs
+ * @return counter if successful, returns -1 if not
+ */
 int createCompany(Companies *companies, ActivityBranchs *branchs) {
     int nif;
     char name[MAX_NAME];

@@ -107,27 +107,8 @@ typedef struct {
     Company *companies;
 } Companies;
 
-/**
- * @brief This function is used to analyze whether there is already a company with the same NIF
- * @param receives an Companies's type called companies
- * @param receives an integer called nif
- * @return i if it already exists and -1 if it does not exist 
- */
-int verifyNif(Companies companies, int nif);
 
-/**
- * @brief checks if there is a '-' character between the code and the postal code, if not, add it
- * @param receives a pointer to characters called postal code that is found inside the struct
- * @return 1 if was very successfuly
- */
-int verify_PostalCode(int *PostalCode);
 
-/**
- * @brief serves to obtain the necessary data for the creation of a company
- * @param receives as a parameter a pointer of type Companies
- * @return counter if successful, returns -1 if not
- */
-int createCompany(Companies *companies, ActivityBranchs *branchs);
 
 /**
  * @brief This function is used to create several companies and check if the list

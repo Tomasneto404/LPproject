@@ -6,9 +6,10 @@
 
 
 /**
- * @brief 
- * @param email
- * @return 
+ * @brief This function checks whether the entered email meets all necessary 
+ * email requirements, for example, the '@' and the '.'
+ * @param receies a pointer of char type
+ * @return 1 if was a validate email, returns 0 if not valid in at least one requirement
  */
 int verifyEmail(char *email) {
     int i, tam, x;
