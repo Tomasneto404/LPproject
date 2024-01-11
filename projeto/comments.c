@@ -4,6 +4,52 @@
 #include "input.h"
 #include "comments.h"
 
+
+/**
+ * @brief 
+ * @param email
+ * @return 
+ */
+int verifyEmail(char *email) {
+    int i, tam, x;
+    char *atSign = NULL, *point = NULL;
+
+    tam = strlen(email);
+
+    for (i = 0; i < tam; i++) {
+        if (email[i] == '@') {
+            atSign = email + i;
+            x = i;
+            break;
+        }
+    }
+
+    if (atSign == NULL) {
+        return 0;
+    }
+
+    for (i = x; i < tam; i++) {
+        if (email[i] == '.') {
+            point = email + i;
+            break;
+        }
+    }
+
+    if (point == NULL) {
+        return 0;
+    }
+    if (point == atSign + 1) {
+        return 0;
+    }
+
+    if (point + 1 == email + tam) {
+        return 0;
+    }
+
+    return 1;
+}
+
+
 int searchComment(Comments comments, int code) {
     int i;
     for (i = 0; i < comments.counter; i++) {
@@ -43,7 +89,10 @@ int createComment(Comments *comments, Companies companies) {
                 comments->comments[comments->counter].company_nif = companies.companies[companyCode].nif;
 
                 readString(comments->comments[comments->counter].name, MAX_COMMENT_NAME, NAME_MSG);
+                do{
                 readString(comments->comments[comments->counter].email, MAX_COMMENT_EMAIL, COMMENT_EMAIL_MSG);
+                }while((verifyEmail(comments->comments[comments->counter].email))!=1);
+                
                 readString(comments->comments[comments->counter].title, MAX_TITLE_SIZE, TITLE_MSG);
                 readString(comments->comments[comments->counter].comment, MAX_COMMENT_SIZE, COMMENT_MSG);
 
