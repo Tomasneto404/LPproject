@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   companys.h
- * Author: Tania, Gonçalo, Tomas
+/**
+ * @file companys.h
+ * @author Tania, Gonçalo, Tomas
+ * @date 11-01-2024
+ * @version 1
  *
- * Created on 2 de janeiro de 2024, 15:05
+ * @copyright Copyright (C) Tania, Gonçalo, Tomas 2023. All Rights MIT Licensed.
+ *
+ * @brief A header file that provides companies functions such as create, read, update and delete.
+ * 
  */
 
 #ifndef COMPANYS_H
@@ -29,6 +28,7 @@
 #define ERROR_EMPTY_LIST "The Company list is empty.\n"
 #define TOP_5 5
 
+#define ERROR_NOT_ACTIVE "The Company is not active.\n"
 #define ERROR_COMPANY_NOT_FOUND "Company not found!\n"
 #define ERROR_DELETE_COMPANY "\n*ERROR: Can´t delete companies with comments. \nState was changed to Inactive.*\n"
 
@@ -107,21 +107,12 @@ typedef struct {
     Company *companies;
 } Companies;
 
-
-
-
 /**
  * @brief This function is used to create several companies and check if the list
  *  is full or if the company exists
  * @param receives as a parameter a pointer of type Companies
  */
 void createCompanies(Companies *companies, ActivityBranchs *branchs);
-
-/**
- * @brief The function aims to print all company data
- * @param receives as parameter a variable calls company of type company
- */
-void printCompany(Company company, ActivityBranchs branchs);
 
 /**
  * @brief aims to print all companies, if they exist, if it does not display an error message
@@ -132,22 +123,18 @@ void listCompanies(Companies companies, ActivityBranchs branchs);
 /**
  * @brief aims to update all of a company's data, except the NIF
  * @param receives as a parameter a pointer of type Companies
+ * @param branchs receives as a parameter a pointer of type ActivityBranchs
  */
-void updateCompany(Company *company);
+void updateCompany(Company *company, ActivityBranchs *branchs);
 
 /**
  * @brief aims to update the NIF, if it is correctly inserted it allows you to 
  * update the remaining information
  * @param receives as a parameter a pointer of type Companies
+ * @param branchs receives as a parameter a pointer of type ActivityBranchs
  */
-void updateCompanies(Companies *companies);
+void updateCompanies(Companies *companies, ActivityBranchs *branchs);
 
-/**
- * @brief delete all data relating to a company, if it does not have comments,
- * if it does, make it inactive
- * @param receives as a parameter a pointer of type Companies
- */
-void deleteCompanyData(Company *company);
 
 /**
  * @brief deletes data from a specific company
@@ -156,23 +143,29 @@ void deleteCompanyData(Company *company);
 void deleteCompanies();
 
 /**
- * @brief This function displays the names of the top 5 most viewed companies 
- * based on the number of views stored in the 'Companies' structure.
+ * @brief This function sorts the list of companies in descending order based on views using quicksort.
+ * It then prints the names of the top 5 most looked at companies if is state = 1 meaning that is active.
  *
- * @param companies A pointer to the 'Companies' structure containing the company data.
+ * @param companies Pointer to the Companies structure containing the list of companies.
  */
 void top5lookedCompanies(Companies *companies);
 
 /**
- * @brief This function sorts the list of companies based on their ratings and displays
- * the names of the top 5 best-rated companies.
- * 
- * @param companies A pointer to the 'Companies' structure containing company data.
- *                  The function uses the 'counter' field to determine the number of companies.
- *                  The 'companies' array is sorted based on the ratings of each company.
+ * @brief This function sorts the list of companies in descending order based on their rates using quicksort.
+ * It then prints the names of the top 5 companies with the best rates if the state = 1 meaning that is active.
+ *
+ * @param companies Pointer to the Companies structure containing the list of companies.
  */
 void top5bestCompanies(Companies *companies);
 
+/**
+ * @brief This function creates and prints a report for a specific company, including the number of times the company has been searched,
+ * its current rate, and whether it is in the top 5 most viewed or best rated companies.
+ * 
+ * @param companies Pointer to the Companies structure containing company data.
+ * @param companyPosition Index of the company within the Companies structure.
+ */
+void creatCompanyReport(Companies *companies, int companyPosition);
 
 /**
  * @brief This fuction searchs the position of the provided data array that matches the provided name
@@ -238,7 +231,7 @@ void freeCompanies(Companies *companies);
 void loadCompanies(Companies *companies, char *file);
 
 /**
- * This function verifies if a specified company has comments.
+ * @brief This function verifies if a specified company has comments.
  * @param company The company to analize it has comments associated.
  * @param comments The comments to check in any is associeated to the specified company.
  * @return 1 if the company has comments. 0 if the company does not have comments.

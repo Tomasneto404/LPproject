@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   menus.h
- * Author: Tania, Gonçalo, Tomas
+/**
+ * @file menus.h
+ * @author Tania, Gonçalo, Tomas
+ * @date 11-01-2024
+ * @version 1
  *
- * Created on 6 de dezembro de 2023, 18:27
+ * @copyright Copyright (C) Tania, Gonçalo, Tomas 2023. All Rights MIT Licensed.
+ *
+ * @brief A header file that provides menu functions.
+ * 
  */
 
 #ifndef MENUS_H
@@ -22,49 +21,59 @@
 
 /**
  * @brief This function shows the company's profile menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal company's profile menu, asks the user for an option and executes a function associated with the chosen option.
+ * @param companies Companies pointer to pass to other functions
+ * @param comments Comments pointer to pass to other functions
+ * @param branchs ActivityBranchs pointer to pass to other functions
  */
-void company_menu();
+void company_menu(Companies *companies, Comments *comments, ActivityBranchs *branchs);
 
 /**
  * @brief This function shows the search company menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal the search company menu, asks the user for an option and executes a function associated with the chosen option.
+ * @param companies Companies pointer to pass to other functions
+ * @param branchs Activity branchs pointer to pass to other functions
  */
-void search_company_menu();
+void search_company_menu(Companies *companies, ActivityBranchs *branchs);
 
 /**
  * @brief This function shows the users's menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal the users's menu, asks the user for an option and executes a function associated with the chosen option.
+ * @param companies Companies pointer to pass to other functions
+ * @param branchs Activity branchs pointer to pass to other functions
+ * @param comments Comments pointer to pass to other functions
  */
-void user_menu();
+void user_menu(Companies *companies, ActivityBranchs *branchs, Comments *comments);
 
 /**
  * @brief This function shows the menu that will allow to execute manage functions related with the Companys. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal the company manage menu, asks the user for an option and executes a function associated with the chosen option.
+ * @param companies Companies pointer to pass to other functions
+ * @param branchs Activity branchs pointer to pass to other functions
+ * @param comments Comments pointer to pass to other functions
  */
 void company_manage_menu(Companies *companies, ActivityBranchs *branchs, Comments *comments);
 
 /**
  * @brief This function shows the menu that will allow to execute manage functions related with the Activity Branchs. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal the activity branch manage menu, asks the user for an option and executes a function associated with the chosen option.
+ * @param branchs Activity branchs pointer to pass to other functions
+ * @param companies Companies pointer to pass to other functions
  */
-void manage_activity_branch_menu();
+void manage_activity_branch_menu(ActivityBranchs *branchs, Companies *companies);
 
 /**
  * @brief This function shows the reports's menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal the reports's menu, asks the user for an option and executes a function associated with the chosen option.
+ * @param companies Companies pointer to pass to other functions
  */
 void reports_menu(Companies *companies);
 
 /**
  * @brief This function shows the admin's menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal the admin's menu, asks the user for an option and executes a function associated with the chosen option.
+ * @param companies Companies pointer to pass to other functions
+ * @param branchs Activity branchs pointer to pass to other functions
+ * @param comments Comments pointer to pass to other functions
  */
 void admin_menu(Companies *companies, ActivityBranchs *branchs, Comments *comments);
 
 /**
  * @brief This function shows the application's main menu on the terminal. It asks the user for an option and then executes the function associated with the chosen option.
- * @return This functions does not return a value. Prints in the terminal the main menu, asks the user for an option and executes a function associated with the chosen option.
+ * In this function is also called the functions to read and write data in files and free memory in the end of it.
  */
 void main_menu();
 #endif /* MENUS_H */

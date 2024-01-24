@@ -1,14 +1,25 @@
+/**
+ * @file comments.c
+ * @author Tania, Gonçalo, Tomas
+ * @date 11-01-2024
+ * @version 1
+ *
+ * @copyright Copyright (C) Tania, Gonçalo, Tomas 2023. All Rights MIT Licensed.
+ *
+ * @brief Contains functions related to comments.
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "input.h"
 #include "comments.h"
 
-
 /**
  * @brief This function checks whether the entered email meets all necessary 
  * email requirements, for example, the '@' and the '.'
- * @param receies a pointer of char type
+ * @param email receies a pointer of char type
  * @return 1 if was a validate email, returns 0 if not valid in at least one requirement
  */
 int verifyEmail(char *email) {
@@ -50,7 +61,12 @@ int verifyEmail(char *email) {
     return 1;
 }
 
-
+/**
+ * @brief This function searchs a comment by a specific code.
+ * @param comments The list of comments to look for.
+ * @param code The specific code to look for.
+ * @return Comment position if found. -1 if not found.
+ */
 int searchComment(Comments comments, int code) {
     int i;
     for (i = 0; i < comments.counter; i++) {
@@ -61,6 +77,10 @@ int searchComment(Comments comments, int code) {
     return -1;
 }
 
+/**
+ * @brief This function aims to expand the allocated memory, using the realloc function
+ * @param comments receives a pointer named comments of type Comments
+ */
 void expandCommentsCapacity(Comments *comments) {
     int tam = (comments->size) == 0 ? MAX_COMMENT_SIZE : comments->size * 2;
     Comment *tmp = (Comment*) realloc(comments->comments, sizeof (Comment)*(tam));
@@ -71,6 +91,12 @@ void expandCommentsCapacity(Comments *comments) {
     }
 }
 
+/**
+ * @brief This functions prompts the user to insert specific data about a comment from a specific company and stores it in the memory.
+ * @param comments The comments variable to store the data.
+ * @param companies The companies variable to select a specific company.
+ * @return comments counter if was sucssefull. -1 If it was not.
+ */
 int createComment(Comments *comments, Companies companies) {
 
     int companyCode = -1, code = 0;
@@ -90,10 +116,10 @@ int createComment(Comments *comments, Companies companies) {
                 comments->comments[comments->counter].company_nif = companies.companies[companyCode].nif;
 
                 readString(comments->comments[comments->counter].name, MAX_COMMENT_NAME, NAME_MSG);
-                do{
-                readString(comments->comments[comments->counter].email, MAX_COMMENT_EMAIL, COMMENT_EMAIL_MSG);
-                }while((verifyEmail(comments->comments[comments->counter].email))!=1);
-                
+                do {
+                    readString(comments->comments[comments->counter].email, MAX_COMMENT_EMAIL, COMMENT_EMAIL_MSG);
+                } while ((verifyEmail(comments->comments[comments->counter].email)) != 1);
+
                 readString(comments->comments[comments->counter].title, MAX_TITLE_SIZE, TITLE_MSG);
                 readString(comments->comments[comments->counter].comment, MAX_COMMENT_SIZE, COMMENT_MSG);
 
@@ -192,9 +218,9 @@ void freeComments(Comments *comments) {
 }
 
 /**
- * Falta documentar
- * @param comment
- * @return 
+ * @brief This function verifies if a specific comment state is active or inactive
+ * @param comment The specific comment
+ * @return 0 If is active. -1 If is not active.
  */
 int isStateActive(Comment comment) {
 
@@ -204,6 +230,10 @@ int isStateActive(Comment comment) {
     return -1;
 }
 
+/**
+ * @brief This function prints in the screen the data related to a specific comment.
+ * @param comment The specific comment.
+ */
 void printComment(Comment comment) {
 
     printf("| ID - %-10d \n", comment.code);
@@ -243,7 +273,6 @@ void listComments(Comments *comments, Company company) {
         puts(ERROR_WITHOUT_COMMENTS);
     }
 
-
 }
 
 void hideComment(Company company, Comments *comments) {
@@ -273,5 +302,122 @@ void hideComment(Company company, Comments *comments) {
         puts(ERROR_WITHOUT_COMMENTS);
     }
 
+}
+
+void hideComments(Companies *companies, Comments *comments) {
+
+    int companyPosition = -1;
+
+    companyPosition = selectCompany(*companies);
+
+    if (companyPosition != -1) {
+
+        hideComment(companies->companies[companyPosition], comments);
+
+    } else {
+
+        puts("ERROR: Company not found");
+
+    }
+
+}
+
+/**
+ * @brief Deletes an individual comment by reseting its attributes.
+ * @param comment A pointer to the specific comment to be deleted.
+ */
+void deleteComment(Comment *comment) {
+    comment->code = 0;
+    strcpy(comment->name, "");
+    strcpy(comment->title, "");
+    strcpy(comment->comment, "");
+    strcpy(comment->email, "");
+    comment->company_nif = 0;
+    comment->state = 0;
+}
+
+void deleteComments(Comments *comments) {
+
+    int i, code = 0;
+
+    if (comments->counter > 0) {
+        code = searchComment(*comments, getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG));
+
+        if (code != -1) {
+
+            for (i = code; i < comments->counter - 1; i++) {
+                comments->comments[i] = comments->comments[i + 1];
+            }
+
+            deleteComment(&comments->comments[i]);
+
+            comments->counter--;
+
+            puts(SUCCESS_DELETE_COMMENT);
+
+        } else {
+            puts(ERROR_COMMENT);
+        }
+    } else {
+        puts(EMPTY_LIST);
+    }
+
+}
+
+/**
+ * @brief This function prints in the screen the data related to a specific comment.
+ * @param comment The specific comment.
+ */
+void printCommentAdmin(Comment comment) {
+
+    printf("| ID - %-10d ", comment.code);
+    
+    if (comment.state == 1){
+        printf("| State - %-10s \n", "Active");
+    } else {
+        printf("| State - %-10s \n", "Hidden");
+    }
+    
+    printf("| Author - %-20s\n", comment.name);
+    printf("| Email - %-20s\n", comment.email);
+    printf("| Title - %-20s\n", comment.title);
+    printf("| Text - %-20s\n", comment.comment);
+
+}
+
+void listCommentsAdmin(Comments *comments, Companies *companies) {
+    int i, companyPosition = -1;
+
+    companyPosition = selectCompany(*companies);
+
+    if (companyPosition != -1) {
+
+        if (hasComments(companies->companies[companyPosition], *comments) == 1) {
+
+            if (comments->counter > 0) {
+                printf(LINES1);
+                for (i = 0; i < comments->counter; i++) {
+
+                    if (comments->comments[i].company_nif == companies->companies[companyPosition].nif) {
+
+                        printf(LINES2);
+                        printCommentAdmin(comments->comments[i]);
+                        printf(LINES2);
+
+                    }
+
+                }
+                printf(LINES1);
+            } else {
+
+                puts(EMPTY_LIST);
+
+            }
+        } else {
+            puts(ERROR_WITHOUT_COMMENTS);
+        }
+    } else {
+        puts("ERROR: Company not found.");
+    }
 
 }

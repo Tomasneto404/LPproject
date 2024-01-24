@@ -1,3 +1,15 @@
+/**
+ * @file branchs.c
+ * @author Tania, Gonçalo, Tomas
+ * @date 11-01-2024
+ * @version 1
+ *
+ * @copyright Copyright (C) Tania, Gonçalo, Tomas 2023. All Rights MIT Licensed.
+ *
+ * @brief Contains functions related to activity branchs.
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,27 +18,10 @@
 #include "branchs.h"
 #include "companys.h"
 
-char convertLowercase(ActivityBranchs *branchs) {
-    int counter, i;
-
-    while ((branchs->branchs[branchs->counter].name)[counter] != '\0') {
-        counter++;
-    }
-
-    if ((branchs->branchs[branchs->counter].name)[counter - 1] == '\n') {
-        (branchs->branchs[branchs->counter].name)[--counter] = '\0';
-    }
-
-    for (i = 0; i < counter; i++) {
-        if (branchs->branchs[branchs->counter].name[i] >= 65 && branchs->branchs[branchs->counter].name[i] <= 90) {
-
-            return branchs->branchs[branchs->counter].name[i] += 32;
-        }
-    }
-
-    return 0;
-}
-
+/**
+ * @brief This function aims to expand the allocated memory, using the realloc function
+ * @param branchs receives a pointer named branchs of type ActivityBranchs
+ */
 void expandBranchsCapacity(ActivityBranchs *branchs) {
     int tam = (branchs->size) == 0 ? MAX_ACTIVITY_BRANCHS : branchs->size * 2;
     ActivityBranch *tmp = (ActivityBranch*) realloc(branchs->branchs, sizeof (ActivityBranchs)*(tam));
@@ -37,8 +32,13 @@ void expandBranchsCapacity(ActivityBranchs *branchs) {
     }
 }
 
+/**
+ * @brief This function if an activity branch is already using a specified name
+ * @param branchs Variable of activity branchs 
+ * @param name The name to be compared if is in use
+ * @return 0 If the name is already in use. -1 If the name is not in use.
+ */
 int verifyABName(ActivityBranchs branchs, char *name) {
-
     int i;
 
     for (i = 0; i < branchs.counter; i++) {
@@ -51,6 +51,14 @@ int verifyABName(ActivityBranchs branchs, char *name) {
     return -1;
 }
 
+/**
+ * @brief Creates a new activity branch and adds it to the collection of activity branches.
+ * @param branchs A pointer to the structure containing the array of activity branches.
+ * @return 0 if successful,
+ *  returns -1 if not,
+ *  returns 1 if the name is already being used by other activity branch,
+ *  returns 2 if the code is already being used by other activity branch.
+ */
 int createActivityBranch(ActivityBranchs *branchs) {
 
     int code = getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG);
@@ -94,6 +102,7 @@ void createActivityBranchs(ActivityBranchs *branchs) {
             case -1:
                 puts(ERROR_BRANCH);
                 break;
+                
             case 1:
                 puts(ERROR_NAME);
                 break;
@@ -135,6 +144,10 @@ void listActivityBranchs(ActivityBranchs branchs) {
     }
 }
 
+/**
+ * @brief Prints the details of an individual activity branch.
+ * @param branch The activity branch to be printed.
+ */
 void printActivityBranch(ActivityBranch branch) {
 
     printf("%-5d %-15s", branch.code, branch.name);
@@ -146,22 +159,38 @@ void printActivityBranch(ActivityBranch branch) {
     }
 }
 
-void updateActivityBranchs(ActivityBranchs *branchs) {
-
-    int code = searchActivityBranch(*branchs, getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG));
+void updateActivityBranchs(ActivityBranchs *branchs, Companies *companies) {
+    int i, code = 0, newState = 0;
+    
+    code = searchActivityBranch(*branchs, getInt(MIN_AB_CODE_VALUE, MAX_AB_CODE_VALUE, CODE_MSG));
 
     if (code != -1) {
-        updateActivityBranch(&branchs->branchs[code]);
+        newState = getInt(MIN_STATE_VALUE, MAX_STATE_VALUE, STATE_MSG);
+        if (newState == 0) {
+            for (i = 0; i < companies->counter; ++i) {
+                if (companies->companies[i].branch == branchs->branchs[code].code) {
+                    companies->companies[i].state = 0;
+                }
+            }
+        }
+        branchs->branchs[code].state = newState;
     } else {
         puts(AB_DOES_NOT_EXIST);
     }
-
 }
 
-void updateActivityBranch(ActivityBranch *branch) {
+/**
+ * @brief This function verifies if a specified activity branch is active or not.
+ * @param branch The activity branch to verify if is active or not.
+ * @return 0 If is active. -1 If is not active.
+ */
+int isActive(ActivityBranch branch) {
 
-    branch->state = getInt(MIN_STATE_VALUE, MAX_STATE_VALUE, STATE_MSG);
+    if (branch.state == 1) {
+        return 0;
+    }
 
+    return -1;
 }
 
 int getBranch(ActivityBranchs *branchs) {
@@ -190,6 +219,12 @@ int getBranch(ActivityBranchs *branchs) {
     return -1;
 }
 
+/**
+ * @brief This function verifies if an activity branch is being used by any company.
+ * @param branch The specified activity branch.
+ * @param companies The companies variable to check if any is using the specified activity branch.
+ * @return 0 If the activity branch is not being used. -1 If the activity branch is being used.
+ */
 int hasCompany(ActivityBranch branch, Companies companies) {
 
     int i, counter = 0;
@@ -210,6 +245,21 @@ int hasCompany(ActivityBranch branch, Companies companies) {
     return -1;
 }
 
+/**
+ * @brief Deletes an individual activity branch by reseting its attributes.
+ * @param branch A pointer to the specific activity branch to be deleted.
+ */
+void deleteActivityBranch(ActivityBranch *branch) {
+    branch->code = 0;
+    strcpy(branch->name, "");
+    branch->state = 0;
+}
+
+/**
+ * @brief This function removes a specific activity branch from the memory.
+ * @param branchs The activity branchs pointer to remove a specific one
+ * @param companies The companies pointer to verify if any is using the specific activity branch
+ */
 void deleteActivityBranchs(ActivityBranchs *branchs, Companies *companies) {
 
     int i, code = 0;
@@ -245,12 +295,13 @@ void deleteActivityBranchs(ActivityBranchs *branchs, Companies *companies) {
 
 }
 
-void deleteActivityBranch(ActivityBranch *branch) {
-    branch->code = 0;
-    strcpy(branch->name, "");
-    branch->state = 0;
-}
 
+/**
+ * @brief This functions search and activity branch by a specified name.
+ * @param branchs The variable to look for.
+ * @param name The specified name to look for int the activity branchs.
+ * @return Activity branch position if found. -1 if activity branch was not found.
+ */
 int searhAbName(ActivityBranchs branchs, char *name) {
 
     int i;
@@ -319,13 +370,4 @@ void loadBranchs(ActivityBranchs *branchs, char *file) {
         branchs->size = MAX_ACTIVITY_BRANCHS;
 
     }
-}
-
-int isActive(ActivityBranch branch) {
-
-    if (branch.state == 1) {
-        return 0;
-    }
-
-    return -1;
 }

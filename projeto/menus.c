@@ -1,7 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @file menus.c
+ * @author Tania, Gonçalo, Tomas
+ * @date 11-01-2024
+ * @version 1
+ *
+ * @copyright Copyright (C) Tania, Gonçalo, Tomas 2023. All Rights MIT Licensed.
+ *
+ * @brief Contains function menus for user input.
  */
 
 #include <string.h>
@@ -14,7 +19,7 @@
 #include "branchs.h"
 #include "comments.h"
 
-void company_menu(Companies *companies, Comments *comments) {
+void company_menu(Companies *companies, Comments *comments, ActivityBranchs *branchs) {
 
     int flag = 0, option = 0, companyPosition = -1;
 
@@ -38,7 +43,7 @@ void company_menu(Companies *companies, Comments *comments) {
             switch (option) {
 
                 case 1:
-                    updateCompany(&companies->companies[companyPosition]);
+                    updateCompany(&companies->companies[companyPosition], branchs);
                     break;
 
                 case 2:
@@ -48,9 +53,9 @@ void company_menu(Companies *companies, Comments *comments) {
                 case 3:
                     hideComment(companies->companies[companyPosition], comments);
                     break;
-                    
+
                 case 4:
-                    //View Reports function
+                    creatCompanyReport(companies, companyPosition);
                     break;
 
                 default:
@@ -64,23 +69,17 @@ void company_menu(Companies *companies, Comments *comments) {
 
     } else {
 
-        puts("ERROR: Company not found.");
+        puts(ERROR_COMPANY_NOT_FOUND);
 
     }
 
-
-
-
 }
-
-
-//USER MENUS
 
 void search_company_menu(Companies *companies, ActivityBranchs *branchs) {
 
     int flag = 0, option = 0;
 
-    if (companies->counter > 0){
+    if (companies->counter > 0) {
         do {
 
             printf("\n----SEARCH COMPANY MENU----\n"
@@ -115,7 +114,7 @@ void search_company_menu(Companies *companies, ActivityBranchs *branchs) {
 
         } while (flag != 1);
     } else {
-        puts("ERROR: lista vazia de companies");
+        puts(ERROR_EMPTY_LIST);
     }
 
 }
@@ -160,9 +159,6 @@ void user_menu(Companies *companies, ActivityBranchs *branchs, Comments *comment
 
 }
 
-
-//ADMIN MENUS
-
 void company_manage_menu(Companies *companies, ActivityBranchs *branchs, Comments *comments) {
 
     int flag = 0, option = 0;
@@ -191,7 +187,7 @@ void company_manage_menu(Companies *companies, ActivityBranchs *branchs, Comment
                 break;
 
             case 3:
-                updateCompanies(companies);
+                updateCompanies(companies, branchs);
                 break;
 
             case 4:
@@ -238,7 +234,7 @@ void manage_activity_branch_menu(ActivityBranchs *branchs, Companies *companies)
                 break;
 
             case 3:
-                updateActivityBranchs(branchs);
+                updateActivityBranchs(branchs, companies);
                 break;
 
             case 4:
@@ -303,12 +299,15 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs, Comments *commen
         printf("\n----ADMIN MENU----\n"
                 "1 - Manage Companys\n"
                 "2 - Manage Activity Branchs \n"
-                "3 - See Reports\n\n"
+                "3 - See Reports\n"
+                "4 - Delete Comment\n"
+                "5 - Hide Comment\n"
+                "6 - View Comments\n\n"
 
                 "0 - Back\n"
                 "\n");
 
-        option = getInt(0, 3, OPTION_MESSAGE);
+        option = getInt(0, 6, OPTION_MESSAGE);
 
         switch (option) {
 
@@ -322,6 +321,18 @@ void admin_menu(Companies *companies, ActivityBranchs *branchs, Comments *commen
 
             case 3:
                 reports_menu(companies);
+                break;
+
+            case 4:
+                deleteComments(comments);
+                break;
+                
+            case 5:
+                hideComments(companies, comments);
+                break;
+                
+            case 6:
+                listCommentsAdmin(comments, companies);
                 break;
 
             default:
@@ -369,7 +380,7 @@ void main_menu() {
                 break;
 
             case 3:
-                company_menu(&companies, &comments);
+                company_menu(&companies, &comments, &branchs);
                 break;
 
             case 4:

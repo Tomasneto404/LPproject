@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   comments.h
- * Author: Tania, Gonçalo, Tomas
+/**
+ * @file comments.h
+ * @author Tania, Gonçalo, Tomas
+ * @date 11-01-2024
+ * @version 1
  *
- * Created on 2 de janeiro de 2024, 15:25
+ * @copyright Copyright (C) Tania, Gonçalo, Tomas 2023. All Rights MIT Licensed.
+ *
+ * @brief A header file that provides comments functions such as create, read, update and delete.
+ * 
  */
 
 #ifndef COMMENTS_H
@@ -51,6 +50,8 @@
 #define ERROR_BELONG_COMMENT "ERROR: This comment doesn´t belong to this company."
 #define ERROR_COMMENT "ERROR: Comment not found."
 
+#define SUCCESS_DELETE_COMMENT "SUCCESS: Comment deleted."
+
 #define COMMENTS_FILE "comments.bin"
 
 
@@ -69,27 +70,12 @@ typedef struct{
 
 
 /**
- * @brief This function searchs a comment by a specific code.
- * @param comments The list of comments to look for.
- * @param code The specific code to look for.
- * @return Comment position if found. -1 if not found.
- */
-int searchComment(Comments comments, int code);
-
-/**
  * @brief This function verifies if it's possible to create a new comment. Verifies if it has enough memory allocated (if it doesn´t it allocs more memory) and calls the function to insert the new comment after the validations. 
  * @param comments 
  * @param companies
  */
 void createComments(Comments *comments, Companies companies);
 
-/**
- * Falta documentar
- * @param comments
- * @param companies
- * @return 
- */
-int createComment(Comments *comments, Companies companies);
 
 /**
  * @brief This function reads the data from the file that is given in the second argument and allocs memmory with the size of the Comments struct and allocs memmory for the data data was read. 
@@ -125,6 +111,26 @@ void listComments(Comments *comments, Company company);
  * @param comments The list of comments to find the specific one.
  */
 void hideComment(Company company, Comments *comments);
+
+/**
+ * @brief This function prompts the user to select a comment to hide a comment and then executes the function to change its state.
+ * @param companies The pointer to the companies variable
+ * @param comments The pointer to the comments variable
+ */
+void hideComments(Companies *companies, Comments *comments);
+
+/**
+ * @brief This function prompts the user to select a comment from the comments list and then shifts the comments since the selected onde to the beginning.
+ * @param comments The pointer to the comments variable
+ */
+void deleteComments(Comments *comments);
+
+/**
+ * @brief This function lists all the comments of a specific company.
+ * @param comments The pointer to the comments variable
+ * @param companies The pointer to the companies variable
+ */
+void listCommentsAdmin(Comments *comments, Companies *companies);
 
 #endif /* COMMENTS_H */
 

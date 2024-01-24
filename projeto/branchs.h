@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   branchs.h
- * Author: Tania, Gonçalo, Tomas
+/**
+ * @file branchs.h
+ * @author Tania, Gonçalo, Tomas
+ * @date 11-01-2024
+ * @version 1
  *
- * Created on 2 de janeiro de 2024, 15:07
+ * @copyright Copyright (C) Tania, Gonçalo, Tomas 2023. All Rights MIT Licensed.
+ *
+ * @brief A header file that provides activity branchs functions such as create, read, update and delete.
+ * 
  */
 
 #ifndef BRANCHS_H
@@ -53,26 +52,11 @@ typedef struct {
     ActivityBranch *branchs;
 } ActivityBranchs;
 
-
-/**
- * @brief This function is used to convert the entire string to lowercase
- * @param receives a pointer of type ActivityBranchs called name
- * @return zero in the end of function
- */
-char convertLowercase(ActivityBranchs *name);
-
 /**
  * @brief Creates a new activity branch and adds it to the collection of activity branches.
  * @param branchs A pointer to the structure containing the array of activity branches.
  */
 void createActivityBranchs(ActivityBranchs *branchs);
-
-/**
- * @brief Creates a new activity branch and adds it to the collection if the code is unique.
- * @param branchs A pointer to the structure containing the array of activity branches.
- * @return The index of the newly created activity branch if successful, or -1 if the code already exists.
- */
-int createActivityBranch(ActivityBranchs *branchs);
 
 /**
  * @brief Searches for an activity branch with a specific code within an array of activity branches.
@@ -98,13 +82,7 @@ void printActivityBranch(ActivityBranch branch);
  * @brief Updates the details of an activity branch within an array of activity branches.
  * @param branchs A pointer to the structure containing the array of activity branches.
  */
-void updateActivityBranchs(ActivityBranchs *branchs);
-
-/**
- * @brief Updates the state of an individual activity branch.
- * @param branch A pointer to the specific activity branch to be updated.
- */
-void updateActivityBranch(ActivityBranch *branch);
+void updateActivityBranchs();
 
 /**
  * @brief This prompts until he selects an available activity branch (An activity branch that is neither inactive nor nonexistent). 
@@ -114,24 +92,12 @@ void updateActivityBranch(ActivityBranch *branch);
 int getBranch(ActivityBranchs *branchs);
 
 /**
- * @brief Deletes an activity branch from the array of activity branches.
- * @param branchs A pointer to the structure containing the array of activity branches.
+ * @brief This function removes a specific activity branch from the memory.
+ * @param branchs The activity branchs pointer to remove a specific one
+ * @param companies The companies pointer to verify if any is using the specific activity branch
  */
 void deleteActivityBranchs();
 
-/**
- * @brief Deletes an individual activity branch by resetting its attributes.
- * @param branch A pointer to the specific activity branch to be deleted.
- */
-void deleteActivityBranch(ActivityBranch *branch);
-
-/**
- * @brief This functions search and activity branch by a specified name.
- * @param branchs The variable to look for.
- * @param name The specified name to look for int the activity branchs.
- * @return Activity branch position if found. -1 if activity branch was not found.
- */
-int searhAbName(ActivityBranchs branchs, char *name);
 
 /**
  * @brief This function writes the data of Activity Branchs that is in memory pointed by the first argument to the specified file.
@@ -153,13 +119,6 @@ void freeBranchs(ActivityBranchs *branchs);
  * @param file The file that the function will read
  */
 void loadBranchs(ActivityBranchs *branchs, char *file);
-
-/**
- * @brief This function verifies if a specified activity branch is active or not.
- * @param branch The activity branch to verify if is active or not.
- * @return 0 If is active. -1 If is not active.
- */
-int isActive(ActivityBranch branch);
 
 #endif /* BRANCHS_H */
 
